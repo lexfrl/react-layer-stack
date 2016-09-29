@@ -38,7 +38,7 @@ Define your layer. Each layer should have an `id` and `use` properties (will be 
 ```javascript
 import { Layer, LayerToggle } from 'react-layer-stack'
 // ...
-const modalId = 'DeleteSnapshotConfirmation' + object.snapshots[rowIndex].path
+const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].path
 return (<Cell style={{cursor: 'default'}} {...props}>
 <Layer use={[objects[rowIndex], rowIndex]}
              id={modalId}
@@ -46,9 +46,9 @@ return (<Cell style={{cursor: 'default'}} {...props}>
   <Modal onClick={ hide.bind(null, modalId) } zIndex={(zIndex + 1) * 1000}>
     <ConfirmationDialog
       title={ 'Delete' }
-      message={ "You're about to delete to " + '"' + object.snapshots[rowIndex].name + '"' }
+      message={ "You're about to delete to " + '"' + objects[rowIndex].name + '"' }
       confirmButton={ <Button type="primary">DELETE</Button> }
-      onConfirm={ this.handleDeleteSnapshot.bind(this, object.snapshots[rowIndex].name, () => hide(modalId)) }
+      onConfirm={ this.handleDeleteObject.bind(this, objects[rowIndex].name, () => hide(modalId)) }
       hideModal={ () => hide(modalId) } />
   </Modal>} />
 <LayerToggle renderFn={({show}) =>
