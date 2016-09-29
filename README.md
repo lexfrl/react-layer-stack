@@ -41,9 +41,7 @@ import { Layer, LayerToggle } from 'react-layer-stack'
 const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].path
 return (
     <Cell {...props}>
-        <Layer use={[objects[rowIndex], rowIndex]}
-                     id={modalId}
-                     renderFn={({hide, zIndex}) =>
+        <Layer use={[objects[rowIndex], rowIndex]} id={modalId}> {({hide, zIndex}, e) => // access to the arguments (click event data)
           <Modal onClick={ hide.bind(null, modalId) } zIndex={(zIndex + 1) * 1000}>
             <ConfirmationDialog
               title={ 'Delete' }
@@ -51,11 +49,14 @@ return (
               confirmButton={ <Button type="primary">DELETE</Button> }
               onConfirm={ this.handleDeleteObject.bind(this, objects[rowIndex].name, () => hide(modalId)) }
               hideModal={ () => hide(modalId) } />
-          </Modal>} />
-        <LayerToggle renderFn={({show}) =>
-          <div style={styles.iconOverlay} onClick={ () => show(modalId) }>
+          </Modal> }
+        </Layer>
+        
+        <LayerToggle> {({show}) =>
+          <div style={styles.iconOverlay} onClick={ (e) => show(modalId, e) }> // additional arguments can be passed
             <Icon type="trash" />
-          </div>} />
+          </div> }
+        </LayerToggle>
     </Cell>)
 // ...
 ```
