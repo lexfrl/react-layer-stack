@@ -4,7 +4,7 @@
 * events support
 
 
-### Real-live usage example
+### Real-world usage example
 Currently we use the redux store as a backend, but that could be changed in the future. Consider it just as an initialization logic and not as the public API.
 Therefore you should add the layers reducer to the store:
 
@@ -40,7 +40,7 @@ import { Layer, LayerToggle } from 'react-layer-stack'
 // ...
 const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].path
 return (
-    <Cell style={{cursor: 'default'}} {...props}>
+    <Cell {...props}>
         <Layer use={[objects[rowIndex], rowIndex]}
                      id={modalId}
                      renderFn={({hide, zIndex}) =>
