@@ -4,15 +4,20 @@
   "description": "Simple but ubiquitously powerful and agnostic layering system for React. Useful for any kind of windowing/popover/modals/tooltip application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel "
   },
   "author": "Alexey Frolov <frol.rage@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "babel-cli": "^6.16.0",
     "react": "^15.3.2",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-react": "^6.16.0"
   }
 }

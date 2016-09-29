@@ -1,0 +1,6 @@
+{
+  "presets": ["es2016", "react"],
+  "plugins": ["transform-object-rest-spread"],
+  "sourceMaps": true,
+  "retainLines": true
+}
