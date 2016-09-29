@@ -1,6 +1,6 @@
 {
   "name": "react-layer-stack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple but ubiquitously powerful and agnostic layering system for React. Useful for any kind of windowing/popover/modals/tooltip application",
   "main": "index.js",
   "scripts": {
