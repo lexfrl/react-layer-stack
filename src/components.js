@@ -8,11 +8,11 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )(({ renderFn, // from props
-  views, displaying, show, hide}) => { // from redux
+  views, displaying, show, hide, hideAll, args}) => { // from redux
   return (
-    <div> { renderFn ? renderFn({views, displaying, show, hide})
+    <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll, args})
       : (displaying.length ? displaying.map (
-      (index) => <div key={index}>{ views[index]({index, show, hide, displaying, views}) }</div>
+      (index) => <div key={index}>{ views[index].renderFn({index, show, hide, hideAll, displaying, views}, ...views[index].args) }</div>
     )
       : <noscript />) }
     </div>
@@ -69,7 +69,7 @@ export const LayerToggle = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )(({ renderFn, // from props
-  displaying, show, hide, // from redux
+  displaying, show, hide, hideAll // from redux
 }) => {
-  return renderFn({ show, hide, displaying });
+  return renderFn({ show, hide, hideAll, displaying });
 });
