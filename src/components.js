@@ -7,10 +7,9 @@ import { ACTIONS } from './reducer'
 export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({ renderFn, // from props
-  views, displaying, show, hide, hideAll, args}) => { // from redux
+)(({ renderFn, views, displaying, show, hide, hideAll}) => { // from redux
   return (
-    <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll, args})
+    <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll})
       : (displaying.length ? displaying.map (
       (index) => <div key={index}>{ views[index].renderFn({index, show, hide, hideAll, displaying, views}, ...views[index].args) }</div>
     )
@@ -24,15 +23,15 @@ export const Layer = (namespace = 'layer_stack') => connect(
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )((React.createClass({
   componentWillMount() {
-    this.props.register(this.props.id, this.props.renderFn);
+    this.props.register(this.props.id, this.props.children);
   },
   shouldComponentUpdate(newProps) {
-    const { use, renderFn, register, id } = this.props;
+    const { use, children, register, id } = this.props;
     let needUpdate = false;
     if (id !== newProps.id) {
       needUpdate = true;
     }
-    else if (renderFn.toString() !== newProps.renderFn.toString()) {
+    else if (children.toString() !== newProps.children.toString()) {
       needUpdate = true;
     }
     else if (use) {
@@ -49,7 +48,7 @@ export const Layer = (namespace = 'layer_stack') => connect(
     }
 
     if (needUpdate) {
-      register(newProps.id, newProps.renderFn);
+      register(newProps.id, newProps.children);
       return true;
     }
     return false;
@@ -68,8 +67,8 @@ export const Layer = (namespace = 'layer_stack') => connect(
 export const LayerToggle = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({ renderFn, // from props
+)(({ children, // from props
   displaying, show, hide, hideAll // from redux
 }) => {
-  return renderFn({ show, hide, hideAll, displaying });
+  return children({ show, hide, hideAll, displaying });
 });
