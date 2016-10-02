@@ -55,6 +55,7 @@ return (
           </Modal> }
         </Layer>
         
+        // this is the toggle for Layer with `id === modalId` can be defined everywhere in the components tree
         <LayerToggle id={ modalId }> {({showMe}) => // showMe is alias for `show(modalId)`
           <div style={styles.iconOverlay} onClick={ (e) => showMe(e) }> // additional arguments can be passed (like event)
             <Icon type="trash" />
