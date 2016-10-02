@@ -41,6 +41,7 @@ import { Layer, LayerToggle } from 'react-layer-stack'
 const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].id
 return (
     <Cell {...props}>
+        // the layer definition. The content will show up in the LayerStackMountPoint when `show(modalId)` be fired in LayerToggle
         <Layer use={[objects[rowIndex], rowIndex]} id={modalId}> {({
             hideMe, // alias for `hide(modalId)`
             index } // useful to know to set zIndex, for example
