@@ -11,12 +11,17 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
   return (
     <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll})
       : (displaying.length ? displaying.map (
-      (id, index) => <div key={id}>{ views[id].renderFn({
-        index, id, show, hide, hideAll, displaying, views,
-        showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: improve
-        hideMe: () => hide(id),
-        showMe: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
-      }, ...views[id].args) }</div>
+      (id, index) =>
+          <div key={id}>
+            {
+              views[id].renderFn({
+                index, id, show, hide, hideAll, displaying, views,
+                showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: improve
+                hideMe: () => hide(id),
+                showMe: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
+              }, ...views[id].args)
+            }
+          </div>
     )
       : <noscript />) }
     </div>
