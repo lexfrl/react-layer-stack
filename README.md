@@ -37,23 +37,26 @@ Define your layer. Each layer should have an `id` and `use` properties (will be 
 
 ```javascript
 import { Layer, LayerToggle } from 'react-layer-stack'
-// ...
-const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].path
+// ... for each `object` in array of `objects`
+const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].id
 return (
     <Cell {...props}>
-        <Layer use={[objects[rowIndex], rowIndex]} id={modalId}> {({hide, zIndex}, e) => // access to the arguments (click event data)
-          <Modal onClick={ hide.bind(null, modalId) } zIndex={(zIndex + 1) * 1000}>
+        <Layer use={[objects[rowIndex], rowIndex]} id={modalId}> {({
+            hideMe, // alias for `hide(modalId)`
+            index } // useful to know to set zIndex, for example
+            , e) => // access to the arguments (click event data in this example)
+          <Modal onClick={ hideMe } zIndex={(index + 1) * 1000}>
             <ConfirmationDialog
               title={ 'Delete' }
               message={ "You're about to delete to " + '"' + objects[rowIndex].name + '"' }
               confirmButton={ <Button type="primary">DELETE</Button> }
-              onConfirm={ this.handleDeleteObject.bind(this, objects[rowIndex].name, () => hide(modalId)) }
-              hideModal={ () => hide(modalId) } />
+              onConfirm={ this.handleDeleteObject.bind(this, objects[rowIndex].name, hideMe) } // hide after confirmation
+              close={ hideMe } />
           </Modal> }
         </Layer>
         
-        <LayerToggle> {({show}) =>
-          <div style={styles.iconOverlay} onClick={ (e) => show(modalId, e) }> // additional arguments can be passed
+        <LayerToggle id={ modalId }> {({showMe}) => // showMe is alias for `show(modalId)`
+          <div style={styles.iconOverlay} onClick={ (e) => showMe(e) }> // additional arguments can be passed (like event)
             <Icon type="trash" />
           </div> }
         </LayerToggle>

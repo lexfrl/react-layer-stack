@@ -7,6 +7,7 @@ export const ACTIONS = {
   toggle: createAction('LAYER_STACK_VIEW_TOGGLE'),
   show: createAction('LAYER_STACK_VIEW_SHOW', (id, ...args) => ({ id, args })),
   hide: createAction('LAYER_STACK_VIEW_HIDE'),
+  hideAll: createAction('LAYER_STACK_VIEW_HIDE_ALL'),
 };
 
 export default handleActions({
@@ -39,8 +40,10 @@ export default handleActions({
     }
     return state;
   },
+  'LAYER_STACK_VIEW_HIDE_ALL': ({...state}) => {
+    return {...state, displaying: [] };
+  },
 }, {
-
     displaying: [],
     views: {},
 });

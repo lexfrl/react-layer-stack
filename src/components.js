@@ -7,11 +7,16 @@ import { ACTIONS } from './reducer'
 export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({ renderFn, views, displaying, show, hide, hideAll}) => { // from redux
+)(({ renderFn, views, displaying, show, hide, hideAll}) => { // from store
   return (
     <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll})
       : (displaying.length ? displaying.map (
-      (index) => <div key={index}>{ views[index].renderFn({index, show, hide, hideAll, displaying, views}, ...views[index].args) }</div>
+      (id, index) => <div key={id}>{ views[id].renderFn({
+        index, id, show, hide, hideAll, displaying, views,
+        showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: improve
+        hideMe: () => hide(id),
+        showMe: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
+      }, ...views[id].args) }</div>
     )
       : <noscript />) }
     </div>
@@ -67,8 +72,13 @@ export const Layer = (namespace = 'layer_stack') => connect(
 export const LayerToggle = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({ children, // from props
-  displaying, show, hide, hideAll // from redux
+)(({ children, id, // from props
+  displaying, show, hide, hideAll, views // from store
 }) => {
-  return children({ show, hide, hideAll, displaying });
+  return children({
+    show, hide, hideAll, displaying, views,
+    showMe: (...args) => show(id, ...args),
+    showOnlyMe: (...args) => hideAll() || show(id, ...args),
+    hideMe: () => hide(id),
+  });
 });
