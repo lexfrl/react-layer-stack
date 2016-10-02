@@ -5,14 +5,6 @@
 
 
 ### Real-world usage example
-Currently we use the redux store as a backend, but that could be changed in the future. Consider it just as an initialization logic and not as the public API.
-Therefore you should add the layers reducer to the store:
-
-```javascript
-import { DEFAULT_STORE_KEY as DEFAULT_LAYERS_STORE_KEY, reducer as layersReducer } from 'react-layer-stack'
-// ...
-const reducer = combineReducers({...reducers, [DEFAULT_LAYERS_STORE_KEY]: layersReducer})
-```
 
 Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 additional: `LayerToggle` (sometimes toggle needs to know which popover is open now)
 Set the LayerStackMountPoint somewhere on the top of the tree:
@@ -64,4 +56,15 @@ return (
         </LayerToggle>
     </Cell>)
 // ...
+```
+
+### One important thing to know
+
+Currently we use the redux store as a backend, but that could be changed in the future. Consider it just as an initialization logic and not as the public API.
+Therefore you should add the layers reducer to the store:
+
+```javascript
+import { DEFAULT_STORE_KEY as DEFAULT_LAYERS_STORE_KEY, reducer as layersReducer } from 'react-layer-stack'
+// ...
+const reducer = combineReducers({...reducers, [DEFAULT_LAYERS_STORE_KEY]: layersReducer})
 ```
