@@ -14,7 +14,7 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
       (id, index) =>
           <div key={id}>
             {
-              views[id].renderFn({
+              views[id].renderFn({ // TODO: check that renderFn is a function
                 index, id, show, hide, hideAll, displaying, views,
                 showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: improve
                 hideMe: () => hide(id),
