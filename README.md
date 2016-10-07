@@ -1,7 +1,6 @@
 ### TODO:
 * examples
 * tests
-* events support
 
 
 ### Real-world usage example
