@@ -2,6 +2,10 @@
 * examples
 * tests
 
+### Symlink analogy
+![Symlink](http://1.bp.blogspot.com/-gZMz1nF3GC0/UiyehOS_bWI/AAAAAAAABQI/BpYyEtadcEg/s640/profiles1.png)
+
+
 ### Description
 
 Library especially designed for all sorts of layers (modals, popovers, popups, windows). The best part - you can both use variables from closure (which will propagate automatically if you'll provide it to "use" property of Layer), Layer state info, useful callbacks and also you can set event data from your toggle to that Layer. It's possible to have "stack" of layers with zIndex, one on another as well.
