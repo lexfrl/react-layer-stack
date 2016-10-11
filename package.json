@@ -15,6 +15,25 @@
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0"
   },
+  "keywords": [
+    "react",
+    "react-component",
+    "layer",
+    "layers",
+    "tooltip",
+    "popover",
+    "window",
+    "windowing",
+    "dropdown",
+    "overlay",
+    "popup",
+    "flyout",
+    "zindex",
+    "modal",
+    "lightbox",
+    "portal",
+    "transportation"
+  ],
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
