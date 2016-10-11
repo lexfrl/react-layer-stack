@@ -1,6 +1,6 @@
 {
   "name": "react-layer-stack",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Simple but ubiquitously powerful and agnostic layering system for React. Useful for any kind of windowing/popover/modals/tooltip application",
   "repository": "https://github.com/AlexeyFrolov/react-layer-stack.git",
   "main": "lib/index.js",
