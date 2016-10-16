@@ -69,9 +69,12 @@ Currently we use the redux store as a backend, but that could be changed in the 
 Therefore you should add the layers reducer to the store:
 
 ```javascript
-import { DEFAULT_STORE_KEY as DEFAULT_LAYERS_STORE_KEY, reducer as layersReducer } from 'react-layer-stack'
+import { createStore, combineReducers } from 'redux';
+import { DEFAULT_STORE_KEY as DEFAULT_LAYERS_STORE_KEY, reducer as layersReducer } from 'react-layer-stack';
 // ...
-const reducer = combineReducers({...reducers, [DEFAULT_LAYERS_STORE_KEY]: layersReducer})
+const reducer = combineReducers({...reducers, [DEFAULT_LAYERS_STORE_KEY]: layersReducer});
+// ...
+export default createStore(reducer);
 ```
 
 ### Alternatives
