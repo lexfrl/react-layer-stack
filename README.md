@@ -77,7 +77,7 @@ const reducer = combineReducers({...reducers, [DEFAULT_LAYERS_STORE_KEY]: layers
 ### Alternatives
 The is a lot of alternative ways to archive the desirable **bottom-to-up** link b/w components.
 
-One of the most obvious (and naiive as well) ways is to use redux as a transport to hold the "modals" or "popover" informations to display. It's good and robust solution, but the problem is that it's not universal, consumes time to implement and grasp, not because of complications, more because you have to reinvent the same pattern again and again (slightly different in each case).
+The most obvious (and naiive as well) way is to use redux (or another flux/data lib) as a transport to hold the "modals" or "popover" informations to display. It's good and robust solution, but the problem is that it's not universal, consumes time to implement and grasp, not because of complications, more because you have to reinvent the same pattern again and again (slightly different in each case).
 
 Another solution is to use on of ready-to-use components. But lot of times are you need slightly different bahavior/look and more productive to implememnt home-grown ad-hock solution.
 
