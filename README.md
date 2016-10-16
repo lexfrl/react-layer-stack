@@ -23,7 +23,7 @@ import { LayerStackMountPoint } from 'react-layer-stack'
 //  }
 ```
 
-Define your `Layer`. This expmple shows how to propagate variables from lexical context (https://developer.mozilla.org/en/docs/Web/JavaScript/Closures) to the `Layer`, which will be displayed in the `LayerStackMountPoint`. Each layer should have an `id` and `use` properties. `use` property is used to determine if we need to update lexical context of the anonymous function which displays `Modal` into `Layer`.
+Define your `Layer`. This example shows how to propagate variables from lexical context (https://developer.mozilla.org/en/docs/Web/JavaScript/Closures) to the `Layer`, which will be displayed in the `LayerStackMountPoint`. Each layer should have an `id` and `use` properties. `use` property is used to determine if we need to update lexical context of the anonymous function which displays `Modal` into `Layer`.
 
 ```javascript
 import { Layer, LayerToggle } from 'react-layer-stack'
