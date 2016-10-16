@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDom from 'react-dom';
 
-export default class Overlay extends Component {
+export default class FixedLayer extends Component {
 
   static propTypes = {
     children: PropTypes.node.isRequired,
@@ -17,7 +17,7 @@ export default class Overlay extends Component {
   render () {
 
     return (
-      <div onClick={ (e) => (e.target === ReactDom.findDOMNode(this)) && this.props.onClick() } style={{...styles.layer, ...{zIndex: this.props.zIndex}}}>
+      <div { ...this.props } onClick={ (e) => (e.target === ReactDom.findDOMNode(this)) && this.props.onClick() } style={{...this.props.style, ...styles.layer, ...{zIndex: this.props.zIndex}}}>
         {this.props.children}
       </div>
     )
