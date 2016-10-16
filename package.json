@@ -1,8 +1,11 @@
 {
   "name": "react-layer-stack",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Simple but ubiquitously powerful and agnostic layering system for React. Useful for any kind of windowing/popover/modals/tooltip application",
-  "repository": "https://github.com/fckt/react-layer-stack.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fckt/react-layer-stack"
+  },
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --source-maps"
