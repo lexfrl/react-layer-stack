@@ -12,7 +12,7 @@
 
 ### Description
 
-This library especially designed for fix one of the most tricky problems React users are facing with: **bottom-top** UI communication (modals, drag'n'drops, popovers, popups, windows). The lib allows to share context (closure) of deep children components with top layers: you can both use variables from closure (which will propagate automatically if you'll provide it to "use" property of Layer), Layer info (state, index in stack), callbacks (to show and hide layers) and also you can set event data from your toggle to Layer which is controlled by.
+I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-top** UI communication (modals, drag'n'drops, popovers, popups, windows). The lib allows to share context (closure) of deep children components with top layers: you can both use variables from closure (which will propagate automatically if you'll provide it to "use" property of Layer), Layer info (state, index in stack), callbacks (to show and hide layers) and also you can set event data from your toggle to Layer which is controlled by.
 
 ### Real-world usage example
 
