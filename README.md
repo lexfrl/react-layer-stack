@@ -1,6 +1,6 @@
 ### Description
 
-I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-top** UI communication (modals, drag'n'drops, popovers, popups, windows). The lib allows to share context (closure) of deep children components with top layers: you can both use variables from closure (which will propagate automatically if you'll provide it to "use" property of Layer), Layer info (state, index in stack), callbacks (to show and hide layers) and also you can set event data from your toggle to Layer which is controlled by.
+I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-top** UI communication (modals, drag'n'drops, popovers, popups, windows). The lib allows to share context (closure) of deep children components with top layers: you can both use variables from closure (which will propagate automatically if you'll provide it to `use` property of Layer), Layer info (state, index in stack), callbacks (to show and hide layers) and also you can set event data from your toggle to Layer which is controlled by.
 
 ### Real-world usage example
 
@@ -23,7 +23,7 @@ import { LayerStackMountPoint } from 'react-layer-stack'
 //  }
 ```
 
-Define your layer. Each layer should have an `id` and `use` properties (will be explained):
+Define your `Layer`. This expmple shows how to propagate variables from lexical context (https://developer.mozilla.org/en/docs/Web/JavaScript/Closures) to the `Layer`, which will be displayed in the `LayerStackMountPoint`. Each layer should have an `id` and `use` properties. `use` property is used to determine if we need to update lexical context of the anonymous function which displays `Modal` into `Layer`.
 
 ```javascript
 import { Layer, LayerToggle } from 'react-layer-stack'
