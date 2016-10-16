@@ -5,7 +5,7 @@ I've designed `react-layer-stack` to fix one of the most tricky problems React u
 ### Real-world usage example
 
 Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 additional: `LayerToggle` (sometimes toggle needs to know which popover is open now)
-Set the LayerStackMountPoint somewhere on the top of the tree:
+Set the `LayerStackMountPoint` somewhere on the top of the tree:
 
 ```javascript
 import { LayerStackMountPoint } from 'react-layer-stack'
