@@ -81,7 +81,7 @@ One of the most obvious (and naiive as well) ways is to use redux as a transport
 
 Another solution is to use on of ready-to-use components. But lot of times are you need slightly different bahavior/look and more productive to implememnt home-grown ad-hock solution.
 
-And the last option is to find library, like https://github.com/tajo/react-portal, desined ot address needs of **bottom-to-up** communication. The problem is that they are often quite opinionated and doesn't solve the problem in its roots. `react-layer-stack` aims to give an answer how to organise **bottom-to-up** communication in the most natural, reasonable and flexible way.
+And the last option is to find library, like https://github.com/tajo/react-portal, desined ot address needs of **bottom-to-up** communication. The problem is thses libs are often quite opinionated to their cases and doesn't solve the problem in its roots. `react-layer-stack` aims to give an answer how to organise **bottom-to-up** communication in the most natural, reasonable and flexible way.
 
 ### Images to understand the whole thing
 #### View layers stack
