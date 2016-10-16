@@ -1,6 +1,6 @@
 ### Description
 
-I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-to-up** UI communication. **top-to-bottom** flow covers the most UI needs naturally, but sometimes you need to take control over UI element which is linked but to parent logically (means you whant to use the local context of), but located in the different DOM leaf. Modals, drag'n'drops, popovers, popups, windows - are the various examples of **bottom-to-up** UI elements (good analogy https://en.wikipedia.org/wiki/Zooming_user_interface).
+I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-to-up** UI communication. **top-to-bottom** flow covers the most UI needs naturally, but sometimes you need to take control over UI element which is linked to parent logically (means you need to use the local context of), but located in the different DOM leaf. Modals, drag'n'drops, popovers, popups, windows - are the various examples of **bottom-to-up** UI elements (good analogy https://en.wikipedia.org/wiki/Zooming_user_interface).
 
 This lib allows to hold (or share) context (closure) of deep children components with the top layers: you can use variables from closure (which will propagate automatically if you'll provide it to `use` property of `Layer`). Anonymous function which renders `Layer` into `LayerStackMountPoint` receives: layer info (state, index in stack), callbacks (to show and hide layers) and event data from the toggle which controlls this `Layer`.
 
