@@ -1,15 +1,3 @@
-### Images to understand the whole thing
-#### View layers stack
-![Symlink](http://cfs6.tistory.com/upload_control/download.blog?fhandle=YmxvZzE1NzczMkBmczYudGlzdG9yeS5jb206L2F0dGFjaC8wLzEzMDAwMDAwMDAyMi5qcGc%3D)
-
-#### Layer id and "use" property (sym/soft link)
-![Symlink](http://1.bp.blogspot.com/-gZMz1nF3GC0/UiyehOS_bWI/AAAAAAAABQI/BpYyEtadcEg/s640/profiles1.png)
-
-### TODO:
-* examples
-* tests
-
-
 ### Description
 
 I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-top** UI communication (modals, drag'n'drops, popovers, popups, windows). The lib allows to share context (closure) of deep children components with top layers: you can both use variables from closure (which will propagate automatically if you'll provide it to "use" property of Layer), Layer info (state, index in stack), callbacks (to show and hide layers) and also you can set event data from your toggle to Layer which is controlled by.
@@ -78,3 +66,15 @@ import { DEFAULT_STORE_KEY as DEFAULT_LAYERS_STORE_KEY, reducer as layersReducer
 // ...
 const reducer = combineReducers({...reducers, [DEFAULT_LAYERS_STORE_KEY]: layersReducer})
 ```
+
+
+### Images to understand the whole thing
+#### View layers stack
+![Symlink](http://cfs6.tistory.com/upload_control/download.blog?fhandle=YmxvZzE1NzczMkBmczYudGlzdG9yeS5jb206L2F0dGFjaC8wLzEzMDAwMDAwMDAyMi5qcGc%3D)
+
+#### Layer id and "use" property (sym/soft link)
+![Symlink](http://1.bp.blogspot.com/-gZMz1nF3GC0/UiyehOS_bWI/AAAAAAAABQI/BpYyEtadcEg/s640/profiles1.png)
+
+### TODO:
+* examples
+* tests
