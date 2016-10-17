@@ -12,7 +12,7 @@ export const ACTIONS = {
 
 export default handleActions({
   'LAYER_STACK_VIEW_REGISTER': ({views, ...state}, { payload: { id, renderFn } }) => {
-    views = {...views, [id]: { renderFn, args: {} } };
+    views = {...views, [id]: { renderFn, args: views[id] ? views[id].args : [] } };
     return {...state, views};
   },
   'LAYER_STACK_VIEW_UNREGISTER': ({views, ...state}, { payload: { id } }) => {
