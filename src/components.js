@@ -82,7 +82,7 @@ export const LayerToggle = (namespace = 'layer_stack') => connect(
 }) => {
   return children({
     show, hide, hideAll, displaying, views,
-    isActive: () => displaying.indexOf(id) !== -1,
+    isActive: displaying.indexOf(id) !== -1,
     showMe: (...args) => show(id, ...args),
     showOnlyMe: (...args) => hideAll() || show(id, ...args),
     hideMe: () => hide(id),

@@ -12,9 +12,7 @@ import {
 import Demo from './Demo'
 
 const reducer = combineReducers({[DEFAULT_LAYERS_STORE_KEY]: layersReducer});
-const logger = createLogger();
-const create = applyMiddleware(logger)(createStore)
-const store = create(reducer);
+const store = createStore(reducer);
 window.__STORE = store;
 class App extends Component {
   render() {

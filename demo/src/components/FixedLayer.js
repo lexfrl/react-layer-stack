@@ -11,26 +11,26 @@ export default class FixedLayer extends Component {
 
   static defaultProps = {
     zIndex: 2000,
-    onClick: () => {},
+    onClick: null,
   };
 
   render () {
-
+    console.log(styles(this.props.onClick))
     return (
-      <div { ...this.props } onClick={ (e) => (e.target === ReactDom.findDOMNode(this)) && this.props.onClick() } style={{...this.props.style, ...styles.layer, ...{zIndex: this.props.zIndex}}}>
+      <div { ...this.props } onClick={ (e) => this.props.onClick && (e.target === ReactDom.findDOMNode(this)) && this.props.onClick() }
+                             style={{...this.props.style, ...styles(this.props.onClick), ...{zIndex: this.props.zIndex}}}>
         {this.props.children}
       </div>
     )
   }
 }
 
-const styles = {
-  layer: {
-    position: 'fixed',
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    height: '100%',
-    },
-};
+const styles = (onClick) => ({
+  position: 'fixed',
+  pointerEvents: onClick ? 'auto' : 'none',
+  top: 0,
+  bottom: 0,
+  right: 0,
+  left: 0,
+  height: '100%',
+});
