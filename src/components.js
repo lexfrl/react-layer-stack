@@ -34,6 +34,9 @@ export const Layer = (namespace = 'layer_stack') => connect(
 )((React.createClass({
   componentWillMount() {
     this.props.register(this.props.id, this.props.children);
+    if (this.props.showInitially) {
+      this.props.show(this.props.id, this.props.defaultArgs || [])
+    }
   },
   shouldComponentUpdate(newProps) {
     const { use, children, register, id } = this.props;

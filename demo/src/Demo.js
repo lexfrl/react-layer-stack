@@ -19,7 +19,7 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <Layer id="layer_state_infobox">{({views, displaying}) =>
+        <Layer id="layer_state_infobox" showInitially>{({views, displaying}) =>
           <FixedLayer>
             <div style={{ position:'absolute',
                           bottom: '0', right: '0',
