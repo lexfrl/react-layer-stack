@@ -22,8 +22,6 @@ const styles = {
     width: '600px',
     height: 'auto',
     borderRadius: '5px',
-    borderWidth: '0.5px',
-    borderStyle: 'solid',
-    boxShadow: '0px 0px 100px 0px rgba(0,0,0,0.48)',
+    boxShadow: '0px 0px 110px 0px rgba(0,0,0,0.60)',
   },
 };

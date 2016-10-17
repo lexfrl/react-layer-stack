@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Highlight from 'react-highlight';
+import Markdown from 'react-remarkable';
+
 import { Layer, LayerToggle } from 'react-layer-stack'
 
 // import Button from './components/Button'
@@ -9,7 +12,7 @@ class Demo extends Component {
 
   componentWillMount() {
     this.setState({counter: 1})
-    setInterval(() => this.setState({counter: this.state.counter + 1}), 1000)
+    setInterval(() => this.setState({counter: this.state.counter + 1}), 100)
   }
 
   render() {
@@ -52,7 +55,7 @@ class Demo extends Component {
     return (
       <Layer
         use={[this.state.counter]}  // data from the context
-        id="movable_window">{({index, hideMe, showMe}, {...rest, pinned = false, mouseDown = false, mouseX = 0, mouseY = 0, windowLeft = 100, windowTop = 50} = {}) => (
+        id="movable_window">{({index, hideMe, showMe}, {...rest, pinned = false, mouseDown = false, mouseX = 0, mouseY = 0, windowLeft = 400, windowTop = 100} = {}) => (
         <FixedLayer
           onMouseDown={() => showMe({...rest, mouseDown: true})}
           onMouseUp={() => showMe({...rest, mouseDown: false})}
@@ -73,10 +76,20 @@ class Demo extends Component {
               style={styles.header}
               onMouseEnter={() => mouseDown || showMe({...rest, pinned: true})}
               onMouseLeave={() => mouseDown || showMe({...rest, pinned: false})}>
-              PIN TO MOVE. Counter is { this.state.counter }
+              PIN TO MOVE
             </div>
             <div style={styles.body}>
-              { JSON.stringify(rest, null, '\t') }
+              <Markdown>
+
+                ##### Arguments:
+
+                  { JSON.stringify(rest, null, '\t') }
+
+                ##### Data from outer component (closure/context):
+
+                  { JSON.stringify(this.state, null, '\t') }
+
+              </Markdown>
             </div>
           </Window>
         </FixedLayer> )}
@@ -91,21 +104,20 @@ const styles = {
     background: '#F6F6F6',
     borderRadius: '5px 5px 0 0',
     borderWidth: '1px',
-    borderBottom: '1px solid',
-    padding: '10px'
+    padding: '20px 20px 0 20px'
   },
   body: {
-    height: '300px',
+    height: 'auto',
+    minHeight: '450px',
     background: '#FFFFFF',
     borderRadius: '0 0 5px 5px',
-    padding: '10px'
+    padding: '20px'
   },
   footer: {
     height: '50px',
     background: '#F6F6F6',
     borderRadius: '0 0 5px 5px',
-    borderTop: '1px solid',
-    padding: '10px'
+    padding: '20px 0 20px 0'
   }
 };
 

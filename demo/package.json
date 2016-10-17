@@ -9,8 +9,10 @@
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-highlight": "^0.9.0",
     "react-layer-stack": "^1.1.6",
     "react-redux": "^4.4.5",
+    "react-remarkable": "^1.1.1",
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",
     "redux-logger": "^2.7.0"
