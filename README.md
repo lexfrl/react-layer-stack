@@ -1,3 +1,5 @@
+[Live demo](https://fckt.github.io/react-layer-stack/)
+
 ### Description
 
 I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-to-up** UI communication. **top-to-bottom** flow covers the most UI needs naturally, but sometimes you need to take control over UI element which is linked to parent logically (means you need to use the local context of), but physically located in the different DOM branch. Modals, drag'n'drops, popovers, popups, windows - are the various examples of **bottom-to-up** UI elements (good analogy https://en.wikipedia.org/wiki/Zooming_user_interface).
