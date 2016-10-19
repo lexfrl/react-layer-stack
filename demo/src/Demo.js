@@ -42,16 +42,22 @@ class Demo extends Component {
         </Layer>
         { this.renderMovableWindow() }
         { this.renderSimpleWindow() }
-
-        <LayerToggle id="layer_state_infobox">{({ showMe, hideMe, isActive }) => (
-          <button onClick={ () => console.log('TEST') || isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
-        </LayerToggle>
-        <LayerToggle id="simple_window">{({ showMe }) => (
-          <button onClick={ () => showMe() }>OPEN SIMPLE MODAL</button> )}
-        </LayerToggle>
-        <LayerToggle id="movable_window">{({ showMe }) => (
-          <button onClick={ () => showMe() }>OPEN MOVABLE WINDOW</button> )}
-        </LayerToggle>
+        <Markdown>
+          #### DEMO component data
+              { JSON.stringify(this.state, null, '\t') }
+          #### 1
+          <LayerToggle id="layer_state_infobox">{({ showMe, hideMe, isActive }) => (
+            <button onClick={ () => console.log('TEST') || isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
+          </LayerToggle>
+          #### 2
+          <LayerToggle id="simple_window">{({ showMe }) => (
+            <button onClick={ () => showMe() }>OPEN SIMPLE MODAL</button> )}
+          </LayerToggle>
+          #### 3
+          <LayerToggle id="movable_window">{({ showMe }) => (
+            <button onClick={ () => showMe() }>OPEN MOVABLE WINDOW</button> )}
+          </LayerToggle>
+        </Markdown>
       </div>
     );
   }
@@ -80,17 +86,17 @@ class Demo extends Component {
     return (
       <Layer
         use={[this.state.counter]}  // data from the context
-        id="movable_window">{({index, hideMe, showMe}, {...rest, pinned = false, mouseDown = false, mouseX = 0, mouseY = 0, windowLeft = 400, windowTop = 100} = {}) => (
+        id="movable_window">{({index, hideMe, showMe}, {...rest, pinned = false, mouseDown = false, mouseLastPositionX = 0, mouseLastPositionY = 0, windowLeft = 400, windowTop = 100} = {}) => (
         <FixedLayer
           onMouseDown={() => showMe({...rest, mouseDown: true})}
           onMouseUp={() => showMe({...rest, mouseDown: false})}
           onMouseMove={({ screenX, screenY}) => {
                 const newArgs = {
-                  mouseX: screenX, mouseY: screenY
+                  mouseLastPositionX: screenX, mouseLastPositionY: screenY
                 };
                 if (pinned && mouseDown) {
-                  newArgs.windowLeft =  windowLeft + (screenX - mouseX);
-                  newArgs.windowTop =  windowTop + (screenY - mouseY);
+                  newArgs.windowLeft =  windowLeft + (screenX - mouseLastPositionX);
+                  newArgs.windowTop =  windowTop + (screenY - mouseLastPositionY);
                 }
                 showMe({...rest, ...newArgs})
               }}
@@ -107,13 +113,13 @@ class Demo extends Component {
               <Markdown>
 
                 ##### Arguments:
-
+                <Highlight className="js">
                   { JSON.stringify(rest, null, '\t') }
-
+                </Highlight>
                 ##### Data from outer component (closure/context):
-
+                <Highlight className="js">
                   { JSON.stringify(this.state, null, '\t') }
-
+                </Highlight>
               </Markdown>
             </div>
           </Window>
