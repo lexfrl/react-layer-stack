@@ -5,13 +5,16 @@ export const ACTIONS = {
   register: createAction('LAYER_STACK_VIEW_REGISTER', (id, renderFn) => ({ id, renderFn })),
   unregister: createAction('LAYER_STACK_VIEW_UNREGISTER', (id) => ({ id })),
   toggle: createAction('LAYER_STACK_VIEW_TOGGLE'),
-  show: createAction('LAYER_STACK_VIEW_SHOW', (id, ...args) => ({ id, args })),
+  show: createAction('LAYER_STACK_VIEW_SHOW', (id, ...args) => ({ id, args: args })),
   hide: createAction('LAYER_STACK_VIEW_HIDE'),
   hideAll: createAction('LAYER_STACK_VIEW_HIDE_ALL'),
 };
 
 export default handleActions({
   'LAYER_STACK_VIEW_REGISTER': ({views, ...state}, { payload: { id, renderFn } }) => {
+    if (views[id]) {
+      delete views[id].renderFn;
+    }
     views = {...views, [id]: { renderFn, args: views[id] ? views[id].args : [] } };
     return {...state, views};
   },
@@ -20,13 +23,15 @@ export default handleActions({
     return {...state, views: views};
   },
   'LAYER_STACK_VIEW_SHOW': ({displaying, views, ...state}, { payload: { id, args }}) => {
-    const newViews = { ...views };
+    const newView = { ...views[id] };
     let newDisplaying = displaying;
-    newViews[id].args = args;
+    if (0 !== args.length) {
+      newView.args = args;
+    }
     if (!~displaying.indexOf(id)) {
       newDisplaying = [...displaying, id]
     }
-    return {...state, views: newViews, displaying: newDisplaying };
+    return {...state, views: { ...views, ...{ [id]: newView } } , displaying: newDisplaying };
   },
   'LAYER_STACK_VIEW_HIDE': ({...state, displaying}, { payload: id }) => {
     if (typeof id !== 'string') {

@@ -108,6 +108,9 @@ class Demo extends Component {
               onMouseEnter={() => mouseDown || showMe({...rest, pinned: true})}
               onMouseLeave={() => mouseDown || showMe({...rest, pinned: false})}>
               PIN TO MOVE
+              <div
+                onClick={hideMe}
+                style={{cursor:'pointer', float: 'right', width: '16px', height: '16px', borderRadius:'8px', background: 'gray'}} />
             </div>
             <div style={styles.body}>
               <Markdown>
@@ -131,7 +134,7 @@ class Demo extends Component {
 
 const styles = {
   header: {
-    height: '50px',
+    height: '36px',
     background: '#F6F6F6',
     borderRadius: '5px 5px 0 0',
     borderWidth: '1px',
@@ -145,7 +148,7 @@ const styles = {
     padding: '20px'
   },
   footer: {
-    height: '50px',
+    height: '34px',
     background: '#F6F6F6',
     borderRadius: '0 0 5px 5px',
     padding: '20px 0 20px 0'
