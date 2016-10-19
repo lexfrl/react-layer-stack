@@ -4,10 +4,31 @@ import Markdown from 'react-remarkable';
 
 import { Layer, LayerContext } from 'react-layer-stack';
 
-// import Button from './components/Button';
 import FixedLayer from './components/FixedLayer';
-import AbsoluteLayer from './components/AbsoluteLayer';
 import Window from './components/Window';
+
+const styles = {
+  header: {
+    height: '36px',
+    background: '#F6F6F6',
+    borderRadius: '5px 5px 0 0',
+    borderWidth: '1px',
+    padding: '20px 20px 0 20px'
+  },
+  body: {
+    height: 'auto',
+    minHeight: '450px',
+    background: '#FFFFFF',
+    borderRadius: '0 0 5px 5px',
+    padding: '20px'
+  },
+  footer: {
+    height: '34px',
+    background: '#F6F6F6',
+    borderRadius: '0 0 5px 5px',
+    padding: '20px 0 20px 0'
+  }
+};
 
 class Demo extends Component {
 
@@ -47,7 +68,7 @@ class Demo extends Component {
               { JSON.stringify(this.state, null, '\t') }
           #### 1
           <LayerContext id="layer_state_infobox">{({ showMe, hideMe, isActive }) => (
-            <button onClick={ () => console.log('TEST') || isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
+            <button onClick={ () => isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
           </LayerContext>
           #### 2
           <LayerContext id="simple_window">{({ showMe }) => (
@@ -143,28 +164,5 @@ class Demo extends Component {
     )
   }
 }
-
-const styles = {
-  header: {
-    height: '36px',
-    background: '#F6F6F6',
-    borderRadius: '5px 5px 0 0',
-    borderWidth: '1px',
-    padding: '20px 20px 0 20px'
-  },
-  body: {
-    height: 'auto',
-    minHeight: '450px',
-    background: '#FFFFFF',
-    borderRadius: '0 0 5px 5px',
-    padding: '20px'
-  },
-  footer: {
-    height: '34px',
-    background: '#F6F6F6',
-    borderRadius: '0 0 5px 5px',
-    padding: '20px 0 20px 0'
-  }
-};
 
 export default Demo;

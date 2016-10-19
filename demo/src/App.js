@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux'
-import createLogger from 'redux-logger'
 import {
   LayerStackMountPoint,
   DEFAULT_STORE_KEY as DEFAULT_LAYERS_STORE_KEY,
