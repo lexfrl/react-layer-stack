@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Highlight from 'react-highlight';
 import Markdown from 'react-remarkable';
 
-import { Layer, LayerToggle } from 'react-layer-stack';
+import { Layer, LayerContext } from 'react-layer-stack';
 
 // import Button from './components/Button';
 import FixedLayer from './components/FixedLayer';
@@ -46,17 +46,17 @@ class Demo extends Component {
           #### DEMO component data
               { JSON.stringify(this.state, null, '\t') }
           #### 1
-          <LayerToggle id="layer_state_infobox">{({ showMe, hideMe, isActive }) => (
+          <LayerContext id="layer_state_infobox">{({ showMe, hideMe, isActive }) => (
             <button onClick={ () => console.log('TEST') || isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
-          </LayerToggle>
+          </LayerContext>
           #### 2
-          <LayerToggle id="simple_window">{({ showMe }) => (
+          <LayerContext id="simple_window">{({ showMe }) => (
             <button onClick={ () => showMe() }>OPEN SIMPLE MODAL</button> )}
-          </LayerToggle>
+          </LayerContext>
           #### 3
-          <LayerToggle id="movable_window">{({ showMe }) => (
+          <LayerContext id="movable_window">{({ showMe }) => (
             <button onClick={ () => showMe() }>OPEN MOVABLE WINDOW</button> )}
-          </LayerToggle>
+          </LayerContext>
         </Markdown>
       </div>
     );
@@ -86,46 +86,58 @@ class Demo extends Component {
     return (
       <Layer
         use={[this.state.counter]}  // data from the context
-        id="movable_window">{({index, hideMe, showMe}, {...rest, pinned = false, mouseDown = false, mouseLastPositionX = 0, mouseLastPositionY = 0, windowLeft = 400, windowTop = 100} = {}) => (
+        id="movable_window">{({index, hideMe, showMe}, {
+          ...rest,
+          pinned = false,
+          mouseDown = false,
+          mouseLastPositionX = 0,
+          mouseLastPositionY = 0,
+          windowLeft = 400,
+          windowTop = 100} = {}) => (
         <FixedLayer
           onMouseDown={() => showMe({...rest, mouseDown: true})}
           onMouseUp={() => showMe({...rest, mouseDown: false})}
           onMouseMove={({ screenX, screenY}) => {
-                const newArgs = {
-                  mouseLastPositionX: screenX, mouseLastPositionY: screenY
-                };
-                if (pinned && mouseDown) {
-                  newArgs.windowLeft =  windowLeft + (screenX - mouseLastPositionX);
-                  newArgs.windowTop =  windowTop + (screenY - mouseLastPositionY);
-                }
-                showMe({...rest, ...newArgs})
-              }}
+            const newArgs = {
+              mouseLastPositionX: screenX, mouseLastPositionY: screenY
+            };
+            if (pinned && mouseDown) {
+              newArgs.windowLeft =  windowLeft + (screenX - mouseLastPositionX);
+              newArgs.windowTop =  windowTop + (screenY - mouseLastPositionY);
+            }
+            showMe({...rest, ...newArgs})
+          }}
           onClick={ hideMe }
           zIndex={ index * 100 }>
-          <Window style={{ top: windowTop, left: windowLeft }}>
-            <div
-              style={styles.header}
-              onMouseEnter={() => mouseDown || showMe({...rest, pinned: true})}
-              onMouseLeave={() => mouseDown || showMe({...rest, pinned: false})}>
-              PIN TO MOVE
+            <Window style={{ top: windowTop, left: windowLeft }}>
               <div
-                onClick={hideMe}
-                style={{cursor:'pointer', float: 'right', width: '16px', height: '16px', borderRadius:'8px', background: 'gray'}} />
-            </div>
-            <div style={styles.body}>
-              <Markdown>
-
-                ##### Arguments:
-                <Highlight className="js">
-                  { JSON.stringify(rest, null, '\t') }
-                </Highlight>
-                ##### Data from outer component (closure/context):
-                <Highlight className="js">
-                  { JSON.stringify(this.state, null, '\t') }
-                </Highlight>
-              </Markdown>
-            </div>
-          </Window>
+                style={styles.header}
+                onMouseEnter={() => mouseDown || showMe({...rest, pinned: true})}
+                onMouseLeave={() => mouseDown || showMe({...rest, pinned: false})}>
+                PIN TO MOVE
+                <div
+                  onClick={hideMe}
+                  style={{
+                    cursor:'pointer',
+                    float: 'right',
+                    width: '16px',
+                    height: '16px',
+                    borderRadius:'8px',
+                    background: 'gray'}} />
+              </div>
+              <div style={styles.body}>
+                <Markdown>
+                  ##### Arguments:
+                  <Highlight className="js">
+                    { JSON.stringify(rest, null, '\t') }
+                  </Highlight>
+                  ##### Data from outer component (closure/context):
+                  <Highlight className="js">
+                    { JSON.stringify(this.state, null, '\t') }
+                  </Highlight>
+                </Markdown>
+              </div>
+            </Window>
         </FixedLayer> )}
       </Layer>
     )

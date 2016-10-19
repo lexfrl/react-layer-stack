@@ -77,7 +77,7 @@ export const Layer = (namespace = 'layer_stack') => connect(
   }
 })));
 
-export const LayerToggle = (namespace = 'layer_stack') => connect(
+export const LayerContext = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )(({ children, id, // from props

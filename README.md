@@ -13,7 +13,7 @@ npm install --save react-layer-stack
 
 ### Real-world usage example
 
-Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 additional: `LayerToggle` (sometimes toggle needs to know which popover is open now).
+Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 additional: `LayerContext` (sometimes toggle needs to know which popover is open now).
 Set the `LayerStackMountPoint` somewhere on the top of the tree:
 
 ```javascript
@@ -35,12 +35,12 @@ import { LayerStackMountPoint } from 'react-layer-stack'
 Define your `Layer`. This example shows how to propagate variables from lexical context (https://developer.mozilla.org/en/docs/Web/JavaScript/Closures) to the `Layer`, which will be displayed in the `LayerStackMountPoint`. Each layer should have an `id` and `use` properties. `use` property is needed to determine if we should update the lexical context of the anonymous function which renders `Modal` into `Layer` if `Cell` is re-rendered.
 
 ```javascript
-import { Layer, LayerToggle } from 'react-layer-stack'
+import { Layer, LayerContext } from 'react-layer-stack'
 // ... for each `object` in array of `objects`
 const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].id
 return (
     <Cell {...props}>
-        // the layer definition. The content will show up in the LayerStackMountPoint when `show(modalId)` be fired in LayerToggle
+        // the layer definition. The content will show up in the LayerStackMountPoint when `show(modalId)` be fired in LayerContext
         <Layer use={[objects[rowIndex], rowIndex]} id={modalId}> {({
             hideMe, // alias for `hide(modalId)`
             index } // useful to know to set zIndex, for example
@@ -56,11 +56,11 @@ return (
         </Layer>
         
         // this is the toggle for Layer with `id === modalId` can be defined everywhere in the components tree
-        <LayerToggle id={ modalId }> {({showMe}) => // showMe is alias for `show(modalId)`
+        <LayerContext id={ modalId }> {({showMe}) => // showMe is alias for `show(modalId)`
           <div style={styles.iconOverlay} onClick={ (e) => showMe(e) }> // additional arguments can be passed (like event)
             <Icon type="trash" />
           </div> }
-        </LayerToggle>
+        </LayerContext>
     </Cell>)
 // ...
 ```
