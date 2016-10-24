@@ -95,13 +95,11 @@ class Demo extends Component {
     return (
       <Layer id="lightbox">{ ({ index, hideMe }, { content, rect: { top, left, width, height } }) =>
         <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
-          {(() => {
-              return <div style={{
-                  top, left: left + width + 10, position: "absolute",
-                  padding: '10px',
-                  background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px'}}>{ content }</div>
-          }
-          )()}
+          <div style={{
+            top, left: left + width + 10, position: "absolute",
+            padding: '10px',
+            background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px'}}>{ content }
+          </div>
         </FixedLayer>
       }</Layer>
     )
