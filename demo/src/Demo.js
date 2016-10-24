@@ -93,12 +93,12 @@ class Demo extends Component {
 
   renderZoom() {
     return (
-      <Layer id="lightbox">{ ({ index, hideMe }, { content, rect: { top, left, width, height } }) =>
+      <Layer use={ [this.state.counter] } id="lightbox">{ ({ index, hideMe }, { content, rect: { top, left, width, height } }) =>
         <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
           <div style={{
             top, left: left + width + 10, position: "absolute",
             padding: '10px',
-            background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px'}}>{ content }
+            background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px'}}>{ content } But following is more important: { JSON.stringify(this.state) }
           </div>
         </FixedLayer>
       }</Layer>
