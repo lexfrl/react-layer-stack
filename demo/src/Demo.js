@@ -63,24 +63,48 @@ class Demo extends Component {
         </Layer>
         { this.renderMovableWindow() }
         { this.renderSimpleWindow() }
+        { this.renderZoom() }
         <Markdown>
           #### DEMO component data
               { JSON.stringify(this.state, null, '\t') }
-          #### 1
+          #### LAYER STATE TOGGLE
           <LayerContext id="layer_state_infobox">{({ showMe, hideMe, isActive }) => (
             <button onClick={ () => isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
           </LayerContext>
-          #### 2
+          #### SIMPLE MODALS
           <LayerContext id="simple_window">{({ showMe }) => (
             <button onClick={ () => showMe() }>OPEN SIMPLE MODAL</button> )}
           </LayerContext>
-          #### 3
+          #### MOVABLE WINDOWS
           <LayerContext id="movable_window">{({ showMe }) => (
             <button onClick={ () => showMe() }>OPEN MOVABLE WINDOW</button> )}
+          </LayerContext>
+
+          #### LIGHTBOX
+          <LayerContext id="lightbox">{({ showMe, hideMe }) => (
+            <button onMouseLeave={ hideMe } onMouseEnter={ (e) => showMe({ content: `
+            “Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”
+            `, rect: e.nativeEvent.relatedTarget.getClientRects()[0] }) }>MOVE IT TO MEE</button> )}
           </LayerContext>
         </Markdown>
       </div>
     );
+  }
+
+  renderZoom() {
+    return (
+      <Layer id="lightbox">{ ({ index, hideMe }, { content, rect: { top, left, width, height } }) =>
+        <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
+          {(() => {
+              return <div style={{
+                  top, left: left + width + 10, position: "absolute",
+                  padding: '10px',
+                  background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px'}}>{ content }</div>
+          }
+          )()}
+        </FixedLayer>
+      }</Layer>
+    )
   }
 
   renderSimpleWindow() {
