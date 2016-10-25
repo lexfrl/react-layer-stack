@@ -101,7 +101,6 @@ class Demo extends Component {
               })
             }}>MOVE IT TO MEE</button> )}
           </LayerContext>
-          (yep, copy paste from LIGHTBOX)
 
         </Markdown>
       </div>
