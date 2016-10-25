@@ -63,7 +63,7 @@ class Demo extends Component {
         </Layer>
         { this.renderMovableWindow() }
         { this.renderSimpleWindow() }
-        { this.renderZoom() }
+        { this.renderLightbox() }
         <Markdown>
           #### DEMO component data
               { JSON.stringify(this.state, null, '\t') }
@@ -82,23 +82,42 @@ class Demo extends Component {
 
           #### LIGHTBOX
           <LayerContext id="lightbox">{({ showMe, hideMe }) => (
-            <button onMouseLeave={ hideMe } onMouseEnter={ (e) => showMe({ content: `
-            “Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”
-            `, rect: e.nativeEvent.relatedTarget.getClientRects()[0] }) }>MOVE IT TO MEE</button> )}
+            <button onMouseLeave={ hideMe } onMouseEnter={ ({ nativeEvent: { relatedTarget } }) => {
+              const { left, top, width } = relatedTarget.getClientRects()[0];
+              showMe({
+                left: left + width + 10, top,
+                content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
+              })
+            }}>MOVE IT TO MEE</button> )}
           </LayerContext>
+
+          #### LIGHTBOX pointer-oriented! ;-)
+
+          <LayerContext id="lightbox">{({ showMe, hideMe }) => (
+            <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
+              showMe({
+                left: pageX + 20, top: pageY,
+                content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
+              })
+            }}>MOVE IT TO MEE</button> )}
+          </LayerContext>
+          (yep, copy paste from LIGHTBOX)
+
         </Markdown>
       </div>
     );
   }
 
-  renderZoom() {
+  renderLightbox() {
     return (
-      <Layer use={ [this.state.counter] } id="lightbox">{ ({ index, hideMe }, { content, rect: { top, left, width, height } }) =>
+      <Layer use={ [this.state.counter] } id="lightbox">{ ({ index, hideMe }, { content, top, left, width }) =>
         <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
           <div style={{
-            top, left: left + width + 10, position: "absolute",
+            top, left, position: "absolute",
             padding: '10px',
-            background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px'}}>{ content } But following is more important: { JSON.stringify(this.state) }
+            background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
+            boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
+              { content } But following is more important: { JSON.stringify(this.state) }
           </div>
         </FixedLayer>
       }</Layer>
