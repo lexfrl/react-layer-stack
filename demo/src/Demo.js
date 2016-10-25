@@ -65,19 +65,13 @@ class Demo extends Component {
         { this.renderSimpleWindow() }
         { this.renderLightbox() }
         <Markdown>
-          #### DEMO component data
+
+          #### DEMO top component data
               { JSON.stringify(this.state, null, '\t') }
+
           #### LAYER STATE TOGGLE
           <LayerContext id="layer_state_infobox">{({ showMe, hideMe, isActive }) => (
             <button onClick={ () => isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
-          </LayerContext>
-          #### SIMPLE MODALS
-          <LayerContext id="simple_window">{({ showMe }) => (
-            <button onClick={ () => showMe() }>OPEN SIMPLE MODAL</button> )}
-          </LayerContext>
-          #### MOVABLE WINDOWS
-          <LayerContext id="movable_window">{({ showMe }) => (
-            <button onClick={ () => showMe() }>OPEN MOVABLE WINDOW</button> )}
           </LayerContext>
 
           #### LIGHTBOX
@@ -88,18 +82,27 @@ class Demo extends Component {
                 left: left + width + 10, top,
                 content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
               })
-            }}>MOVE IT TO MEE</button> )}
+            }}>yet another button</button> )}
           </LayerContext>
 
-          #### LIGHTBOX pointer-oriented! ;-)
-
+          #### LIGHTBOX pointer-oriented
           <LayerContext id="lightbox">{({ showMe, hideMe }) => (
             <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
               showMe({
                 left: pageX + 20, top: pageY,
                 content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
               })
-            }}>MOVE IT TO MEE</button> )}
+            }}>yet another button</button> )}
+          </LayerContext>
+
+          #### MOVABLE WINDOWS
+          <LayerContext id="movable_window">{({ showMe }) => (
+            <button onClick={ () => showMe() }>OPEN MOVABLE WINDOW</button> )}
+          </LayerContext>
+
+          #### SIMPLE MODALS
+          <LayerContext id="simple_window">{({ showMe }) => (
+            <button onClick={ () => showMe() }>OPEN SIMPLE MODAL</button> )}
           </LayerContext>
 
         </Markdown>
@@ -153,7 +156,7 @@ class Demo extends Component {
           mouseDown = false,
           mouseLastPositionX = 0,
           mouseLastPositionY = 0,
-          windowLeft = 400,
+          windowLeft = 670,
           windowTop = 100} = {}) => (
         <FixedLayer
           onMouseDown={() => showMe({...rest, mouseDown: true})}
@@ -188,6 +191,16 @@ class Demo extends Component {
               </div>
               <div style={styles.body}>
                 <Markdown>
+                  ##### Layer inside Layer (inside Layer inside Layer inside Layer inside Layer inside Layer inside Layer ...  inside Layer)
+
+                  <LayerContext id="lightbox">{({ showMe, hideMe }) => (
+                    <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
+                    showMe({
+                      left: pageX + 20, top: pageY,
+                      content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
+                    })
+                  }}>yet another button</button> )}
+                  </LayerContext>
                   ##### Arguments:
                   <Highlight className="js">
                     { JSON.stringify(rest, null, '\t') }
