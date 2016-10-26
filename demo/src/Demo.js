@@ -82,7 +82,7 @@ class Demo extends Component {
                 left: left + width + 10, top,
                 content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
               })
-            }}>yet another button</button> )}
+            }}>A button. Move your pointer to it.</button> )}
           </LayerContext>
 
           #### LIGHTBOX pointer-oriented
@@ -90,9 +90,9 @@ class Demo extends Component {
             <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
               showMe({
                 left: pageX + 20, top: pageY,
-                content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
+                content: `“It follows the pointer, but still the same Layer with different args.”,`,
               })
-            }}>yet another button</button> )}
+            }}>Yet another button. Move your pointer to it.</button> )}
           </LayerContext>
 
           #### MOVABLE WINDOWS
@@ -119,7 +119,7 @@ class Demo extends Component {
             padding: '10px',
             background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
             boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
-              { content } But following is more important: { JSON.stringify(this.state) }
+              { content } And also: { JSON.stringify(this.state) }
           </div>
         </FixedLayer>
       }</Layer>
@@ -197,9 +197,9 @@ class Demo extends Component {
                     <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
                     showMe({
                       left: pageX + 20, top: pageY,
-                      content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
+                      content: `“This is a demonstration of layers of composition of composition of composition ...  of composition”,`,
                     })
-                  }}>yet another button</button> )}
+                  }}>Yet another button. Move your pointer to it.</button> )}
                   </LayerContext>
                   ##### Arguments:
                   <Highlight className="js">
