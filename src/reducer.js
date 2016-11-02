@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions'
 import { createAction } from 'redux-actions'
 
 export const ACTIONS = {
-  register: createAction('LAYER_STACK_VIEW_REGISTER', (id, renderFn) => ({ id, renderFn })),
+  register: createAction('LAYER_STACK_VIEW_REGISTER', (id, renderFn, mountPointId) => ({ id, renderFn, mountPointId })),
   unregister: createAction('LAYER_STACK_VIEW_UNREGISTER', (id) => ({ id })),
   toggle: createAction('LAYER_STACK_VIEW_TOGGLE'),
   show: createAction('LAYER_STACK_VIEW_SHOW', (id, ...args) => ({ id, args: args })),
@@ -11,15 +11,15 @@ export const ACTIONS = {
 };
 
 export default handleActions({
-  'LAYER_STACK_VIEW_REGISTER': ({views, ...state}, { payload: { id, renderFn } }) => {
+  'LAYER_STACK_VIEW_REGISTER': ({views, ...state}, { payload: { id, renderFn, mountPointId } }) => {
     if (views[id]) {
-      delete views[id].renderFn;
+      delete views[id].renderFn; // mutable to just help javascript GC
     }
-    views = {...views, [id]: { renderFn, args: views[id] ? views[id].args : [] } };
+    views = {...views, [id]: { renderFn, args: views[id] ? views[id].args : [], mountPointId } };
     return {...state, views};
   },
   'LAYER_STACK_VIEW_UNREGISTER': ({views, ...state}, { payload: { id } }) => {
-    delete views[id]; // mutable for better GC
+    delete views[id]; // mutable to just help javascript GC
     return {...state, views: views};
   },
   'LAYER_STACK_VIEW_SHOW': ({displaying, views, ...state}, { payload: { id, args }}) => {

@@ -7,17 +7,18 @@ import { ACTIONS } from './reducer'
 export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({ renderFn, args: mountPointArgs, views, displaying, show, hide, hideAll}) => { // from store
+)(({ id: mountPointId, args: mountPointArgs, renderFn, views, displaying, show, hide, hideAll}) => { // from store
   return (
-    <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll}) // it's possible to provide alternative renderFn for the MountPoint
+    <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll, mountPointId, mountPointArgs}) // it's possible to provide alternative renderFn for the MountPoint
       : (displaying.length ? displaying.map ((id, index) => // if no alternative renderFn provided we'll use the default one
           <div key={id}>
             {(() => {
               if (views[id] && views[id].renderFn) {
                 return views[id].renderFn({ // TODO: check that renderFn is a function
-                  index, id, show, hide, hideAll, displaying, views, mountPointArgs,
+                  index, id, show, hide, hideAll, displaying, views, mountPointArgs, // seems like there is no valid use-case mountPointId in the Layer render function
                   showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: improve
-                  hideMe: () => hide(id),
+                  hideMe: () => hide(id), // intention here is to hide ID's management from Layer and let app developer manage these IDs independently
+                                          // which will give an ability to write general-purpose Layers and share them b/w projects
                   showMe: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
                 }, ...views[id].args)
               }
@@ -37,15 +38,15 @@ export const Layer = (namespace = 'layer_stack') => connect(
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )((React.createClass({
   componentWillMount() {
-    this.props.register(this.props.id, this.props.children);
+    this.props.register(this.props.id, this.props.children, this.props.mountPointId);
     if (this.props.showInitially) {
       this.props.show(this.props.id, this.props.defaultArgs || [])
     }
   },
   shouldComponentUpdate(newProps) {
-    const { use, children, register, id } = this.props;
+    const { use, children, register, id, mountPointId } = this.props;
     let needUpdate = false;
-    if (id !== newProps.id) {
+    if (id !== newProps.id || mountPointId !== newProps.mountPointId) {
       needUpdate = true;
     }
     else if (children.toString() !== newProps.children.toString()) {
@@ -65,7 +66,7 @@ export const Layer = (namespace = 'layer_stack') => connect(
     }
 
     if (needUpdate) {
-      register(newProps.id, newProps.children);
+      register(newProps.id, newProps.children, newProps.mountPointId);
       return true;
     }
     return false;
