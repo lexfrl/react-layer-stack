@@ -13,16 +13,17 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
       : (displaying.length ? displaying.map ((id, index) => // if no alternative renderFn provided we'll use the default one
           <div key={id}>
             {(() => {
-              if (views[id] && views[id].renderFn) {
-                return views[id].renderFn({ // TODO: check that renderFn is a function
+              const view = views[id];
+              if (view && view.renderFn && view.mountPointId === mountPointId) {
+                return view.renderFn({ // TODO: check that renderFn is a function
                   index, id, show, hide, hideAll, displaying, views, mountPointArgs, // seems like there is no valid use-case mountPointId in the Layer render function
                   showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: improve
                   hideMe: () => hide(id), // intention here is to hide ID's management from Layer and let app developer manage these IDs independently
                                           // which will give an ability to write general-purpose Layers and share them b/w projects
                   showMe: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
-                }, ...views[id].args)
+                }, ...view.args)
               }
-              if (typeof views[id] === 'undefined' || typeof views[id].renderFn === 'undefined') {
+              if (typeof view === 'undefined' || typeof view.renderFn === 'undefined') {
                 throw new Error(`
 It seems like you're using LayerContext with id="${ id }" but corresponding Layer isn't declared in the current Components tree.
 Make sure that Layer with id="${ id }" is rendered into the current tree.
