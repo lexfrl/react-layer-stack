@@ -7,16 +7,15 @@ import { ACTIONS } from './reducer'
 export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({ renderFn, views, displaying, show, hide, hideAll}) => { // from store
+)(({ renderFn, args: mountPointArgs, views, displaying, show, hide, hideAll}) => { // from store
   return (
-    <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll})
-      : (displaying.length ? displaying.map (
-      (id, index) =>
+    <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll}) // it's possible to provide alternative renderFn for the MountPoint
+      : (displaying.length ? displaying.map ((id, index) => // if no alternative renderFn provided we'll use the default one
           <div key={id}>
             {(() => {
-              if (views[id] &&  views[id].renderFn) {
+              if (views[id] && views[id].renderFn) {
                 return views[id].renderFn({ // TODO: check that renderFn is a function
-                  index, id, show, hide, hideAll, displaying, views,
+                  index, id, show, hide, hideAll, displaying, views, mountPointArgs,
                   showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: improve
                   hideMe: () => hide(id),
                   showMe: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
@@ -27,11 +26,8 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
 It seems like you're using LayerContext with id="${ id }" but corresponding Layer isn't declared in the current Components tree.
 Make sure that Layer with id="${ id }" is rendered into the current tree.
 `)
-              }
-            })()}
-          </div>
-    )
-      : <noscript />) }
+              }})()}
+          </div>) : <noscript />)}
     </div>
   )
 });
