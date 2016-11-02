@@ -7,7 +7,10 @@ import { ACTIONS } from './reducer'
 export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({ id: mountPointId, args: mountPointArgs, renderFn, views, displaying, show, hide, hideAll}) => { // from store
+)(({
+  id: mountPointId, args: mountPointArgs, // from props
+  renderFn, views, displaying, show, hide, hideAll // from store
+}) => {
   return (
     <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll, mountPointId, mountPointArgs}) // it's possible to provide alternative renderFn for the MountPoint
       : (displaying.length ? displaying.map ((id, index) => // if no alternative renderFn provided we'll use the default one
@@ -86,7 +89,8 @@ export const Layer = (namespace = 'layer_stack') => connect(
 export const LayerContext = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({ children, id, // from props
+)(({
+  children, id, // from props
   displaying, show, hide, hideAll, views // from store
 }) => {
   return children({
