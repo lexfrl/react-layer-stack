@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import { createStore, combineReducers } from 'redux';
-import { Provider } from 'react-redux'
-import {
-  LayerStackMountPoint,
-  DEFAULT_STORE_KEY as DEFAULT_LAYERS_STORE_KEY,
-  reducer as layersReducer } from 'react-layer-stack'
+import { LayerStackProvider, LayerStackMountPoint } from 'react-layer-stack'
 
 import Demo from './Demo'
 
-const reducer = combineReducers({[DEFAULT_LAYERS_STORE_KEY]: layersReducer});
-const store = createStore(reducer);
-window.__STORE = store;
 class App extends Component {
   render() {
     return (
-      <Provider store={store} key="provider">
+      <LayerStackProvider>
         <div>
           <LayerStackMountPoint />
           <div className="App">
@@ -27,7 +19,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-      </Provider>
+      </LayerStackProvider>
     );
   }
 }

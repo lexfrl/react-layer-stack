@@ -17,18 +17,20 @@ Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 addit
 Set the `LayerStackMountPoint` somewhere on the top of the tree:
 
 ```javascript
-import { LayerStackMountPoint } from 'react-layer-stack'
+import { LayerStackProvider, LayerStackMountPoint } from 'react-layer-stack'
 // ...
 //  render() {
         return (
-          <Container>
-            <LayerStackMountPoint />
-            <AppBar />
-            <Container className={styles.container}>
-              {children}
-            </Container>
-          </Container>
-    )
+            <LayerStackProvider>
+              <Container>
+                <LayerStackMountPoint />
+                <AppBar />
+                <Container className={styles.container}>
+                  {children}
+                </Container>
+              </Container>
+            </LayerStackProvider>
+        )
 //  }
 ```
 
@@ -63,20 +65,6 @@ return (
         </LayerContext>
     </Cell>)
 // ...
-```
-
-### One important thing to know
-
-Currently we use the redux store as a backend, but that could be changed in the future. Consider it just as an initialization logic and not as the public API.
-Therefore you should add the layers reducer to the store:
-
-```javascript
-import { createStore, combineReducers } from 'redux';
-import { DEFAULT_STORE_KEY as DEFAULT_LAYERS_STORE_KEY, reducer as layersReducer } from 'react-layer-stack';
-// ...
-const reducer = combineReducers({...reducers, [DEFAULT_LAYERS_STORE_KEY]: layersReducer});
-// ...
-export default createStore(reducer);
 ```
 
 ### Alternatives
