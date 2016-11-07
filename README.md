@@ -7,7 +7,7 @@
 
 The problem is that sometimes the second property isn't what you want in your case. Sometimes you want to mount your component into different physical DOM node and at the same time hold logical connection beetween parent and child.
 
-Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coord) and at the same time it needs information whether it need to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarhy isn't match with the physical DOM hierarhy.
+Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coord) and at the same time it needs information whether it needs to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarhy isn't match with the physical DOM hierarhy.
 
 
 ### Rationale
