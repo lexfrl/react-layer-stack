@@ -2,7 +2,7 @@
 
 ### Short rationale
 `react`/`react-dom` comes comes with 2 basic assumptions/ideas:
-- every UI is naturally hierarchical. This why we have the idea of `components` which could wrap each other is wonderful
+- every UI is naturally hierarchical. This why we have the idea of `components` which wrap each other
 - `react-dom` mounts child component to its parent DOM node by default
 
 The problem is that sometimes the second property isn't what you want in your case. Sometimes you want to mount your component into different physical DOM node and at the same time hold logical connection beetween parent and child.
