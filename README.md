@@ -41,7 +41,7 @@ class Demo extends Component {
 )
 ```
 
-Another option could be use one of dozens complete impementations with different properties:
+Another option could be use one of dozens complete implementations with different properties:
 https://js.coach/?search=popover
 
 ### More examples
@@ -79,7 +79,7 @@ This is mount point for `Layers`.
 
 `id: string` - a Layer identificator which LayerContext corresponds to
 
-`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }): ReactElement` - will be mouted (rendered) directly to its parrent
+`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }): ReactElement` - will be mounted (rendered) directly to its parent
 
 ### Store layers in your redux store
 
