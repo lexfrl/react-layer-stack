@@ -51,6 +51,32 @@ https://js.coach/?search=popover
 npm install --save react-layer-stack
 ```
 
+### API
+
+#### <LayerStackMountPoint />
+This is mount point for `Layers`. 
+
+##### props:
+###### `id: string`
+You can have multiple `LayerStackMountPoint` which could have different ID's.
+###### `children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs })`
+You can choose different stratigies how to render `Layers` in `LayerStackMountPoint` instead of the default one.
+
+#### <Layer />
+##### props:
+###### `id: string`
+Layer indentificator
+###### `use: array`
+Array with context variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
+###### `children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }, ...args)`
+
+#### <LayerContext />
+##### props:
+###### `id: string`
+Layer indentificator
+###### `children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll })`
+
+
 ### Store layers in your redux store
 
 `react-layer-stack` provides `reducer` (`import { reducer } from 'react-layer-stack'`) which you can combine into your Redux store instead of using preconfigured `LayerStackProvider`. This is useful if you want to store everything in one store (which is good practice).
