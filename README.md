@@ -32,7 +32,7 @@ Canonical example is Tooltip-like component: at some point of development proces
 }</Layer>
 ```
 
-Another option could be use one of dozens complete impementations:
+Another option could be use one of dozens complete impementations with different properties:
 https://js.coach/?search=popover
 
 ### Installation
