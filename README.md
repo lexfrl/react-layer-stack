@@ -53,7 +53,7 @@ npm install --save react-layer-stack
 
 ### API
 
-#### <LayerStackMountPoint />
+#### `<LayerStackMountPoint />`
 
 This is mount point for `Layers`. 
 
@@ -61,7 +61,7 @@ This is mount point for `Layers`.
 
 `children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different stratigies how to render `Layers` in `LayerStackMountPoint` instead of the default one.
 
-#### <Layer />
+#### `<Layer />`
 
 `id: string` - a Layer indentificator
 
@@ -69,7 +69,7 @@ This is mount point for `Layers`.
 
 `children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }, ...args): ReactElement` - will be rendered into 
 
-#### <LayerContext />
+#### `<LayerContext />`
 
 `id: string` - a Layer indentificator which LayerContext corresponds to
 
