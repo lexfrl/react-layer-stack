@@ -103,7 +103,7 @@ The most obvious (and naiive as well) way is to use redux (or another flux/data 
 
 Another solution is to use on of ready-to-use components. But lot of times are you need slightly different bahavior/look and more productive to implememnt home-grown ad-hock solution.
 
-And the last option is to find library like https://github.com/tajo/react-portal, designed ot address the needs of **bottom-to-up** communication. These libs are often quite opinionated to their cases and doesn't solve the problem in its roots. **react-layer-stack** aims to give an answer how to organise **bottom-to-up** communication in the most natural, reasonable and flexible way.
+And the last option is to find library like https://github.com/tajo/react-portal or https://react-bootstrap.github.io/react-overlays/, designed ot address the needs of **bottom-to-up** communication. These libs are often quite opinionated to their cases and doesn't solve the problem in its roots. **react-layer-stack** aims to give an answer how to organise **bottom-to-up** communication in the most natural, reasonable and flexible way.
 
 ### Images to understand the whole thing
 #### View layers stack
