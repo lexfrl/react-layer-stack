@@ -3,11 +3,11 @@
 ### Rationale
 `react`/`react-dom` comes comes with 2 basic assumptions/ideas:
 - every UI is hierarchical naturally. This why we have the idea of `components` which wrap each other
-- `react-dom` mounts (phisically) child component to its parent DOM node by default
+- `react-dom` mounts (physically) child component to its parent DOM node by default
 
-The problem is that sometimes the second property isn't what you want in your case. Sometimes you want to mount your component into different physical DOM node and hold logical connection beetween parent and child at the same time.
+The problem is that sometimes the second property isn't what you want in your case. Sometimes you want to mount your component into different physical DOM node and hold logical connection between parent and child at the same time.
 
-Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coords) and at the same time it needs information whether it needs to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarhy isn't match with the physical DOM hierarhy.
+Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coords) and at the same time it needs information whether it needs to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarchy isn't match with the physical DOM hierarchy.
 
 ```javascript
 import React, { Component } from 'react';
@@ -63,11 +63,11 @@ This is mount point for `Layers`.
 
 `id: string` - you can have multiple `LayerStackMountPoint` which could have different ID's.
 
-`children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different stratigies how to render `Layers` in `LayerStackMountPoint` instead of the default one.
+`children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different strategies how to render `Layers` in `LayerStackMountPoint` instead of the default one.
 
 #### `<Layer />`
 
-`id: string` - a Layer indentificator
+`id: string` - a Layer identificator
 
 `initialArgs` - initial arguments for a Layer
 
@@ -77,7 +77,7 @@ This is mount point for `Layers`.
 
 #### `<LayerContext />`
 
-`id: string` - a Layer indentificator which LayerContext corresponds to
+`id: string` - a Layer identificator which LayerContext corresponds to
 
 `children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }): ReactElement` - will be mouted (rendered) directly to its parrent
 
@@ -146,12 +146,12 @@ The is a lot of alternative ways to archive the desirable **bottom-to-up** link 
 
 The most obvious (and naiive as well) way is to use redux (or another flux/data lib) as a transport to send data from one DOM branch to another. It's good and robust solution (moreover react-layer-stack use redux as a store [currently](https://github.com/fckt/react-layer-stack/blob/master/README.md#one-important-thing-to-know)), but the problem is that it's  overkill. It's not universal also, consumes time to implement and grasp, not because of complications, but because you have to reinvent the same pattern again and again (slightly different in each case).
 
-Another solution is to use on of ready-to-use components. But lot of times are you need slightly different bahavior/look and more productive to implememnt home-grown ad-hock solution.
+Another solution is to use on of ready-to-use components. But lot of times are you need slightly different behavior/look and more productive to implement home-grown ad-hock solution.
 
-And the last option is to find library like https://github.com/tajo/react-portal or https://react-bootstrap.github.io/react-overlays/, designed ot address the needs of **bottom-to-up** communication. These libs are often quite opinionated to their cases and doesn't solve the problem in its roots. **react-layer-stack** aims to give an answer how to organise **bottom-to-up** communication in the most natural, reasonable and flexible way.
+And the last option is to find library like https://github.com/tajo/react-portal or https://react-bootstrap.github.io/react-overlays/, designed to address the needs of **bottom-to-up** communication. These libs are often quite opinionated to their cases and doesn't solve the problem in its roots. **react-layer-stack** aims to give an answer how to organize **bottom-to-up** communication in the most natural, reasonable and flexible way.
 
 ### The future
-Obviously there is a lot of applicaitons for the Layer API (https://github.com/fckt/react-layer-stack/blob/master/README.md#layer-). The cautious question is: could be it become a foundation or standart API to declare some kind of "universal" React "modules"? If so, could be the entire application become a "module"?
+Obviously there is a lot of applications for the Layer API (https://github.com/fckt/react-layer-stack/blob/master/README.md#layer-). The cautious question is: could be it become a foundation or standard API to declare some kind of "universal" React "modules"? If so, could be the entire application become a "module"?
 
 ### Images to understand the whole thing
 #### View layers stack
