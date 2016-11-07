@@ -64,17 +64,19 @@ You can choose different stratigies how to render `Layers` in `LayerStackMountPo
 
 #### <Layer />
 ##### props:
-###### `id: string`
-Layer indentificator
-###### `use: array`
-Array with context variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
-###### `children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }, ...args)`
+`id: string`
+
+***Layer indentificator***
+
+`use: array` - ***Array with context variables. Useful if you want to re-render the Layer if parent variables (closure) are changed***
+
+`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }, ...args)`
 
 #### <LayerContext />
 ##### props:
-###### `id: string`
-Layer indentificator
-###### `children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll })`
+`id: string` - ***Layer indentificator***
+
+`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll })`
 
 
 ### Store layers in your redux store
