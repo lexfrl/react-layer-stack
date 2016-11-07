@@ -54,15 +54,15 @@ npm install --save react-layer-stack
 ### API
 
 #### <LayerStackMountPoint />
+
 This is mount point for `Layers`. 
 
-##### props:
 `id: string` - you can have multiple `LayerStackMountPoint` which could have different ID's.
 
 `children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different stratigies how to render `Layers` in `LayerStackMountPoint` instead of the default one.
 
 #### <Layer />
-##### props:
+
 `id: string` - a Layer indentificator
 
 `use: array` - array with context variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
@@ -70,11 +70,10 @@ This is mount point for `Layers`.
 `children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }, ...args): ReactElement` - will be rendered into 
 
 #### <LayerContext />
-##### props:
+
 `id: string` - a Layer indentificator which LayerContext corresponds to
 
 `children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }): ReactElement` - will be mouted (rendered) directly to its parrent
-
 
 ### Store layers in your redux store
 
