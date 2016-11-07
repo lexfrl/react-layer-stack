@@ -10,7 +10,11 @@ The problem is that sometimes the second property isn't what you want in your ca
 Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coords) and at the same time it needs information whether it needs to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarhy isn't match with the physical DOM hierarhy.
 
 ```javascript
+import React, { Component } from 'react';
 import { Layer, LayerContext } from 'react-layer-stack';
+
+import FixedLayer from './components/FixedLayer';
+
 class Demo extends Component {
   render() {
     return (
