@@ -44,6 +44,12 @@ class Demo extends Component {
 Another option could be use one of dozens complete impementations with different properties:
 https://js.coach/?search=popover
 
+### More examples
+https://github.com/fckt/react-layer-stack/blob/master/demo/src/Demo.js
+
+### Live demo
+https://fckt.github.io/react-layer-stack/
+
 ### Installation
 ```
 npm install --save react-layer-stack
