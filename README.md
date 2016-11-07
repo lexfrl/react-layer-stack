@@ -57,26 +57,23 @@ npm install --save react-layer-stack
 This is mount point for `Layers`. 
 
 ##### props:
-###### `id: string`
-You can have multiple `LayerStackMountPoint` which could have different ID's.
-###### `children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs })`
-You can choose different stratigies how to render `Layers` in `LayerStackMountPoint` instead of the default one.
+`id: string` - you can have multiple `LayerStackMountPoint` which could have different ID's.
+
+`children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different stratigies how to render `Layers` in `LayerStackMountPoint` instead of the default one.
 
 #### <Layer />
 ##### props:
-`id: string`
+`id: string` - a Layer indentificator
 
-***Layer indentificator***
+`use: array` - array with context variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
 
-`use: array` - ***Array with context variables. Useful if you want to re-render the Layer if parent variables (closure) are changed***
-
-`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }, ...args)`
+`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }, ...args): ReactElement` - will be rendered into 
 
 #### <LayerContext />
 ##### props:
-`id: string` - ***Layer indentificator***
+`id: string` - a Layer indentificator which LayerContext corresponds to
 
-`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll })`
+`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }): ReactElement` - will be mouted (rendered) directly to its parrent
 
 
 ### Store layers in your redux store
