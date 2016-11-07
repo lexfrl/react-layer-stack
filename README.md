@@ -10,26 +10,33 @@ The problem is that sometimes the second property isn't what you want in your ca
 Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coords) and at the same time it needs information whether it needs to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarhy isn't match with the physical DOM hierarhy.
 
 ```javascript
-<LayerContext id="lightbox">{({ showMe, hideMe }) => (
-  <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
-    showMe({
-      left: pageX + 20, top: pageY,
-      content: `“More Content! More!”,`,
-    })
-  }}>Move your pointer to it.</button> )}
-</LayerContext>
+import { Layer, LayerContext } from 'react-layer-stack';
+class Demo extends Component {
+  render() {
+    return (
+      <div>
+        <LayerContext id="lightbox">{({ showMe, hideMe }) => (
+          <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
+            showMe({
+              left: pageX + 20, top: pageY,
+              content: `“More Content! More!”,`,
+            })
+          }}>Move your pointer to it.</button> )}
+        </LayerContext>
 
-<Layer id="lightbox">{(_, { content, top, left }) =>
-  <FixedLayer>
-    <div style={{
-      top, left, position: "absolute",
-      padding: '10px',
-      background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
-      boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
-        { content }
+        <Layer id="lightbox">{(_, { content, top, left }) =>
+          <FixedLayer>
+            <div style={{
+              top, left, position: "absolute",
+              padding: '10px',
+              background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
+              boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
+                { content }
+            </div>
+          </FixedLayer>
+        }</Layer>
     </div>
-  </FixedLayer>
-}</Layer>
+)
 ```
 
 Another option could be use one of dozens complete impementations with different properties:
