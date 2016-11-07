@@ -26,7 +26,7 @@ class Demo extends Component {
           }}>Move your pointer to it.</button> )}
         </LayerContext>
 
-        <Layer id="lightbox">{(_, { content, top, left }) => // will be redered into <LayerStackMountPoint />
+        <Layer id="lightbox">{(_, { content, top, left }) => // will be rendered into <LayerStackMountPoint />
           <div style={{ position: "fixed" }}>
             <div style={{
               top, left, position: "absolute",
