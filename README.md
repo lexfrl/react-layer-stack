@@ -28,8 +28,8 @@ class Demo extends Component {
           }}>Move your pointer to it.</button> )}
         </LayerContext>
 
-        <Layer id="lightbox">{(_, { content, top, left }) =>
-          <FixedLayer>
+        <Layer id="lightbox">{(_, { content, top, left }) => // will be redered into <LayerStackMountPoint />
+          <div style={{ position: "fixed" }}>
             <div style={{
               top, left, position: "absolute",
               padding: '10px',
@@ -37,7 +37,7 @@ class Demo extends Component {
               boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
                 { content }
             </div>
-          </FixedLayer>
+          </div>
         }</Layer>
     </div>
 )
