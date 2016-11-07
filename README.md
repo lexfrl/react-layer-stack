@@ -51,6 +51,10 @@ https://js.coach/?search=popover
 npm install --save react-layer-stack
 ```
 
+### Store layers in your redux store
+
+`react-layer-stack` provides `reducer` (`import { reducer } from 'react-layer-stack'`) which you can combine into your Redux store instead of using preconfigured `LayerStackProvider`. This is useful if you want to store everything in one store (which is good practice).
+
 ### Real-world usage example
 
 Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 additional: `LayerContext` (sometimes toggle needs to know which popover is open now).
