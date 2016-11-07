@@ -19,7 +19,7 @@ Canonical example is Tooltip-like component: at some point of development proces
   }}>Move your pointer to it.</button> )}
 </LayerContext>
 
-<Layer id="lightbox">{ ({ index, hideMe }, { content, top, left }) =>
+<Layer id="lightbox">{ _, { content, top, left }) =>
   <FixedLayer>
     <div style={{
       top, left, position: "absolute",
