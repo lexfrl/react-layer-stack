@@ -145,7 +145,7 @@ Another solution is to use on of ready-to-use components. But lot of times are y
 And the last option is to find library like https://github.com/tajo/react-portal or https://react-bootstrap.github.io/react-overlays/, designed ot address the needs of **bottom-to-up** communication. These libs are often quite opinionated to their cases and doesn't solve the problem in its roots. **react-layer-stack** aims to give an answer how to organise **bottom-to-up** communication in the most natural, reasonable and flexible way.
 
 ### The future
-Obviously there is a lot of applicaitons for the Layer API (https://github.com/fckt/react-layer-stack/blob/master/README.md#layer-). The cautious question is: could be it become a foundation or standart API to declare some kind of "universal" React "modules"? And could be the entire application become that "module"?
+Obviously there is a lot of applicaitons for the Layer API (https://github.com/fckt/react-layer-stack/blob/master/README.md#layer-). The cautious question is: could be it become a foundation or standart API to declare some kind of "universal" React "modules"? If so, could be the entire application become a "module"?
 
 ### Images to understand the whole thing
 #### View layers stack
