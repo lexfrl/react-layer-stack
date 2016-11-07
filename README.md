@@ -13,8 +13,6 @@ Canonical example is Tooltip-like component: at some point of development proces
 import React, { Component } from 'react';
 import { Layer, LayerContext } from 'react-layer-stack';
 
-import FixedLayer from './components/FixedLayer';
-
 class Demo extends Component {
   render() {
     return (
