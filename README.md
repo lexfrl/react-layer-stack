@@ -1,6 +1,6 @@
 [Live demo](https://fckt.github.io/react-layer-stack/)
 
-### Short rationale
+### Rationale
 `react`/`react-dom` comes comes with 2 basic assumptions/ideas:
 - every UI is naturally hierarchical. This why we have the idea of `components` which wrap each other
 - `react-dom` mounts child component to its parent DOM node by default
@@ -10,7 +10,7 @@ The problem is that sometimes the second property isn't what you want in your ca
 Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coord) and at the same time it needs information whether it needs to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarhy isn't match with the physical DOM hierarhy.
 
 
-### Rationale
+### Rationale v2
 
 I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-to-up** UI communication. **top-to-bottom** flow covers the most UI needs naturally, but sometimes you need to take control over UI element which is linked to parent logically (which means you need to use the local context of), but physically located in the different DOM branch. Modals, drag'n'drops, popovers, popups, windows - are the various examples of **bottom-to-up** UI elements (good analogy https://en.wikipedia.org/wiki/Zooming_user_interface).
 
