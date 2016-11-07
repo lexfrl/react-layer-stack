@@ -1,8 +1,18 @@
 [Live demo](https://fckt.github.io/react-layer-stack/)
 
-### Description
+### Short rationale
+`react`/`react-dom` comes comes with 2 basic assumptions/ideas:
+1. Every UI is naturally hierarchical and this why we have the idea of `components` which could wrap each other is wonderful
+2. `react-dom` mounts child component to its parent DOM node by default
 
-I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-to-up** UI communication. **top-to-bottom** flow covers the most UI needs naturally, but sometimes you need to take control over UI element which is linked to parent logically (means you need to use the local context of), but physically located in the different DOM branch. Modals, drag'n'drops, popovers, popups, windows - are the various examples of **bottom-to-up** UI elements (good analogy https://en.wikipedia.org/wiki/Zooming_user_interface).
+The problem is that sometimes the second property isn't what you want in your case. Sometimes you want to mount your component into different physical DOM node and at the same time hold logical connection beetween parent and child.
+
+Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coord) and at the same time it needs information whether it need to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarhy isn't match with the physical DOM hierarhy.
+
+
+### Rationale
+
+I've designed `react-layer-stack` to fix one of the most tricky problems React users are facing with: **bottom-to-up** UI communication. **top-to-bottom** flow covers the most UI needs naturally, but sometimes you need to take control over UI element which is linked to parent logically (which means you need to use the local context of), but physically located in the different DOM branch. Modals, drag'n'drops, popovers, popups, windows - are the various examples of **bottom-to-up** UI elements (good analogy https://en.wikipedia.org/wiki/Zooming_user_interface).
 
 This lib allows to hold (or share) context (closure) of deep children components with the top layers: you can use variables from closure (which will propagate automatically if you'll provide it to `use` property of `Layer`). Anonymous function which renders `Layer` into `LayerStackMountPoint` receives: layer info (state, index in stack), callbacks (to show and hide layers) and event data from the toggle which controlls this `Layer`.
 
