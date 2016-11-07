@@ -9,6 +9,32 @@ The problem is that sometimes the second property isn't what you want in your ca
 
 Canonical example is Tooltip-like component: at some point of development process you could find that you need to add some description for your `UI element`: it'll render in fixed layer and should know its coordinates (which are that `UI element` coord or mouse coords) and at the same time it needs information whether it needs to be shown right now or not, its content and some context from parent components. This example shows that sometimes logical hierarhy isn't match with the physical DOM hierarhy.
 
+```javascript
+<LayerContext id="lightbox">{({ showMe, hideMe }) => (
+  <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
+    showMe({
+      left: pageX + 20, top: pageY,
+      content: `“More Content! More!”,`,
+    })
+  }}>Move your pointer to it.</button> )}
+</LayerContext>
+
+<Layer id="lightbox">{ ({ index, hideMe }, { content, top, left, width }) =>
+  <FixedLayer>
+    <div style={{
+      top, left, position: "absolute",
+      padding: '10px',
+      background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
+      boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
+        { content }
+    </div>
+  </FixedLayer>
+}</Layer>
+```
+
+Another option could be use one of dozens complete impementations:
+https://js.coach/?search=popover
+
 ### Installation
 ```
 npm install --save react-layer-stack
