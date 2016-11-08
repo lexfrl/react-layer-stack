@@ -1,11 +1,11 @@
 [Live demo](https://fckt.github.io/react-layer-stack/)
 
 ### Related Stackoverflow q&a
-http://stackoverflow.com/a/40461655/524034
-http://stackoverflow.com/questions/40443160/bootstrap-modal-like-behavior-in-react
-http://stackoverflow.com/questions/40444788/rendering-a-modal-in-react
-http://stackoverflow.com/questions/39805544/showing-list-of-buttons-displaying-modals-in-reactjs
-http://stackoverflow.com/questions/39913593/dynamically-displaying-data-from-a-clickable-table-row-into-a-modal
+- http://stackoverflow.com/a/40461655/524034
+- http://stackoverflow.com/questions/40443160/bootstrap-modal-like-behavior-in-react
+- http://stackoverflow.com/questions/40444788/rendering-a-modal-in-react
+- http://stackoverflow.com/questions/39805544/showing-list-of-buttons-displaying-modals-in-reactjs
+- http://stackoverflow.com/questions/39913593/dynamically-displaying-data-from-a-clickable-table-row-into-a-modal
 
 ### Rationale
 `react`/`react-dom` comes comes with 2 basic assumptions/ideas:
