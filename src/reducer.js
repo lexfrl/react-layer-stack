@@ -6,6 +6,7 @@ export const ACTIONS = {
   unregister: createAction('LAYER_STACK_VIEW_UNREGISTER', (id) => ({ id })),
   toggle: createAction('LAYER_STACK_VIEW_TOGGLE'),
   show: createAction('LAYER_STACK_VIEW_SHOW', (id, ...args) => ({ id, args: args })),
+  setArgs: createAction('LAYER_STACK_VIEW_SET_ARGS', (id, ...args) => ({ id, args: args })),
   hide: createAction('LAYER_STACK_VIEW_HIDE'),
   hideAll: createAction('LAYER_STACK_VIEW_HIDE_ALL'),
 };
@@ -32,6 +33,13 @@ export default handleActions({
       newDisplaying = [...displaying, id]
     }
     return {...state, views: { ...views, ...{ [id]: newView } } , displaying: newDisplaying };
+  },
+  'LAYER_STACK_VIEW_SET_ARGS': ({views, ...state}, { payload: { id, args }}) => {
+    const newView = { ...views[id] };
+    if (0 !== args.length) {
+      newView.args = args;
+    }
+    return {...state, views: { ...views, ...{ [id]: newView } } };
   },
   'LAYER_STACK_VIEW_HIDE': ({...state, displaying}, { payload: id }) => {
     if (typeof id !== 'string') {

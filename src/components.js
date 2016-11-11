@@ -44,7 +44,9 @@ export const Layer = (namespace = 'layer_stack') => connect(
   componentWillMount() {
     this.props.register(this.props.id, this.props.children, this.props.mountPointId);
     if (this.props.showInitially) {
-      this.props.show(this.props.id, this.props.defaultArgs || [])
+      this.props.show(this.props.id, ...(this.props.initialArgs || []))
+    } else {
+      this.props.setArgs(this.props.id, ...(this.props.initialArgs || []))
     }
   },
   shouldComponentUpdate(newProps) {
@@ -99,5 +101,5 @@ export const LayerContext = (namespace = 'layer_stack') => connect(
     showMe: (...args) => show(id, ...args),
     showOnlyMe: (...args) => hideAll() || show(id, ...args),
     hideMe: () => hide(id),
-  });
+  }, ...views[id].args);
 });
