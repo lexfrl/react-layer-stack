@@ -42,7 +42,7 @@ class Demo extends Component {
                 </div>)
             }}>Yet another button. Move your pointer to it.</button> )}
           </LayerContext>
-    </div>
+      </div>
     )
   }
 }
