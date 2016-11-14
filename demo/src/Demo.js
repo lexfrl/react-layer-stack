@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CircularJSON from 'circular-json';
 import Highlight from 'react-highlight';
 import Markdown from 'react-remarkable';
 
@@ -40,27 +41,7 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <Layer id="layer_state_infobox" showInitially>{({views, displaying}) =>
-          <FixedLayer>
-            <div style={{ position:'absolute',
-                          bottom: '0', right: '0',
-                          width: '350px', height: '100%',
-                          padding: '20px',
-                          background: 'rgba(0,0,0,0.8)', color: '#fff'}}>
-              <Markdown>
-                #### Layers displaying:
-                <Highlight className="js">
-                { JSON.stringify(displaying, null, '  ') }
-                </Highlight>
-                #### Layers registered:
-                <Highlight className="js">
-                { JSON.stringify(views, null, '  ') }
-                </Highlight>
-              </Markdown>
-
-            </div>
-          </FixedLayer>}
-        </Layer>
+        { this.renderDebugLayer() }
         { this.renderMovableWindow() }
         { this.renderSimpleWindow() }
         { this.renderLightbox() }
@@ -74,24 +55,36 @@ class Demo extends Component {
             <button onClick={ () => isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
           </LayerContext>
 
-          #### LIGHTBOX
+
+          #### LIGHTBOX target-oriented
           <LayerContext id="lightbox">{({ showMe, hideMe }) => (
             <button onMouseLeave={ hideMe } onMouseEnter={ ({ nativeEvent: { relatedTarget } }) => {
               const { left, top, width } = relatedTarget.getClientRects()[0];
-              showMe({
-                left: left + width + 10, top,
-                content: `“Bill Clinton’s 1992 campaign was a classic example of sticky ideas at work in a difficult environment. Not only did the campaign have the normal set of complexities, Clinton himself added a few new wrinkles.”,`,
-              })
+              showMe(
+                <div style={{
+                      left: left + width + 20, top, position: "absolute",
+                      padding: '10px',
+                      background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
+                      boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
+                   “There has to be message triage. If you say three things, you don’t say anything.”
+                </div>
+              )
             }}>A button. Move your pointer to it.</button> )}
           </LayerContext>
 
-          #### LIGHTBOX pointer-oriented
+
+
+          #### LIGHTBOX pointer-oriented v2
           <LayerContext id="lightbox">{({ showMe, hideMe }) => (
             <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
-              showMe({
-                left: pageX + 20, top: pageY,
-                content: `“It follows the pointer, but still the same Layer with different args.”,`,
-              })
+              showMe(
+                <div style={{
+                      left: pageX + 20, top: pageY, position: "absolute",
+                      padding: '10px',
+                      background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
+                      boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
+                   “There has to be message triage. If you say three things, you don’t say anything.”
+                </div>)
             }}>Yet another button. Move your pointer to it.</button> )}
           </LayerContext>
 
@@ -112,15 +105,9 @@ class Demo extends Component {
 
   renderLightbox() {
     return (
-      <Layer use={ [this.state.counter] } id="lightbox">{ ({ index, hideMe }, { content, top, left, width }) =>
+      <Layer id="lightbox">{ (_, content) =>
         <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
-          <div style={{
-            top, left, position: "absolute",
-            padding: '10px',
-            background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
-            boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
-              { content } And also: { JSON.stringify(this.state) }
-          </div>
+          { content }
         </FixedLayer>
       }</Layer>
     )
@@ -195,10 +182,13 @@ class Demo extends Component {
 
                   <LayerContext id="lightbox">{({ showMe, hideMe }) => (
                     <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
-                    showMe({
-                      left: pageX + 20, top: pageY,
-                      content: `“This is a demonstration of layers of composition of composition of composition ...  of composition”,`,
-                    })
+                    showMe(<div style={{
+                      left: pageX + 20, top: pageY, position: "absolute",
+                      padding: '10px',
+                      background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
+                      boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
+                   “In fact, psychologists have found that people can be driven to irrational decisions by too much complexity and uncertainty.”
+                </div>)
                   }}>Yet another button. Move your pointer to it.</button> )}
                   </LayerContext>
                   ##### Arguments:
@@ -215,6 +205,29 @@ class Demo extends Component {
         </FixedLayer> )}
       </Layer>
     )
+  }
+
+  renderDebugLayer() {
+    return <Layer id="layer_state_infobox" showInitially>{({views, displaying}) =>
+      <FixedLayer>
+        <div style={{ position:'absolute',
+                          bottom: '0', right: '0',
+                          width: '350px', height: '100%',
+                          padding: '20px',
+                          background: 'rgba(0,0,0,0.8)', color: '#fff'}}>
+          <Markdown>
+            #### Layers displaying:
+            <Highlight className="js">
+              { CircularJSON.stringify(displaying, null, '  ') }
+            </Highlight>
+            #### Layers registered:
+            <Highlight className="js">
+              { CircularJSON.stringify(views, null, '  ') }
+            </Highlight>
+          </Markdown>
+        </div>
+      </FixedLayer>}
+    </Layer>
   }
 }
 
