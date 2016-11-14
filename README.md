@@ -24,28 +24,28 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <LayerContext id="lightbox">{({ showMe, hideMe }) => (
-          <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
-            showMe({
-              left: pageX + 20, top: pageY,
-              content: `“More Content! More!”,`,
-            })
-          }}>Move your pointer to it.</button> )}
-        </LayerContext>
-
-        <Layer id="lightbox">{(_, { content, top, left }) => // will be rendered into <LayerStackMountPoint />
-          <div style={{ position: "fixed" }}>
-            <div style={{
-              top, left, position: "absolute",
-              padding: '10px',
-              background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
-              boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
-                { content }
-            </div>
-          </div>
+        <Layer id="lightbox2">{ (_, content) =>
+          <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
+            { content }
+          </FixedLayer>
         }</Layer>
+
+        <LayerContext id="lightbox2">{({ showMe, hideMe }) => (
+            <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
+              showMe(
+                <div style={{
+                      left: pageX, top: pageY + 20, position: "absolute",
+                      padding: '10px',
+                      background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
+                      boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
+                   “There has to be message triage. If you say three things, you don’t say anything.”
+                </div>)
+            }}>Yet another button. Move your pointer to it.</button> )}
+          </LayerContext>
     </div>
-)
+    )
+  }
+}
 ```
 
 Another option could be use one of dozens complete implementations with different properties:
