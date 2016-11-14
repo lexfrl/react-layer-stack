@@ -64,6 +64,8 @@ npm install --save react-layer-stack
 
 ### API
 
+3 components with few properties.
+
 #### `<LayerStackMountPoint />`
 
 This is mount point for `Layers`. 
