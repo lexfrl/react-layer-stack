@@ -7,6 +7,8 @@
 - http://stackoverflow.com/questions/39805544/showing-list-of-buttons-displaying-modals-in-reactjs
 - http://stackoverflow.com/questions/39913593/dynamically-displaying-data-from-a-clickable-table-row-into-a-modal
 
+The easiest way to support `react-layer-stack` is to upvote the answers below.
+
 ### Rationale
 `react`/`react-dom` comes comes with 2 basic assumptions/ideas:
 - every UI is hierarchical naturally. This why we have the idea of "`components` wrap each other"
