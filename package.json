@@ -36,7 +36,8 @@
     "lightbox",
     "portal",
     "transportation",
-    "bottom-up"
+    "bottom-up",
+    "redux"
   ],
   "devDependencies": {
     "babel-cli": "^6.16.0",
