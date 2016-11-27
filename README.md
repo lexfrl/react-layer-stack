@@ -1,4 +1,5 @@
 [Live demo](https://fckt.github.io/react-layer-stack/)
+[Chat](https://gitter.im/react-layer-stack/Lobby)
 
 ### Rationale
 `react`/`react-dom` comes comes with 2 basic assumptions/ideas:
