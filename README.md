@@ -26,9 +26,9 @@ class Demo extends Component {
           </FixedLayer>
         }</Layer>
 
-        <LayerContext id="lightbox2">{({ showMe, hideMe }) => (
-            <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
-              showMe(
+        <LayerContext id="lightbox2">{({ show, hide }) => (
+            <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
+              show(
                 <div style={{
                       left: pageX, top: pageY + 20, position: "absolute",
                       padding: '10px',
@@ -78,13 +78,13 @@ This is mount point for `Layers`.
 
 `use: array` - array with context variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
 
-`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }, ...args): ReactElement` - will be rendered into 
+`children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }, ...args): ReactElement` - will be rendered into 
 
 #### `<LayerContext />`
 
 `id: string` - a Layer identificator which LayerContext corresponds to
 
-`children: callback({ isActive, showMe: callback(args), showOnlyMe, hideMe, hideAll }): ReactElement` - will be mounted (rendered) directly to its parent
+`children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }): ReactElement` - will be mounted (rendered) directly to its parent
 
 ### Store layers in your redux store
 
@@ -123,22 +123,22 @@ return (
     <Cell {...props}>
         // the layer definition. The content will show up in the LayerStackMountPoint when `show(modalId)` be fired in LayerContext
         <Layer use={[objects[rowIndex], rowIndex]} id={modalId}> {({
-            hideMe, // alias for `hide(modalId)`
+            hide, // alias for `hide(modalId)`
             index } // useful to know to set zIndex, for example
             , e) => // access to the arguments (click event data in this example)
-          <Modal onClick={ hideMe } zIndex={(index + 1) * 1000}>
+          <Modal onClick={ hide } zIndex={(index + 1) * 1000}>
             <ConfirmationDialog
               title={ 'Delete' }
               message={ "You're about to delete to " + '"' + objects[rowIndex].name + '"' }
               confirmButton={ <Button type="primary">DELETE</Button> }
-              onConfirm={ this.handleDeleteObject.bind(this, objects[rowIndex].name, hideMe) } // hide after confirmation
-              close={ hideMe } />
+              onConfirm={ this.handleDeleteObject.bind(this, objects[rowIndex].name, hide) } // hide after confirmation
+              close={ hide } />
           </Modal> }
         </Layer>
         
         // this is the toggle for Layer with `id === modalId` can be defined everywhere in the components tree
-        <LayerContext id={ modalId }> {({showMe}) => // showMe is alias for `show(modalId)`
-          <div style={styles.iconOverlay} onClick={ (e) => showMe(e) }> // additional arguments can be passed (like event)
+        <LayerContext id={ modalId }> {({show}) => // show is alias for `show(modalId)`
+          <div style={styles.iconOverlay} onClick={ (e) => show(e) }> // additional arguments can be passed (like event)
             <Icon type="trash" />
           </div> }
         </LayerContext>

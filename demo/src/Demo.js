@@ -51,16 +51,16 @@ class Demo extends Component {
               { JSON.stringify(this.state, null, '\t') }
 
           #### LAYER STATE TOGGLE
-          <LayerContext id="layer_state_infobox">{({ showMe, hideMe, isActive }) => (
-            <button onClick={ () => isActive ? hideMe() : showMe() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
+          <LayerContext id="layer_state_infobox">{({ show, hide, isActive }) => (
+            <button onClick={ () => isActive ? hide() : show() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
           </LayerContext>
 
 
           #### LIGHTBOX target-oriented
-          <LayerContext id="lightbox">{({ showMe, hideMe }) => (
-            <button onMouseLeave={ hideMe } onMouseEnter={ ({ nativeEvent: { relatedTarget } }) => {
+          <LayerContext id="lightbox">{({ show, hide }) => (
+            <button onMouseLeave={ hide } onMouseEnter={ ({ nativeEvent: { relatedTarget } }) => {
               const { left, top, width } = relatedTarget.getClientRects()[0];
-              showMe(
+              show(
                 <div style={{
                       left: left + width + 20, top, position: "absolute",
                       padding: '10px',
@@ -75,9 +75,9 @@ class Demo extends Component {
 
 
           #### LIGHTBOX pointer-oriented v2
-          <LayerContext id="lightbox">{({ showMe, hideMe }) => (
-            <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
-              showMe(
+          <LayerContext id="lightbox">{({ show, hide }) => (
+            <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
+              show(
                 <div style={{
                       left: pageX + 20, top: pageY, position: "absolute",
                       padding: '10px',
@@ -89,13 +89,13 @@ class Demo extends Component {
           </LayerContext>
 
           #### MOVABLE WINDOWS
-          <LayerContext id="movable_window">{({ showMe }) => (
-            <button onClick={ () => showMe() }>OPEN MOVABLE WINDOW</button> )}
+          <LayerContext id="movable_window">{({ show }) => (
+            <button onClick={ () => show() }>OPEN MOVABLE WINDOW</button> )}
           </LayerContext>
 
           #### SIMPLE MODALS
-          <LayerContext id="simple_window">{({ showMe }) => (
-            <button onClick={ () => showMe() }>OPEN SIMPLE MODAL</button> )}
+          <LayerContext id="simple_window">{({ show }) => (
+            <button onClick={ () => show() }>OPEN SIMPLE MODAL</button> )}
           </LayerContext>
 
         </Markdown>
@@ -116,10 +116,10 @@ class Demo extends Component {
   renderSimpleWindow() {
     return (
       <Layer
-        id="simple_window">{({index, hideMe, showMe}) => (
+        id="simple_window">{({index, hide, show}) => (
         <FixedLayer
           style={ { background: 'rgba(0,0,0,0.3)' } }
-          onClick={ hideMe }
+          onClick={ hide }
           zIndex={ index * 100 }>
           <Window style={{margin: 'auto'}}>
             <div style={styles.header}>
@@ -137,7 +137,7 @@ class Demo extends Component {
     return (
       <Layer
         use={[this.state.counter]}  // data from the context
-        id="movable_window">{({index, hideMe, showMe}, {
+        id="movable_window">{({index, hide, show}, {
           ...rest,
           pinned = false,
           mouseDown = false,
@@ -146,8 +146,8 @@ class Demo extends Component {
           windowLeft = 670,
           windowTop = 100} = {}) => (
         <FixedLayer
-          onMouseDown={() => showMe({...rest, mouseDown: true})}
-          onMouseUp={() => showMe({...rest, mouseDown: false})}
+          onMouseDown={() => show({...rest, mouseDown: true})}
+          onMouseUp={() => show({...rest, mouseDown: false})}
           onMouseMove={({ screenX, screenY}) => {
             const newArgs = {
               mouseLastPositionX: screenX, mouseLastPositionY: screenY
@@ -156,18 +156,18 @@ class Demo extends Component {
               newArgs.windowLeft =  windowLeft + (screenX - mouseLastPositionX);
               newArgs.windowTop =  windowTop + (screenY - mouseLastPositionY);
             }
-            showMe({...rest, ...newArgs})
+            show({...rest, ...newArgs})
           }}
-          onClick={ hideMe }
+          onClick={ hide }
           zIndex={ index * 100 }>
             <Window style={{ top: windowTop, left: windowLeft }}>
               <div
                 style={styles.header}
-                onMouseEnter={() => mouseDown || showMe({...rest, pinned: true})}
-                onMouseLeave={() => mouseDown || showMe({...rest, pinned: false})}>
+                onMouseEnter={() => mouseDown || show({...rest, pinned: true})}
+                onMouseLeave={() => mouseDown || show({...rest, pinned: false})}>
                 PIN TO MOVE
                 <div
-                  onClick={hideMe}
+                  onClick={hide}
                   style={{
                     cursor:'pointer',
                     float: 'right',
@@ -180,9 +180,9 @@ class Demo extends Component {
                 <Markdown>
                   ##### Layer inside Layer (inside Layer inside Layer inside Layer inside Layer inside Layer inside Layer ...  inside Layer)
 
-                  <LayerContext id="lightbox">{({ showMe, hideMe }) => (
-                    <button onMouseLeave={ hideMe } onMouseMove={ ({ pageX, pageY }) => {
-                    showMe(<div style={{
+                  <LayerContext id="lightbox">{({ show, hide }) => (
+                    <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
+                    show(<div style={{
                       left: pageX + 20, top: pageY, position: "absolute",
                       padding: '10px',
                       background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',

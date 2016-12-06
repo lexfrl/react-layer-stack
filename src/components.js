@@ -19,11 +19,11 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
             const view = views[id];
             if (view && view.renderFn && view.mountPointId === mountPointId) {
               return view.renderFn({
-                index, id, show, hide, hideAll, displaying, views, mountPointArgs, // seems like there is no valid use-case mountPointId in the Layer render function
+                index, id, hideAll, displaying, views, mountPointArgs, // seems like there is no valid use-case mountPointId in the Layer render function
                 showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: think about improvement
-                hideMe: () => hide(id), // intention here is to hide ID's management from Layer and let app developer manage these IDs independently
-                                        // which will give an ability to write general-purpose Layers and share them b/w projects
-                showMe: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
+                hide: () => hide(id), // intention here is to hide ID's management from Layer and let app developer manage these IDs independently
+                // which will give an ability to write general-purpose Layers and share them b/w projects
+                show: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
               }, ...view.args)
             }
             if (typeof view === 'undefined' || typeof view.renderFn === 'undefined') {
@@ -96,10 +96,10 @@ export const LayerContext = (namespace = 'layer_stack') => connect(
   displaying, show, hide, hideAll, views // from store
 }) => {
   return children({
-    show, hide, hideAll, displaying, views,
+    hideAll, displaying, views,
     isActive: displaying.indexOf(id) !== -1,
-    showMe: (...args) => show(id, ...args),
+    show: (...args) => id ? show(id, ...args) : show(...args),
     showOnlyMe: (...args) => hideAll() || show(id, ...args),
-    hideMe: () => hide(id),
+    hide: (...args) => id ? hide(id, ...args) : hide(...args),
   }, ...views[id].args);
 });
