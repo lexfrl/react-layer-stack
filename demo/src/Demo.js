@@ -106,9 +106,6 @@ class Demo extends Component {
 
           ### Drag & Drop
           <div style={{ width: "420px", height: "500px", overflowY: "scroll", border: "5px dashed blue" }}>
-            <Layer showInitially>{ ({ show }) =>
-              <div ref={  }></div>
-            }</Layer>
             <LayerStackMountPoint id="box1" />
           </div>
 
