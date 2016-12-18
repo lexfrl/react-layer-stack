@@ -3,7 +3,7 @@ import CircularJSON from 'circular-json';
 import Highlight from 'react-highlight';
 import Markdown from 'react-remarkable';
 
-import { Layer, LayerContext } from 'react-layer-stack';
+import { Layer, LayerContext, LayerStackMountPoint } from 'react-layer-stack';
 
 import FixedLayer from './components/FixedLayer';
 import Window from './components/Window';
@@ -34,7 +34,13 @@ const styles = {
 class Demo extends Component {
 
   componentWillMount() {
-    this.setState({counter: 1})
+    this.setState({
+      cats: [
+        { name: 'Funny-Cat-Jokes2.jpg', boxId: 'box1' },
+        { name: 'Funny-Cats-Funny-Cat-Picture-052-FunnyPica.com_.jpg',
+          boxId: 'box1' },
+        { name: 'a789284ca15a4f2d9208975e81705cdd.jpg', boxId: 'box1' },],
+      counter: 1})
     setInterval(() => this.setState({counter: this.state.counter + 1}), 1000)
   }
 
@@ -45,10 +51,10 @@ class Demo extends Component {
         { this.renderMovableWindow() }
         { this.renderSimpleWindow() }
         { this.renderLightbox() }
+        { this.renderDragObject() }
         <Markdown>
-
           #### DEMO top component data
-              { JSON.stringify(this.state, null, '\t') }
+              { JSON.stringify(this.state.counter, null, '\t') }
 
           #### LAYER STATE TOGGLE
           <LayerContext id="layer_state_infobox">{({ show, hide, isActive }) => (
@@ -97,6 +103,31 @@ class Demo extends Component {
           <LayerContext id="simple_window">{({ show }) => (
             <button onClick={ () => show() }>OPEN SIMPLE MODAL</button> )}
           </LayerContext>
+
+          ### Drag & Drop
+          <div style={{ width: "420px", height: "500px", overflowY: "scroll", border: "5px dashed blue" }}>
+            <Layer showInitially>{ ({ show }) =>
+              <div ref={  }></div>
+            }</Layer>
+            <LayerStackMountPoint id="box1" />
+          </div>
+
+          <div style={{ width: "420px", height: "500px", overflowY: "scroll", border: "5px dashed red" }}>
+            <LayerStackMountPoint id="box2"/>
+          </div>
+          <div>{
+            this.state.cats.map(( {boxId, name} ) =>
+              <Layer showInitially mountPointId={ boxId } id={ name } initialArgs={ [{drag:false}] }>{ ({ show }, { drag }) =>
+                <div style={{ minWidth: '200px', minHeight: '200px', float: 'left' }}
+                     onMouseUp={ () => show({drag: false}) }
+                     onMouseDown={ () => show({drag: true}) }
+                     onMouseMove={ () => {} }
+                >
+                  <img draggable="false" style={{ userSelect: 'none' }} src={ '/img/cats/' + name } />
+                </div>
+              }</Layer>
+            )
+          }</div>
 
         </Markdown>
       </div>
@@ -181,9 +212,9 @@ class Demo extends Component {
                   ##### Layer inside Layer (inside Layer inside Layer inside Layer inside Layer inside Layer inside Layer ...  inside Layer)
 
                   <LayerContext id="lightbox">{({ show, hide }) => (
-                    <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
+                    <button onMouseLeave={ hide } onMouseMove={ ({ screenX, screenY }) => {
                     show(<div style={{
-                      left: pageX + 20, top: pageY, position: "absolute",
+                      left: screenX + 20, top: screenY, position: "absolute",
                       padding: '10px',
                       background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
                       boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
@@ -197,7 +228,7 @@ class Demo extends Component {
                   </Highlight>
                   ##### Data from outer component (closure/context):
                   <Highlight className="js">
-                    { JSON.stringify(this.state, null, '\t') }
+                    { JSON.stringify(this.state.counter, null, '\t') }
                   </Highlight>
                 </Markdown>
               </div>
@@ -206,6 +237,17 @@ class Demo extends Component {
       </Layer>
     )
   }
+
+  renderDragObject() {
+    return <Layer id="drag_object">{ (_, { element, targets, pageX, pageY, data }) =>
+      <FixedLayer>
+        <div style={{ left: pageX, top: pageY }}>
+          { element }
+        </div>
+      </FixedLayer>
+    }</Layer>
+  }
+
 
   renderDebugLayer() {
     return <Layer id="layer_state_infobox" showInitially>{({views, displaying}) =>
