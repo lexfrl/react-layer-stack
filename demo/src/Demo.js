@@ -76,10 +76,10 @@ class Demo extends Component {
 
           #### LIGHTBOX pointer-oriented v2
           <LayerContext id="lightbox">{({ show, hide }) => (
-            <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
+            <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
               show(
                 <div style={{
-                      left: pageX + 20, top: pageY, position: "absolute",
+                      left: clientX + 20, top: clientY, position: "absolute",
                       padding: '10px',
                       background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
                       boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
@@ -181,9 +181,9 @@ class Demo extends Component {
                   ##### Layer inside Layer (inside Layer inside Layer inside Layer inside Layer inside Layer inside Layer ...  inside Layer)
 
                   <LayerContext id="lightbox">{({ show, hide }) => (
-                    <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
+                    <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
                     show(<div style={{
-                      left: pageX + 20, top: pageY, position: "absolute",
+                      left: clientX + 20, top: clientY, position: "absolute",
                       padding: '10px',
                       background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
                       boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
