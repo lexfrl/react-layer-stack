@@ -50,7 +50,8 @@ export const Layer = (namespace = 'layer_stack') => connect(
     }
   },
   shouldComponentUpdate(newProps) {
-    const { use, children, register, id, mountPointId } = this.props;
+    const { children, register, id, mountPointId } = this.props;
+    const use = Array.isArray(this.props.use) ? this.props.use : [this.props.use];
     let needUpdate = false;
     if (id !== newProps.id || mountPointId !== newProps.mountPointId) {
       needUpdate = true;
