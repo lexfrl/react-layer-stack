@@ -11,6 +11,12 @@ const styles = (onClick) => ({
   height: '100%',
 });
 
+const escapeStack = [];
+
+window.addEventListener('keydown',
+  (e) => escapeStack.length && 27 === e.keyCode && escapeStack[escapeStack.length-1].call(null, e),
+  true);
+
 export default class FixedLayer extends Component {
 
   static defaultProps = {
@@ -18,9 +24,22 @@ export default class FixedLayer extends Component {
     onClick: null,
   };
 
+  componentWillMount() {
+    if (this.props.onEsc) {
+      escapeStack.push(this.props.onEsc)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.onEsc) {
+      escapeStack.pop()
+    }
+  }
+
   render () {
     const divProps = { ...this.props };
     delete divProps.zIndex;
+    delete divProps.onEsc;
     return (
       <div { ...divProps }
         onClick={ (e) => this.props.onClick && (e.target === ReactDom.findDOMNode(this)) && this.props.onClick() }

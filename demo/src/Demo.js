@@ -43,7 +43,7 @@ class Demo extends Component {
       <div>
         { this.renderDebugLayer() }
         { this.renderMovableWindow() }
-        { this.renderSimpleWindow() }
+        { this.renderSimpleModal() }
         { this.renderLightbox() }
         <Markdown>
 
@@ -94,7 +94,7 @@ class Demo extends Component {
           </LayerContext>
 
           #### SIMPLE MODALS
-          <LayerContext id="simple_window">{({ show }) => (
+          <LayerContext id="simple_modal">{({ show }) => (
             <button onClick={ () => show() }>OPEN SIMPLE MODAL</button> )}
           </LayerContext>
 
@@ -113,12 +113,13 @@ class Demo extends Component {
     )
   }
 
-  renderSimpleWindow() {
+  renderSimpleModal() {
     return (
       <Layer
-        id="simple_window">{({index, hide, show}) => (
+        id="simple_modal">{({index, hide, show}) => (
         <FixedLayer
           style={ { background: 'rgba(0,0,0,0.3)' } }
+          onEsc={ hide }
           onClick={ hide }
           zIndex={ index * 100 }>
           <Window style={{margin: 'auto'}}>

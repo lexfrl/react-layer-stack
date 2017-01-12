@@ -41,6 +41,10 @@ export const Layer = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )((React.createClass({
+  propTypes: {
+    use: PropTypes.array
+  },
+
   componentWillMount() {
     this.props.register(this.props.id, this.props.children, this.props.mountPointId);
     if (this.props.showInitially) {
@@ -50,8 +54,7 @@ export const Layer = (namespace = 'layer_stack') => connect(
     }
   },
   shouldComponentUpdate(newProps) {
-    const { children, register, id, mountPointId } = this.props;
-    const use = Array.isArray(this.props.use) ? this.props.use : [this.props.use];
+    const { children, register, id, mountPointId, use } = this.props;
     let needUpdate = false;
     if (id !== newProps.id || mountPointId !== newProps.mountPointId) {
       needUpdate = true;
