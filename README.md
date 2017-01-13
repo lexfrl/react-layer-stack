@@ -146,6 +146,9 @@ return (
 // ...
 ```
 
+### ReactDOM.unstable_createPortal
+Facebook team is working on the similar [feature](https://github.com/facebook/react/blob/d28ac9eea0cad6be949cc9d3f973cf548e89bf97/src/renderers/dom/fiber/__tests__/ReactDOMFiber-test.js#L254) called "portals" (by analogy with https://github.com/tajo/react-portal). That approach uses `ReactDOM` (API) which is fatal if browser is not the only target. There are [other considerations](https://github.com/facebook/react/pull/8386#issuecomment-265628702) also. 
+
 ### Alternatives
 The is a lot of alternative ways to archive the desirable **bottom-to-up** link b/w components.
 
