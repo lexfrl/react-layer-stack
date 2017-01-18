@@ -88,7 +88,7 @@ This is mount point for `Layers`.
 
 ### Store layers in your redux store
 
-`react-layer-stack` provides `reducer` (`import { reducer } from 'react-layer-stack'`) which you can combine into your Redux store instead of using preconfigured `LayerStackProvider`. This is useful if you want to store everything in one store (which is good practice).
+`react-layer-stack` provides `reducer` (`import { reducer } from 'react-layer-stack'`) which you can combine into your Redux store instead of using preconfigured `LayerStackProvider`. This is useful if you want to store everything in one store (which is a good practice).
 
 ### Real-world usage example
 
