@@ -26,7 +26,7 @@ class Demo extends Component {
           </FixedLayer>
         }</Layer>
 
-        <LayerToggle id="lightbox2">{({ show, hide }) => (
+        <LayerToggle for="lightbox2">{({ show, hide }) => (
             <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
               show(
                 <div style={{
@@ -86,7 +86,7 @@ This is a mount point for `Layer`s.
 
 `LayerToggle` is a helper to have access for show/hide callbacks and the current state of the layer. There could be multiple `LayerToggle`s for the same `Layer`.
 
-`id: string` - a Layer identificator which LayerToggle corresponds to
+`for: string` - a Layer identificator which LayerToggle corresponds to
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }): ReactElement` - will be mounted (rendered) directly to its parent
 
@@ -141,7 +141,7 @@ return (
         </Layer>
         
         // this is the toggle for Layer with `id === modalId` can be defined everywhere in the components tree
-        <LayerToggle id={ modalId }> {({show}) => // show is alias for `show(modalId)`
+        <LayerToggle for={ modalId }> {({show}) => // show is alias for `show(modalId)`
           <div style={styles.iconOverlay} onClick={ (e) => show(e) }> // additional arguments can be passed (like event)
             <Icon type="trash" />
           </div> }

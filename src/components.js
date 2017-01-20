@@ -96,14 +96,14 @@ export const LayerToggle = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )(({
-  children, id, // from props
-  displaying, show, hide, hideAll, views // from store
+  children, // from props
+  displaying, show, hide, hideAll, views, ...props, // from store
 }) => {
   return children({
     hideAll, displaying, views,
-    isActive: displaying.indexOf(id) !== -1,
-    show: (...args) => id ? show(id, ...args) : show(...args),
-    showOnlyMe: (...args) => hideAll() || show(id, ...args),
-    hide: (...args) => id ? hide(id, ...args) : hide(...args),
-  }, ...views[id].args);
+    isActive: displaying.indexOf(props.for) !== -1,
+    show: (...args) => props.for ? show(props.for, ...args) : show(...args),
+    showOnlyMe: (...args) => hideAll() || show(props.for, ...args),
+    hide: (...args) => props.for ? hide(props.for, ...args) : hide(...args),
+  }, ...views[props.for].args);
 });

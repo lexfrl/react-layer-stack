@@ -51,13 +51,13 @@ class Demo extends Component {
               { JSON.stringify(this.state, null, '\t') }
 
           #### LAYER STATE TOGGLE
-          <LayerToggle id="layer_state_infobox">{({ show, hide, isActive }) => (
+          <LayerToggle for="layer_state_infobox">{({ show, hide, isActive }) => (
             <button onClick={ () => isActive ? hide() : show() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
           </LayerToggle>
 
 
           #### LIGHTBOX target-oriented
-          <LayerToggle id="lightbox">{({ show, hide }) => (
+          <LayerToggle for="lightbox">{({ show, hide }) => (
             <button onMouseLeave={ hide } onMouseEnter={ ({ nativeEvent: { relatedTarget } }) => {
               const { left, top, width } = relatedTarget.getClientRects()[0];
               show(
@@ -75,7 +75,7 @@ class Demo extends Component {
 
 
           #### LIGHTBOX pointer-oriented v2
-          <LayerToggle id="lightbox">{({ show, hide }) => (
+          <LayerToggle for="lightbox">{({ show, hide }) => (
             <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
               show(
                 <div style={{
@@ -89,12 +89,12 @@ class Demo extends Component {
           </LayerToggle>
 
           #### MOVABLE WINDOWS
-          <LayerToggle id="movable_window">{({ show }) => (
+          <LayerToggle for="movable_window">{({ show }) => (
             <button onClick={ () => show() }>OPEN MOVABLE WINDOW</button> )}
           </LayerToggle>
 
           #### SIMPLE MODALS
-          <LayerToggle id="simple_modal">{({ show }) => (
+          <LayerToggle for="simple_modal">{({ show }) => (
             <button onClick={ () => show() }>OPEN SIMPLE MODAL</button> )}
           </LayerToggle>
 
@@ -181,7 +181,7 @@ class Demo extends Component {
                 <Markdown>
                   ##### Layer inside Layer (inside Layer inside Layer inside Layer inside Layer inside Layer inside Layer ...  inside Layer)
 
-                  <LayerToggle id="lightbox">{({ show, hide }) => (
+                  <LayerToggle for="lightbox">{({ show, hide }) => (
                     <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
                     show(<div style={{
                       left: clientX + 20, top: clientY, position: "absolute",
