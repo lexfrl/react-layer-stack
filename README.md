@@ -64,11 +64,11 @@ npm install --save react-layer-stack
 
 #### `<LayerStackMountPoint />`
 
-This is mount point for `Layers`. 
+This is a mount point for `Layer`s.
 
-`id: string` - you can have multiple `LayerStackMountPoint` which could have different ID's.
+`id: string` (optional) - you can have multiple `LayerStackMountPoint` which could have different ID's
 
-`children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different strategies how to render `Layers` in `LayerStackMountPoint` instead of the default one.
+`children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different strategies how to render `Layers` in `LayerStackMountPoint` instead of the default one
 
 #### `<Layer />`
 
@@ -76,11 +76,15 @@ This is mount point for `Layers`.
 
 `initialArgs` - initial arguments for a Layer
 
+`mountPointId` (optional) - the mount point to mount to
+
 `use: array` - array with context (closure) variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }, ...args): ReactElement` - will be rendered into 
 
 #### `<LayerToggle />`
+
+`LayerToggle` is a helper to have access for show/hide callbacks and the current state of the layer. There could be multiple `LayerToggle`s for the same `Layer`.
 
 `id: string` - a Layer identificator which LayerToggle corresponds to
 
