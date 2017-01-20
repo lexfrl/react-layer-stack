@@ -13,7 +13,7 @@ Canonical example is a Tooltip-like component: at some point, during development
 
 ```javascript
 import React, { Component } from 'react';
-import { Layer, LayerContext } from 'react-layer-stack';
+import { Layer, LayerToggle } from 'react-layer-stack';
 import FixedLayer from './demo/components/FixedLayer';
 
 class Demo extends Component {
@@ -26,7 +26,7 @@ class Demo extends Component {
           </FixedLayer>
         }</Layer>
 
-        <LayerContext id="lightbox2">{({ show, hide }) => (
+        <LayerToggle id="lightbox2">{({ show, hide }) => (
             <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
               show(
                 <div style={{
@@ -37,7 +37,7 @@ class Demo extends Component {
                    “There has to be message triage. If you say three things, you don’t say anything.”
                 </div>)
             }}>Yet another button. Move your pointer to it.</button> )}
-          </LayerContext>
+          </LayerToggle>
       </div>
     )
   }
@@ -80,9 +80,9 @@ This is mount point for `Layers`.
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }, ...args): ReactElement` - will be rendered into 
 
-#### `<LayerContext />`
+#### `<LayerToggle />`
 
-`id: string` - a Layer identificator which LayerContext corresponds to
+`id: string` - a Layer identificator which LayerToggle corresponds to
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }): ReactElement` - will be mounted (rendered) directly to its parent
 
@@ -92,7 +92,7 @@ This is mount point for `Layers`.
 
 ### Real-world usage example
 
-Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 additional: `LayerContext` (sometimes toggle needs to know which popover is open now).
+Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 additional: `LayerToggle` (sometimes toggle needs to know which popover is open now).
 Set the `LayerStackMountPoint` somewhere on the top of the tree:
 
 ```javascript
@@ -116,12 +116,12 @@ import { LayerStackProvider, LayerStackMountPoint } from 'react-layer-stack'
 Define your `Layer`. This example shows how to propagate variables from lexical context (https://developer.mozilla.org/en/docs/Web/JavaScript/Closures) to the `Layer`, which will be displayed in the `LayerStackMountPoint`. Each layer should have an `id` and `use` properties. `use` property is needed to determine if we should update the lexical context of the anonymous function which renders `Modal` into `Layer` if `Cell` is re-rendered.
 
 ```javascript
-import { Layer, LayerContext } from 'react-layer-stack'
+import { Layer, LayerToggle } from 'react-layer-stack'
 // ... for each `object` in array of `objects`
 const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].id
 return (
     <Cell {...props}>
-        // the layer definition. The content will show up in the LayerStackMountPoint when `show(modalId)` be fired in LayerContext
+        // the layer definition. The content will show up in the LayerStackMountPoint when `show(modalId)` be fired in LayerToggle
         <Layer use={[objects[rowIndex], rowIndex]} id={modalId}> {({
             hide, // alias for `hide(modalId)`
             index } // useful to know to set zIndex, for example
@@ -137,11 +137,11 @@ return (
         </Layer>
         
         // this is the toggle for Layer with `id === modalId` can be defined everywhere in the components tree
-        <LayerContext id={ modalId }> {({show}) => // show is alias for `show(modalId)`
+        <LayerToggle id={ modalId }> {({show}) => // show is alias for `show(modalId)`
           <div style={styles.iconOverlay} onClick={ (e) => show(e) }> // additional arguments can be passed (like event)
             <Icon type="trash" />
           </div> }
-        </LayerContext>
+        </LayerToggle>
     </Cell>)
 // ...
 ```

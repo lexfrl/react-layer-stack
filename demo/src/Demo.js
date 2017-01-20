@@ -3,7 +3,7 @@ import CircularJSON from 'circular-json';
 import Highlight from 'react-highlight';
 import Markdown from 'react-remarkable';
 
-import { Layer, LayerContext } from 'react-layer-stack';
+import { Layer, LayerToggle } from 'react-layer-stack';
 
 import FixedLayer from './components/FixedLayer';
 import Window from './components/Window';
@@ -51,13 +51,13 @@ class Demo extends Component {
               { JSON.stringify(this.state, null, '\t') }
 
           #### LAYER STATE TOGGLE
-          <LayerContext id="layer_state_infobox">{({ show, hide, isActive }) => (
+          <LayerToggle id="layer_state_infobox">{({ show, hide, isActive }) => (
             <button onClick={ () => isActive ? hide() : show() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
-          </LayerContext>
+          </LayerToggle>
 
 
           #### LIGHTBOX target-oriented
-          <LayerContext id="lightbox">{({ show, hide }) => (
+          <LayerToggle id="lightbox">{({ show, hide }) => (
             <button onMouseLeave={ hide } onMouseEnter={ ({ nativeEvent: { relatedTarget } }) => {
               const { left, top, width } = relatedTarget.getClientRects()[0];
               show(
@@ -70,12 +70,12 @@ class Demo extends Component {
                 </div>
               )
             }}>A button. Move your pointer to it.</button> )}
-          </LayerContext>
+          </LayerToggle>
 
 
 
           #### LIGHTBOX pointer-oriented v2
-          <LayerContext id="lightbox">{({ show, hide }) => (
+          <LayerToggle id="lightbox">{({ show, hide }) => (
             <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
               show(
                 <div style={{
@@ -86,17 +86,17 @@ class Demo extends Component {
                    “There has to be message triage. If you say three things, you don’t say anything.”
                 </div>)
             }}>Yet another button. Move your pointer to it.</button> )}
-          </LayerContext>
+          </LayerToggle>
 
           #### MOVABLE WINDOWS
-          <LayerContext id="movable_window">{({ show }) => (
+          <LayerToggle id="movable_window">{({ show }) => (
             <button onClick={ () => show() }>OPEN MOVABLE WINDOW</button> )}
-          </LayerContext>
+          </LayerToggle>
 
           #### SIMPLE MODALS
-          <LayerContext id="simple_modal">{({ show }) => (
+          <LayerToggle id="simple_modal">{({ show }) => (
             <button onClick={ () => show() }>OPEN SIMPLE MODAL</button> )}
-          </LayerContext>
+          </LayerToggle>
 
         </Markdown>
       </div>
@@ -181,7 +181,7 @@ class Demo extends Component {
                 <Markdown>
                   ##### Layer inside Layer (inside Layer inside Layer inside Layer inside Layer inside Layer inside Layer ...  inside Layer)
 
-                  <LayerContext id="lightbox">{({ show, hide }) => (
+                  <LayerToggle id="lightbox">{({ show, hide }) => (
                     <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
                     show(<div style={{
                       left: clientX + 20, top: clientY, position: "absolute",
@@ -191,7 +191,7 @@ class Demo extends Component {
                    “In fact, psychologists have found that people can be driven to irrational decisions by too much complexity and uncertainty.”
                 </div>)
                   }}>Yet another button. Move your pointer to it.</button> )}
-                  </LayerContext>
+                  </LayerToggle>
                   ##### Arguments:
                   <Highlight className="js">
                     { JSON.stringify(rest, null, '\t') }

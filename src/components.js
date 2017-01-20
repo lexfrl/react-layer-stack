@@ -28,7 +28,7 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
             }
             if (typeof view === 'undefined' || typeof view.renderFn === 'undefined') {
               throw new Error(`
-It seems like you're using LayerContext with id="${ id }" but corresponding Layer isn't declared in the current Components tree.
+It seems like you're using LayerToggle with id="${ id }" but corresponding Layer isn't declared in the current Components tree.
 Make sure that Layer with id="${ id }" is rendered into the current tree.
 `)
             }})()}
@@ -92,7 +92,7 @@ export const Layer = (namespace = 'layer_stack') => connect(
   }
 })));
 
-export const LayerContext = (namespace = 'layer_stack') => connect(
+export const LayerToggle = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )(({
