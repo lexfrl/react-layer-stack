@@ -76,7 +76,7 @@ This is mount point for `Layers`.
 
 `initialArgs` - initial arguments for a Layer
 
-`use: array` - array with context variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
+`use: array` - array with context (closure) variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }, ...args): ReactElement` - will be rendered into 
 
