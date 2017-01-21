@@ -72,7 +72,7 @@ This is a mount point for `Layer`s.
 
 #### `<Layer />`
 
-`id: string` - a Layer identificator
+`id: string` - a Layer identificator. There could be only one layer with the same `id`
 
 `initialArgs` - initial arguments for a Layer
 
