@@ -3,7 +3,7 @@
 [Chat](https://gitter.im/react-layer-stack/Lobby)
 
 ### Rationale
-`react`/`react-dom` comes comes with 2 basic assumptions/ideas:
+`react`/`react-dom` comes with 2 basic assumptions/ideas:
 - every UI is hierarchical naturally. This why we have the idea of "`components` wrap each other"
 - `react-dom` mounts (physically) child component to its parent DOM node by default
 
