@@ -1,6 +1,6 @@
 {
   "name": "react-layer-stack",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Simple but ubiquitously powerful and agnostic layering system for React. Useful for any kind of windowing/popover/modals/tooltip application",
   "repository": {
     "type": "git",
@@ -15,8 +15,7 @@
   "dependencies": {
     "react": "^15.3.2",
     "react-redux": "^4.4.5",
-    "redux": "^3.6.0",
-    "redux-actions": "^0.12.0"
+    "redux": "^3.6.0"
   },
   "keywords": [
     "react",

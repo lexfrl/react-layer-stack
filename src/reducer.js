@@ -1,5 +1,4 @@
-import { handleActions } from 'redux-actions'
-import { createAction } from 'redux-actions'
+import { createAction, handleActions } from './helpers'
 
 export const ACTIONS = {
   register: createAction('LAYER_STACK_VIEW_REGISTER', (id, renderFn, mountPointId) => ({ id, renderFn, mountPointId })),
