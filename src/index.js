@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createElement } from 'react';
 import { LayerStackMountPoint as LSMP, Layer as L, LayerToggle as LC } from './components'
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux'
@@ -15,7 +15,7 @@ const store = createStore(configuredReducer);
 
 class LayerStackProvider extends Component {
   render() {
-    return <Provider store={ store } { ...this.props }>{ this.props.children }</Provider>
+    return createElement(Provider, { store }, this.props.children);
   }
 }
 

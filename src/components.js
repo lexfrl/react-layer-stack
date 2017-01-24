@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, createElement} from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -8,14 +8,12 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
 )(({
-  id: mountPointId, args: mountPointArgs, // from props
+  id: mountPointId, args: mountPointArgs, elementType = 'span', // from props
   renderFn, views, displaying, show, hide, hideAll // from store
 }) => {
-  return (
-    <div> { renderFn ? renderFn({views, displaying, show, hide, hideAll, mountPointId, mountPointArgs}) // it's possible to provide alternative renderFn for the MountPoint
+  return createElement(elementType, {}, renderFn ? renderFn({views, displaying, show, hide, hideAll, mountPointId, mountPointArgs}) // it's possible to provide alternative renderFn for the MountPoint
       : (displaying.length ? displaying.map ((id, index) => // if no alternative renderFn provided we'll use the default one
-        <div key={id}>
-          {(() => {
+        createElement(elementType, { key:id }, (() => {
             const view = views[id];
             if (view && view.renderFn && view.mountPointId === mountPointId) {
               return view.renderFn({
@@ -31,10 +29,7 @@ export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
 It seems like you're using LayerToggle with id="${ id }" but corresponding Layer isn't declared in the current Components tree.
 Make sure that Layer with id="${ id }" is rendered into the current tree.
 `)
-            }})()}
-        </div>) : <noscript />)}
-    </div>
-  )
+            }})())) : null))
 });
 
 export const Layer = (namespace = 'layer_stack') => connect(
@@ -88,7 +83,7 @@ export const Layer = (namespace = 'layer_stack') => connect(
   },
 
   render() {
-    return <noscript />
+    return null;
   }
 })));
 
