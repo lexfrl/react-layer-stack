@@ -4,34 +4,6 @@ import { bindActionCreators } from 'redux'
 
 import { ACTIONS } from './reducer'
 
-export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
-  (store) => store[namespace],
-  dispatch => bindActionCreators(ACTIONS, dispatch)
-)(({
-  id: mountPointId, args: mountPointArgs, elementType = 'span', // from props
-  renderFn, views, displaying, show, hide, hideAll // from store
-}) => {
-  return createElement(elementType, {}, renderFn ? renderFn({views, displaying, show, hide, hideAll, mountPointId, mountPointArgs}) // it's possible to provide alternative renderFn for the MountPoint
-      : (displaying.length ? displaying.map ((id, index) => // if no alternative renderFn provided we'll use the default one
-        createElement(elementType, { key:id }, (() => {
-            const view = views[id];
-            if (view && view.renderFn && view.mountPointId === mountPointId) {
-              return view.renderFn({
-                index, id, hideAll, displaying, views, mountPointArgs, // seems like there is no valid use-case mountPointId in the Layer render function
-                showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: think about improvement
-                hide: () => hide(id), // intention here is to hide ID's management from Layer and let app developer manage these IDs independently
-                // which will give an ability to write general-purpose Layers and share them b/w projects
-                show: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
-              }, ...view.args)
-            }
-            if (typeof view === 'undefined' || typeof view.renderFn === 'undefined') {
-              throw new Error(`
-It seems like you're using LayerToggle with id="${ id }" but corresponding Layer isn't declared in the current Components tree.
-Make sure that Layer with id="${ id }" is rendered into the current tree.
-`)
-            }})())) : null))
-});
-
 export const Layer = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
   dispatch => bindActionCreators(ACTIONS, dispatch)
@@ -86,6 +58,36 @@ export const Layer = (namespace = 'layer_stack') => connect(
     return null;
   }
 })));
+
+export const LayerStackMountPoint = (namespace = 'layer_stack') => connect(
+  (store) => store[namespace],
+  dispatch => bindActionCreators(ACTIONS, dispatch)
+)(({
+  id: mountPointId, args: mountPointArgs, elementType = 'span', // from props
+  renderFn, views, displaying, show, hide, hideAll // from store
+}) => {
+  return createElement(elementType, {}, renderFn ? renderFn({views, displaying, show, hide, hideAll, mountPointId, mountPointArgs}) // it's possible to provide alternative renderFn for the MountPoint
+      : displaying.map ((id, index) => // if no alternative renderFn provided we'll use the default one
+          createElement(elementType, { key: id }, (() => {
+            const view = views[id];
+            if (view && view.renderFn && view.mountPointId === mountPointId) {
+              return view.renderFn({
+                index, id, hideAll, displaying, views, mountPointArgs, // seems like there is no valid use-case mountPointId in the Layer render function
+                showOnlyMe: (...args) => hideAll() || show(id, ...args), // TODO: think about improvement
+                hide: () => hide(id), // intention here is to hide ID's management from Layer and let app developer manage these IDs independently
+                // which will give an ability to write general-purpose Layers and share them b/w projects
+                show: (...args) => show(id, ...args) // sometimes you may want to change args of the current layer
+              }, ...view.args)
+            }
+            if (typeof view === 'undefined' || typeof view.renderFn === 'undefined') {
+              throw new Error(`
+    It seems like you're using LayerToggle with id="${ id }" but corresponding Layer isn't declared in the current Components tree.
+    Make sure that Layer with id="${ id }" is rendered into the current tree.
+    `
+              )
+            }
+          })())))
+});
 
 export const LayerToggle = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
