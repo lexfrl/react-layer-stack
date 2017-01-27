@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { ACTIONS } from './reducer'
+import { isPrimitiveType } from './helpers'
 
 export const Layer = (namespace = 'layer_stack') => connect(
   (store) => store[namespace],
@@ -35,7 +36,17 @@ export const Layer = (namespace = 'layer_stack') => connect(
       } else {
         let i = use.length;
         while (i--) {
-          if (JSON.stringify(use[i]) !== JSON.stringify(newProps.use[i])) {
+          if (isPrimitiveType(use[i]) && isPrimitiveType(newProps.use[i])) {
+            if (use[i] !== newProps.use[i]) {
+              needUpdate = true
+            }
+          }
+          else if (typeof use[i].equals === 'function' && typeof newProps.use[i].equals === 'function') {
+            if (!use[i].equals(newProps.use[i])) { // fast equality check for immutable-js && mori
+              needUpdate = true;
+            }
+          }
+          else if (JSON.stringify(use[i]) !== JSON.stringify(newProps.use[i])) {
             needUpdate = true;
           }
         }

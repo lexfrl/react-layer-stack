@@ -15,3 +15,6 @@ export function handleActions(handlers, defaultState) {
   }
 }
 
+export function isPrimitiveType(value) {
+  return Object(value) !== value;
+}
