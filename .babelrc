@@ -1,6 +1,6 @@
 {
   "presets": ["es2015"],
-  "plugins": ["transform-object-rest-spread"],
+  "plugins": ["syntax-flow", "transform-flow-strip-types", "transform-object-rest-spread"],
   "sourceMaps": true,
   "retainLines": true
 }
