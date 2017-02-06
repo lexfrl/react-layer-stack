@@ -24,14 +24,15 @@ export default class LayerMountPoint extends Component {
 
   render() {
     const { id, index } = this.props;
-    const { show, hide, isActive } = this.layerStore;
+    const { show, hide, setArgs, isActive } = this.layerStore;
     const stack = this.layerStore.getStack();
     const layer = this.layerStore.getLayer(id);
     return isActive(id) ? layer.layerFn({
       index, id, stack, // seems like there is no valid use-case mountPointId in the Layer render function
       hide: () => hide(id), // intention here is to hide ID's management from Layer and let app developer manage these IDs independently
       // which will give an ability to write general-purpose Layers and share them b/w projects
-      show: (...args) => show(id, args) // sometimes you may want to change args of the current layer
+      show: (...args) => show(id, args), // sometimes you may want to change args of the current layer
+      setArgs: (...args) => setArgs(id, args)
     }, ...layer.args) : null;
   }
 }

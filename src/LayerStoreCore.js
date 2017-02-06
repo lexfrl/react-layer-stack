@@ -14,6 +14,7 @@ export default class LayerStoreCore {
     this.getStack = this.getStack.bind(this);
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
+    this.setArgs = this.setArgs.bind(this);
     this.register = this.register.bind(this);
     this.updateFn = this.updateFn.bind(this);
     this.unregister = this.unregister.bind(this);

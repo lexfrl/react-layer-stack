@@ -20,7 +20,7 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <Layer id="lightbox2">{ (_, content) =>
+        <Layer to="screen" id="lightbox2">{ (_, content) =>
           <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
             { content }
           </FixedLayer>
@@ -74,11 +74,13 @@ This is a mount point for `Layer`s.
 
 `id: string` - a Layer identificator. There could be only one layer with the same `id`
 
-`initialArgs` - initial arguments for a Layer
+`to` (optional) - the mount point to mount to
 
-`mountPointId` (optional) - the mount point to mount to
+`use: Array` - array with context (closure) variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
 
-`use: array` - array with context (closure) variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
+`defaultArgs: Array` - initial arguments for a Layer
+
+`defaultShow: Boolean`
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }, ...args): ReactElement` - will be rendered into 
 
@@ -104,7 +106,7 @@ import { LayerStackProvider, LayerStackMountPoint } from 'react-layer-stack'
 // ...
 //  render() {
         return (
-            <LayerStackProvider>
+            <LayerStackProvider id="screen">
               <Container>
                 <LayerStackMountPoint />
                 <AppBar />
@@ -126,7 +128,7 @@ const modalId = 'DeleteObjectConfirmation' + objects[rowIndex].id
 return (
     <Cell {...props}>
         // the layer definition. The content will show up in the LayerStackMountPoint when `show(modalId)` be fired in LayerToggle
-        <Layer use={[objects[rowIndex], rowIndex]} id={modalId}> {({
+        <Layer to="screen" use={[objects[rowIndex], rowIndex]} id={modalId}> {({
             hide, // alias for `hide(modalId)`
             index } // useful to know to set zIndex, for example
             , e) => // access to the arguments (click event data in this example)

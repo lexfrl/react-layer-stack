@@ -136,7 +136,7 @@ class Demo extends Component {
   renderMovableWindow() {
     return (
       <Layer use={[this.state.counter]}  // data from the context
-        id="movable_window" to="screen">{({index, hide, show}, {
+        id="movable_window" to="screen">{({index, hide, setArgs}, {
           ...rest,
           pinned = false,
           mouseDown = false,
@@ -145,8 +145,8 @@ class Demo extends Component {
           windowLeft = 670,
           windowTop = 100} = {}) => (
         <FixedLayer
-          onMouseDown={() => show({...rest, mouseDown: true})}
-          onMouseUp={() => show({...rest, mouseDown: false})}
+          onMouseDown={() => setArgs({...rest, mouseDown: true})}
+          onMouseUp={() => setArgs({...rest, mouseDown: false})}
           onMouseMove={({ screenX, screenY}) => {
             const newArgs = {
               mouseLastPositionX: screenX, mouseLastPositionY: screenY
@@ -155,15 +155,15 @@ class Demo extends Component {
               newArgs.windowLeft =  windowLeft + (screenX - mouseLastPositionX);
               newArgs.windowTop =  windowTop + (screenY - mouseLastPositionY);
             }
-            show({...rest, ...newArgs})
+            setArgs({...rest, ...newArgs})
           }}
           onClick={ hide }
           zIndex={ index * 100 }>
             <Window style={{ top: windowTop, left: windowLeft }}>
               <div
                 style={styles.header}
-                onMouseEnter={() => mouseDown || show({...rest, pinned: true})}
-                onMouseLeave={() => mouseDown || show({...rest, pinned: false})}>
+                onMouseEnter={() => mouseDown || setArgs({...rest, pinned: true})}
+                onMouseLeave={() => mouseDown || setArgs({...rest, pinned: false})}>
                 PIN TO MOVE
                 <div
                   onClick={hide}
