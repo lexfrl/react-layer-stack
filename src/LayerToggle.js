@@ -19,13 +19,13 @@ export default class LayerToggle extends Component {
   render () {
     const { children, ...props } = this.props;
     const { show, hide } = this.layerStore;
-    const { displaying, layers } = this.layerStore.store;
+    const stack = this.layerStore.getStack();
     return children({
-      displaying,
-      isActive: displaying.indexOf(props.for) !== -1,
+      stack,
+      isActive: stack.indexOf(props.for) !== -1,
       show: (...args) => props.for ? show(props.for, args) : show(args),
       hide: (...args) => props.for ? hide(props.for) : hide(),
-    }, ...layers[props.for].args);
+    }, ...this.layerStore.getLayer(props.for).args);
   }
 }
 

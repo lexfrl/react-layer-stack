@@ -105,7 +105,7 @@ class Demo extends Component {
 
   renderLightbox() {
     return (
-      <Layer id="lightbox">{ (_, content) =>
+      <Layer id="lightbox" to="screen">{ (_, content) =>
         <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
           { content }
         </FixedLayer>
@@ -115,8 +115,7 @@ class Demo extends Component {
 
   renderSimpleModal() {
     return (
-      <Layer
-        id="simple_modal">{({index, hide, show}) => (
+      <Layer id="simple_modal" to="screen">{({index, hide, show}) => (
         <FixedLayer
           style={ { background: 'rgba(0,0,0,0.3)' } }
           onEsc={ hide }
@@ -136,9 +135,8 @@ class Demo extends Component {
 
   renderMovableWindow() {
     return (
-      <Layer
-        use={[this.state.counter]}  // data from the context
-        id="movable_window">{({index, hide, show}, {
+      <Layer use={[this.state.counter]}  // data from the context
+        id="movable_window" to="screen">{({index, hide, show}, {
           ...rest,
           pinned = false,
           mouseDown = false,
@@ -209,7 +207,7 @@ class Demo extends Component {
   }
 
   renderDebugLayer() {
-    return <Layer id="layer_state_infobox" showInitially>{({views, displaying}) =>
+    return <Layer id="layer_state_infobox" to="screen" showInitially>{({stack}) =>
       <FixedLayer>
         <div style={{ position:'absolute',
                           bottom: '0', right: '0',
@@ -219,11 +217,7 @@ class Demo extends Component {
           <Markdown>
             #### Layers displaying:
             <Highlight className="js">
-              { CircularJSON.stringify(displaying, null, '  ') }
-            </Highlight>
-            #### Layers registered:
-            <Highlight className="js">
-              { CircularJSON.stringify(views, null, '  ') }
+              { CircularJSON.stringify(stack, null, '  ') }
             </Highlight>
           </Markdown>
         </div>

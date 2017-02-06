@@ -1,22 +1,27 @@
-import React, { Component, PropTypes, createElement} from 'react'
-import { isPrimitiveType } from './helpers'
+import React, { Component, PropTypes, createElement} from 'react';
+import { isPrimitiveType } from './helpers';
+import LayerStore from './LayerStore';
+import LayerMountPoint from './LayerMountPoint';
 
 export default class Layer extends Component {
+
+  layerStore: LayerStore;
+
+  constructor(props, context) {
+    super(props, context);
+    this.layerStore = context.layerStore;
+  }
+
   componentWillMount() {
     const { layerStore } = this.context;
-    layerStore.register(this.props.id, this.props.children, this.props.mountPointId);
-    if (this.props.showInitially) {
-      layerStore.show(this.props.id, this.props.defaultArgs || [])
-    } else {
-      layerStore.setArgs(this.props.id, this.props.defaultArgs || [])
-    }
+    layerStore.register(this.props.id, this.props.children, this.props.to, null, this.use, this.defaultArgs, this.defaultShow);
   }
 
   shouldComponentUpdate(newProps) {
-    const { children, id, mountPointId, use } = this.props;
+    const { children, id, to, use } = this.props;
     const { layerStore } = this.context;
     let needUpdate = false;
-    if (id !== newProps.id || mountPointId !== newProps.mountPointId) {
+    if (id !== newProps.id || to !== newProps.to) {
       needUpdate = true;
     }
     else if (children.toString() !== newProps.children.toString()) {
@@ -46,24 +51,31 @@ export default class Layer extends Component {
     }
 
     if (needUpdate) {
-      layerStore.updateFn(newProps.id, newProps.children);
+      layerStore.updateFn(newProps.id, newProps.children, newProps.to, null, newProps.use, newProps.defaultArgs, newProps.defaultShow);
       return true;
     }
     return false;
   }
 
   componentWillUnmount() {
-    // TODO: garbage collection
-    // this.props.unregister(this.props.id)
+    this.layerStore = null;
   }
 
   render() {
+    const { id, to, elementType } = this.props;
+    if (!to) {
+      return createElement(LayerMountPoint, { id });
+    }
     return null;
   }
 }
 
 Layer.propTypes = {
   use: PropTypes.array
+};
+
+Layer.defaultProps = {
+  elementType: 'span'
 };
 
 Layer.contextTypes = {

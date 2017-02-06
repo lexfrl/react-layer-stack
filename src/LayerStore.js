@@ -1,52 +1,23 @@
 import type { ID, LayerFn } from './types'
 
+import LayerStoreCore from './LayerStoreCore'
+
 export default class LayerStore {
 
   constructor () {
-    this.store = {
-      displaying: [],
-      layers: {},
-    };
+    this._core = new LayerStoreCore;
     this._mountPointsubscriptions = {};
     this._layerSubscriptions = {};
+
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
     this.register = this.register.bind(this);
     this.updateFn = this.updateFn.bind(this);
     this.unregister = this.unregister.bind(this);
-  }
-
-  register (id: ID, layerFn: LayerFn, mountPointId: ID = null, groups: Array<ID> = [], defaultArgs: Array<any> = []) {
-    this.store.layers[id] = { layerFn, groups, mountPointId, args: defaultArgs, defaultArgs };
-  }
-
-  updateFn (id: ID, layerFn: LayerFn) {
-    this.store.layers[id].fn = layerFn;
-  }
-
-  unregister(id: ID) {
-    delete this.store.layers[id];
-  }
-
-  setArgs(id: ID, args: Array<any> = []) {
-    if (args.length) {
-      this.store.layers[id].args = args;
-    } else {
-      this.store.layers[id].args = this.store.layers[id].defaultArgs;
-    }
-  }
-
-  show (id: ID, args: Array<any>) {
-    this.setArgs(id, args);
-    this.hide(id);
-    this.store.displaying.push(id);
-  }
-
-  hide (id: ID) {
-    const { displaying } = this.store;
-    if (-1 !== displaying.indexOf(id)) {
-      displaying.splice(displaying.indexOf(id), 1);
-    }
+    this.getLayer = this._core.getLayer;
+    this.getStack = this._core.getStack;
+    this.getIndex = this._core.getIndex;
+    this.isActive = this._core.isActive;
   }
 
   subscribeToLayer(id: ID, fn: Function) {
@@ -56,7 +27,7 @@ export default class LayerStore {
     }
   }
 
-  notifyLayer(id: ID, fn: Function) {
+  notifyLayer(id: ID) {
     if (this._layerSubscriptions[id]) {
       this._layerSubscriptions[id]()
     }
@@ -72,6 +43,59 @@ export default class LayerStore {
   notifyMountPoint(mountPointId: ID) {
     if (this._mountPointsubscriptions[mountPointId]) {
       this._mountPointsubscriptions[mountPointId]()
+    }
+  }
+
+  register (id: ID, layerFn: LayerFn, mountPointId: ID = null,
+            groups: Array<ID> = [], use: Array<any>, defaultArgs: Array<any> = [],
+            defaultShow: Boolean) {
+    this._core.register(id, layerFn, mountPointId, groups, use, defaultArgs, defaultShow);
+    if (mountPointId) {
+      this.notifyMountPoint(mountPointId);
+    } else {
+      this.notifyLayer(id);
+    }
+  }
+
+  updateFn (id: ID, layerFn: LayerFn, mountPointId: ID = null,
+            groups: Array<ID> = [], use: Array, defaultArgs: Array = [],
+            defaultShow: Boolean) {
+    const lastMountPoint = this.getLayer(id).mountPointId;
+    this._core.updateFn(id, layerFn, mountPointId, groups, use, defaultArgs, defaultShow);
+    if (lastMountPoint !== mountPointId) {
+      this.notifyMountPoint(lastMountPoint);
+      this.notifyMountPoint(mountPointId);
+    } else {
+      this.notifyLayer(id);
+    }
+  }
+
+  reset(id: ID) {
+    this._core.reset(id);
+    this.notifyLayer(id)
+  }
+
+  unregister(id: ID) {
+    this._core.unregister(id);
+  }
+
+  show (id: ID, args: Array) {
+    const stack = this.getStack();
+    this._core.show(id, args);
+    if (this.getLayer(id).mountPointId && stack !== this.getStack()) {
+      this.notifyMountPoint(this.getLayer(id).mountPointId);
+    } else {
+      this.notifyLayer(id);
+    }
+  }
+
+  hide (id: ID) {
+    const stack = this.getStack();
+    this._core.hide(id);
+    if (this.getLayer(id).mountPointId && stack !== this.getStack()) {
+      this.notifyMountPoint(this.getLayer(id).mountPointId);
+    } else {
+      this.notifyLayer(id);
     }
   }
 }
