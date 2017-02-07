@@ -92,10 +92,6 @@ This is a mount point for `Layer`s.
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }): ReactElement` - will be mounted (rendered) directly to its parent
 
-### Store layers in your redux store
-
-`react-layer-stack` provides `reducer` (`import { reducer } from 'react-layer-stack'`) which you can [combine into your Redux store](https://github.com/fckt/react-layer-stack/blob/589f173a66581753a4977b4b74aed9b66d55c9d0/demo/src/App.js#L12) instead of using [preconfigured `LayerStackProvider`](https://github.com/fckt/react-layer-stack/blob/171bb50a56f5ee951e5d4cee9ea110588c1743ae/demo/src/App.js#L10). This is useful if you want to store everything in one store (which is a good practice).
-
 ### Real-world usage example
 
 Public API consist 2 key components: `Layer`, `LayerStackMountPoint` and 1 additional: `LayerToggle` (sometimes toggle needs to know which popover is open now).
