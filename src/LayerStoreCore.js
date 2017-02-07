@@ -14,7 +14,7 @@ export default class LayerStoreCore {
     this.getStack = this.getStack.bind(this);
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
-    this.setArgs = this.setArgs.bind(this);
+    this.update = this.update.bind(this);
     this.register = this.register.bind(this);
     this.updateFn = this.updateFn.bind(this);
     this.unregister = this.unregister.bind(this);
@@ -61,7 +61,7 @@ export default class LayerStoreCore {
     delete this.store.layers[id];
   }
 
-  setArgs(id: ID, args: Array = []) {
+  update(id: ID, args: Array = []) {
     if (args.length) {
       this.store.layers[id].args = args;
     } else {
@@ -71,7 +71,7 @@ export default class LayerStoreCore {
 
   show (id: ID, args: Array) {
     const { stack } = this.store;
-    this.setArgs(id, args);
+    this.update(id, args);
     if ( id !== stack[stack.length - 1] ) {
       this.hide(id);
       this.store.stack = [...stack, id];

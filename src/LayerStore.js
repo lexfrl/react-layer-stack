@@ -11,7 +11,7 @@ export default class LayerStore {
 
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
-    this.setArgs = this.setArgs.bind(this);
+    this.update = this.update.bind(this);
     this.register = this.register.bind(this);
     this.updateFn = this.updateFn.bind(this);
     this.unregister = this.unregister.bind(this);
@@ -90,8 +90,8 @@ export default class LayerStore {
     }
   }
 
-  setArgs(id: ID, args: Array) {
-    this._core.setArgs(id, args);
+  update(id: ID, args: Array) {
+    this._core.update(id, args);
     this.notifyLayer(id);
   }
 
