@@ -62,14 +62,6 @@ npm install --save react-layer-stack
 
 3 components with a few properties.
 
-#### `<LayerStackMountPoint />`
-
-This is a mount point for `Layer`s.
-
-`id: string` (optional) - you can have multiple `LayerStackMountPoint` which could have different ID's
-
-`children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different strategies how to render `Layers` in `LayerStackMountPoint` instead of the default one
-
 #### `<Layer />`
 
 `id: string` - a Layer identificator. There could be only one layer with the same `id`
@@ -91,6 +83,15 @@ This is a mount point for `Layer`s.
 `for: string` - a Layer identificator which LayerToggle corresponds to
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }): ReactElement` - will be mounted (rendered) directly to its parent
+
+#### `<LayerStackMountPoint />`
+
+This is a mount point for `Layer`s.
+
+`id: string` (optional) - you can have multiple `LayerStackMountPoint` which could have different ID's
+
+`children: callback({ views, displaying, show: callback(id, args), hide, hideAll, mountPointId, mountPointArgs }): ReactElement` - you can choose different strategies how to render `Layers` in `LayerStackMountPoint` instead of the default one
+
 
 ### Real-world usage example
 
