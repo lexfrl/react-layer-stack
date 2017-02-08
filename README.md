@@ -66,7 +66,7 @@ npm install --save react-layer-stack
 
 `id: string` - a Layer identificator. There could be only one layer with the same `id`
 
-`to` (optional) - the mount point to mount to
+`to` (optional) - the mount point to mount to. If `to` is not defined the layer will be rendered just in place
 
 `use: Array` - array with context (closure) variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
 
