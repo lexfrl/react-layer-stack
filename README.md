@@ -68,11 +68,11 @@ npm install --save react-layer-stack
 
 `to` (optional) - the mount point to mount to. If `to` is not defined the layer will be rendered just in place
 
-`use: Array` - array with context (closure) variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
+`use: Array` (optional) - array with context (closure) variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
 
-`defaultArgs: Array` - initial arguments for a Layer
+`defaultArgs: Array` (optional) - initial arguments for a Layer
 
-`defaultShow: Boolean`
+`defaultShow: Boolean` (optional)
 
 `children: callback({ isActive, show: callback(args), showOnlyMe, hide, hideAll }, ...args): ReactElement` - will be rendered into 
 
