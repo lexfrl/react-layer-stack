@@ -1,6 +1,6 @@
 {
   "name": "react-layer-stack",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Simple but ubiquitously powerful and agnostic layering system for React. Useful for any kind of windowing/popover/modals/tooltip application",
   "repository": {
     "type": "git",
@@ -12,8 +12,8 @@
   },
   "author": "Alexey Frolov <frol.rage@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "react": "^15.3.2"
+  "peerDependencies": {
+    "react": ">=15.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
