@@ -155,7 +155,7 @@ Facebook team is working on the similar [feature](https://github.com/facebook/re
 ### Alternatives
 The is a lot of alternative ways to archive the desirable **bottom-to-up** link b/w components.
 
-The most obvious (and naiive as well) way is to use redux (or another flux/data lib) as a transport to send data from one DOM branch to another. It's good and robust solution (moreover react-layer-stack use redux as a store [currently](https://github.com/fckt/react-layer-stack/blob/master/README.md#one-important-thing-to-know)), but the problem is that it feels like overkill. It seems not universal also, could consume some additional time to implement and grasp afterwards, not because of complications, but because you have to reinvent the same pattern again and again (slightly different in each case, see https://stackoverflow.com/questions/35623656/how-can-i-display-a-modal-dialog-in-redux-that-performs-asynchronous-actions).
+The most obvious (and naiive as well) way is to use redux (or another flux/data lib) as a transport to send data from one DOM branch to another. It's good and robust solution, but the problem is that it just feels like overkill. It seems not universal also, could consume some additional time to implement and grasp afterwards, not because of complications, but because you have to reinvent the same pattern again and again (slightly different in each case, see https://stackoverflow.com/questions/35623656/how-can-i-display-a-modal-dialog-in-redux-that-performs-asynchronous-actions).
 
 Another solution is to use on of ready-to-use components. But sometimes are you need slightly different behavior/look and more productive to implement home-grown ad-hock solution.
 
