@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/common.js"],"names":["isPrimitiveType","value","Object"],"mappings":"mFAAgBA,e,GAAAA,e,CAAT,SAASA,eAAT,CAAyBC,KAAzB,EAAgC;AACrC,SAAOC,OAAOD,KAAP,MAAkBA,KAAzB;AACD","file":"common.js","sourcesContent":["export function isPrimitiveType(value) {\n  return Object(value) !== value;\n}"]}

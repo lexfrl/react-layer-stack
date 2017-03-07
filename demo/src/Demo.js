@@ -74,7 +74,7 @@ class Demo extends Component {
 
 
 
-          #### LIGHTBOX pointer-oriented v2
+          #### LIGHTBOX pointer-oriented
           <LayerToggle for="lightbox">{({ show, hide }) => (
             <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
               show(

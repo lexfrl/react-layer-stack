@@ -20,10 +20,16 @@ export default class LayerStoreCore {
     this.unregister = this.unregister.bind(this);
     this.isActive = this.isActive.bind(this);
     this.getIndex = this.getIndex.bind(this);
+    this.getLayersForMountPoint = this.getLayersForMountPoint.bind(this);
   }
 
   getLayer(id: ID): Layer {
     return this.store.layers[id];
+  }
+
+  getLayersForMountPoint(mountPointId: ID) {
+    const { layers } = this.store;
+    return Object.keys(layers).filter(id => layers[id].mountPointId === mountPointId)
   }
 
   getStack(): LayerStack {

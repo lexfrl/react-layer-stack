@@ -6,8 +6,8 @@ export default class LayerStore {
 
   constructor () {
     this._core = new LayerStoreCore;
-    this._mountPointsubscriptions = {};
     this._layerSubscriptions = {};
+    this._mountPointsubscriptions = {};
 
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
@@ -19,31 +19,38 @@ export default class LayerStore {
     this.getStack = this._core.getStack;
     this.getIndex = this._core.getIndex;
     this.isActive = this._core.isActive;
+    this.getLayersForMountPoint = this._core.getLayersForMountPoint;
   }
 
   subscribeToLayer(id: ID, fn: Function) {
-    this._layerSubscriptions[id] = fn;
+    if (typeof this._layerSubscriptions[id] === 'undefined') {
+      this._layerSubscriptions[id] = new Set();
+    }
+    this._layerSubscriptions[id].add(fn);
     return () => {
-      delete this._layerSubscriptions[id];
+      return this._layerSubscriptions[id].delete(fn);
+    }
+  }
+
+  subscribeToMountPoint(id: ID, fn: Function) {
+    if (typeof this._mountPointsubscriptions[id] === 'undefined') {
+      this._mountPointsubscriptions[id] = new Set();
+    }
+    this._mountPointsubscriptions[id].add(fn);
+    return () => {
+      return this._mountPointsubscriptions[id].delete(fn);
     }
   }
 
   notifyLayer(id: ID) {
     if (this._layerSubscriptions[id]) {
-      this._layerSubscriptions[id]()
+      this._layerSubscriptions[id].forEach(fn => fn())
     }
   }
 
-  subscribeToMountPoint(id: ID, fn: Function) {
-    this._mountPointsubscriptions[id] = fn;
-    return () => {
-      delete this._mountPointsubscriptions[id];
-    }
-  }
-
-  notifyMountPoint(mountPointId: ID) {
-    if (this._mountPointsubscriptions[mountPointId]) {
-      this._mountPointsubscriptions[mountPointId]()
+  notifyMountPoint(id: ID) {
+    if (this._mountPointsubscriptions[id]) {
+      this._mountPointsubscriptions[id].forEach(fn => fn());
     }
   }
 
@@ -81,13 +88,8 @@ export default class LayerStore {
   }
 
   show (id: ID, args: Array) {
-    const stack = this.getStack();
     this._core.show(id, args);
-    if (this.getLayer(id).mountPointId && stack !== this.getStack()) {
-      this.notifyMountPoint(this.getLayer(id).mountPointId);
-    } else {
-      this.notifyLayer(id);
-    }
+    this.notifyLayer(id);
   }
 
   update(id: ID, args: Array) {
@@ -98,10 +100,6 @@ export default class LayerStore {
   hide (id: ID) {
     const stack = this.getStack();
     this._core.hide(id);
-    if (this.getLayer(id).mountPointId && stack !== this.getStack()) {
-      this.notifyMountPoint(this.getLayer(id).mountPointId);
-    } else {
-      this.notifyLayer(id);
-    }
+    this.notifyLayer(id);
   }
 }
