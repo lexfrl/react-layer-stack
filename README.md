@@ -68,7 +68,7 @@ npm install --save react-layer-stack
 
 `to` (optional) - the mount point to mount to. If `to` is not defined the layer will be rendered just in place
 
-`use: Array` (optional) - array with context (closure) variables. Useful if you want to re-render the Layer if parent variables (closure) are changed
+`use: Array` (optional) - array with context (closure) variables. Useful if you want to update the Layer if closure variables are changed
 
 `defaultArgs: Array` (optional) - initial arguments for a Layer
 
@@ -116,7 +116,7 @@ import { LayerStackProvider, LayerStackMountPoint } from 'react-layer-stack'
 //  }
 ```
 
-Define your `Layer`. This example shows how to propagate variables from lexical context (https://developer.mozilla.org/en/docs/Web/JavaScript/Closures) to the `Layer`, which will be displayed in the `LayerStackMountPoint`. Each layer should have an `id` and `use` properties. `use` property is needed to determine if we should update the lexical context of the anonymous function which renders `Modal` into `Layer` if `Cell` is re-rendered.
+Define your `Layer`. This example shows how to propagate variables from lexical context (https://developer.mozilla.org/en/docs/Web/JavaScript/Closures) to the `Layer`, which will be displayed in the `LayerStackMountPoint`. Each layer should have an `id` and `use` properties. `use` property is needed to determine if we should update the lexical context of the anonymous function which renders `Modal` into `Layer` if `Cell` is updated.
 
 ```javascript
 import { Layer, LayerToggle } from 'react-layer-stack'
