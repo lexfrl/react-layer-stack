@@ -41,7 +41,7 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        { this.renderDebugLayer() }
+        {/*{ this.renderDebugLayer() }*/}
         { this.renderMovableWindow() }
         { this.renderSimpleModal() }
         { this.renderLightbox() }
@@ -50,10 +50,10 @@ class Demo extends Component {
           #### DEMO top component data
               { JSON.stringify(this.state, null, '\t') }
 
-          #### LAYER STATE TOGGLE
-          <LayerToggle for="layer_state_infobox">{({ show, hide, isActive }) => (
-            <button onClick={ () => isActive ? hide() : show() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}
-          </LayerToggle>
+          {/*#### LAYER STATE TOGGLE*/}
+          {/*<LayerToggle for="layer_state_infobox">{({ show, hide, isActive }) => (*/}
+            {/*<button onClick={ () => isActive ? hide() : show() }>{ isActive ? 'HIDE LAYER STATE' : 'SHOW LAYER STATE' }</button> )}*/}
+          {/*</LayerToggle>*/}
 
 
           #### LIGHTBOX target-oriented
@@ -207,7 +207,7 @@ class Demo extends Component {
   }
 
   renderDebugLayer() {
-    return <Layer id="layer_state_infobox" to="screen" showInitially>{({stack}) =>
+    return <Layer id="layer_state_infobox" to="screen" defaultShow>{({stack}) =>
       <FixedLayer>
         <div style={{ position:'absolute',
                           bottom: '0', right: '0',

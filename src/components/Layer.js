@@ -14,7 +14,8 @@ export default class Layer extends Component {
 
   componentWillMount() {
     const { layerStore } = this.context;
-    layerStore.register(this.props.id, this.props.children, this.props.to, null, this.use, this.defaultArgs, this.defaultShow);
+    const { id, children, to, use, defaultArgs, defaultShow } = this.props;
+    layerStore.register(id, children, to, null, use, defaultArgs, defaultShow);
   }
 
   shouldComponentUpdate(newProps) {
