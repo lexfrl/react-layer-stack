@@ -66,7 +66,7 @@ npm install --save react-layer-stack
 
 `id: string` - a Layer identificator. There could be only one layer with the same `id`
 
-`to` (optional) - the mount point to mount to. If `to` is not defined the layer will be rendered just in place
+`to` (optional) - the mount point to mount to. If `to` is not defined the layer will be rendered right in place
 
 `use: Array` (optional) - array with context (closure) variables. Useful if you want to update the Layer if closure variables are changed
 
@@ -78,7 +78,7 @@ npm install --save react-layer-stack
 
 #### `<LayerToggle />`
 
-`LayerToggle` is a helper to have access for show/hide callbacks and the current state of the layer. There could be multiple `LayerToggle`s for the same `Layer`.
+`LayerToggle` is a helper to have an access for show/hide callbacks and the current state of the layer. There could be multiple `LayerToggle`s for the same `Layer`.
 
 `for: string` - a Layer identificator which LayerToggle corresponds to
 
