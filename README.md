@@ -20,13 +20,14 @@ class Demo extends Component {
   render() {
     return (
       <div>
-        <Layer to="screen" id="lightbox2">{ (_, content) =>
+        <Layer to="screen" id="lightbox2">{ (_, content) => // Layer should have an unique ID
           <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
             { content }
           </FixedLayer>
         }</Layer>
 
-        <LayerToggle for="lightbox2">{({ show, hide }) => (
+        <LayerToggle for="lightbox2">{({ show, hide }) => ( // Layer is accessible from any part of the tree. 
+                                                            // There could be several Toggles for one Layer.
             <button onMouseLeave={ hide } onMouseMove={ ({ pageX, pageY }) => {
               show(
                 <div style={{
