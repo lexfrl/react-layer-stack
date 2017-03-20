@@ -104,9 +104,9 @@ import { LayerStackProvider, LayerStackMountPoint } from 'react-layer-stack'
 // ...
 //  render() {
         return (
-            <LayerStackProvider id="screen">
+            <LayerStackProvider>
               <Container>
-                <LayerStackMountPoint />
+                <LayerStackMountPoint id="screen"/>
                 <AppBar />
                 <Container className={styles.container}>
                   {children}
