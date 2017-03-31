@@ -9,7 +9,7 @@
 
 The problem is that sometimes the second property isn't what you want in your specific case. Sometimes you want to mount your component into the different physical DOM node and hold the logical parent-child connection at the same time.
 
-Canonical example is a Tooltip-like component: at some point, during development process, you could find that you need to add some description for your `UI element`: it'll be rendered in some fixed layer and it should know its coordinates (which are corresponding `UI element` coord or mouse coords) and at the same time it needs information whether it should be shown right now or not, its content and some context from parent components.
+Canonical example is a Tooltip-like component: at some point, during development process, you could find that you need to add some description for your UI element: it'll be rendered in some fixed layer and it should know its coordinates (which are corresponding UI element coord or mouse coords) and at the same time it needs information whether it should be shown right now or not, its content and some context from parent components.
 
 ```javascript
 import React, { Component } from 'react';
