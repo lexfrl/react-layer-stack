@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 
 const styles = {
   position: 'absolute',
-  left: '0',
-  right: '0',
+  willChange: 'transform',
+  transform: `translateX(0px) translateY(0px)`,
   // textAlign: 'center',
-  top: '100px',
   width: '600px',
   height: 'auto',
   borderRadius: '5px',
@@ -15,7 +14,6 @@ const styles = {
 export default class Window extends Component {
 
   render () {
-
     return (
       <div style={{...styles, ...this.props.style}}>
         {this.props.children}

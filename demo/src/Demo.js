@@ -79,7 +79,7 @@ class Demo extends Component {
             <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
               show(
                 <div style={{
-                      left: clientX + 20, top: clientY, position: "absolute",
+                      transform: `translateX(${clientX}px) translateY(${clientY}px)`, position: "absolute",
                       padding: '10px',
                       background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
                       boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
@@ -159,7 +159,9 @@ class Demo extends Component {
           }}
           onClick={ hide }
           zIndex={ index * 100 }>
-            <Window style={{ top: windowTop, left: windowLeft }}>
+            <Window style={{
+              transform: `translateX(${windowLeft}px) translateY(${windowTop}px)`
+            }}>
               <div
                 style={styles.header}
                 onMouseEnter={() => mouseDown || update({...rest, pinned: true})}
@@ -182,7 +184,8 @@ class Demo extends Component {
                   <LayerToggle for="lightbox">{({ show, hide }) => (
                     <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
                     show(<div style={{
-                      left: clientX + 20, top: clientY, position: "absolute",
+                      transform: `translateX(${clientX}px) translateY(${clientY}px)`,
+                      position: "absolute",
                       padding: '10px',
                       background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
                       boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
