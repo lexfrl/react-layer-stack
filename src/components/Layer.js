@@ -1,10 +1,12 @@
+import type { LayerProps } from './../types'
+
 import React, { Component, PropTypes, createElement} from 'react';
-import { isPrimitiveType } from './../common';
 import LayerStore from './../LayerStore';
 import LayerMountPoint from './LayerMountPoint';
 
 export default class Layer extends Component {
 
+  props: LayerProps;
   layerStore: LayerStore;
 
   constructor(props, context) {
@@ -13,49 +15,12 @@ export default class Layer extends Component {
   }
 
   componentWillMount() {
-    const { layerStore } = this.context;
-    const { id, children, to, use, defaultArgs, defaultShow } = this.props;
-    layerStore.register(id, children, to, null, use, defaultArgs, defaultShow);
+    const { id, children, to } = this.props;
+    this.layerStore.register(id, children, to, this.props.defaultArgs, this.props.defaultShow);
   }
 
-  shouldComponentUpdate(newProps) {
-    const { children, id, to, use } = this.props;
-    const { layerStore } = this.context;
-    let needUpdate = false;
-    if (id !== newProps.id || to !== newProps.to) {
-      needUpdate = true;
-    }
-    else if (children.toString() !== newProps.children.toString()) {
-      needUpdate = true;
-    }
-    else if (use) {
-      if (use.length !== newProps.use.length) {
-        needUpdate = true;
-      } else {
-        let i = use.length;
-        while (i--) {
-          if (isPrimitiveType(use[i]) && isPrimitiveType(newProps.use[i])) {
-            if (use[i] !== newProps.use[i]) {
-              needUpdate = true
-            }
-          }
-          else if (typeof use[i].equals === 'function' && typeof newProps.use[i].equals === 'function') {
-            if (!use[i].equals(newProps.use[i])) { // fast equality check for immutable-js && mori
-              needUpdate = true;
-            }
-          }
-          else if (JSON.stringify(use[i]) !== JSON.stringify(newProps.use[i])) {
-            needUpdate = true;
-          }
-        }
-      }
-    }
-
-    if (needUpdate) {
-      layerStore.updateFn(newProps.id, newProps.children, newProps.to, null, newProps.use, newProps.defaultArgs, newProps.defaultShow);
-      return true;
-    }
-    return false;
+  componentWillUpdate({ id, children, to, defaultArgs, defaultShow }) {
+    this.layerStore.updateFn(id, children, to, defaultArgs, defaultShow);
   }
 
   componentWillUnmount() {
@@ -63,17 +28,13 @@ export default class Layer extends Component {
   }
 
   render() {
-    const { id, to, elementType } = this.props;
+    const { id, to } = this.props;
     if (!to) {
       return createElement(LayerMountPoint, { id });
     }
     return null;
   }
 }
-
-Layer.propTypes = {
-  use: PropTypes.array
-};
 
 Layer.defaultProps = {
   elementType: 'span'

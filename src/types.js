@@ -1,33 +1,51 @@
+//@flow
+
 export type ID = number | string;
 
 type LayerHandle = {
-  show: () => undefined,
-  hide: () => undefined,
   index: number,
-  stack: Array<ID>,
-  isActive: boolean
+  isActive: boolean,
+  show: (state: any) => void,
+  hide: () => void,
+  update: (state: any) => void,
+  reset: () => void,
 };
-
-export type LayerFn = (fn: LayerHandle) => ReactElement;
-
-export type Layer = {
-  id: ID,
-  mountPointId: ID,
-  layerFn: LayerFn,
-  args: Array<any>,
-  use: Array<any>,
-  defaultArgs: Array<any>,
-  defaultShow: Boolean,
-};
-
-export type LayerStack = Array<ID>;
 
 export type Store = {
-  stack: LayerStack,
+  stack: Array<ID>,
   layers: { [key: ID] : Layer };
 }
 
-export type MountPointProps = {
+export type LayerFn = (handle: LayerHandle, state: any) => React$Element<any>;
+
+export type LayerProps = {
+  id: ID,
+  to: ID,
+  children: LayerFn,
+  initialState: Array<any>,
+  defaultShow: Boolean,
+};
+
+export type Layer = {
+  id: ID,
+  to: ID,
+  children: LayerFn,
+  initialState: Array<any>,
+  defaultShow: Boolean,
+  state: any,
+};
+
+export type LayerToggleProps = {
+  for: ID,
+  children: (handle: LayerHandle, state) => React$Element<any>,
+};
+
+export type LayerMountPointProps = {
   id: ID,
   index: number,
+}
+
+export type LayerStackMountPointProps = {
+  id: ID,
+  elementType: string,
 }

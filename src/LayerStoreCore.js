@@ -1,4 +1,6 @@
-import type { ID, LayerFn, Layer, Store, LayerStack, ILayerStore } from './types'
+//@flow
+
+import type { ID, Layer, LayerProps, Store } from './types'
 
 export default class LayerStoreCore {
 
@@ -9,55 +11,44 @@ export default class LayerStoreCore {
       stack: [],
       layers: {},
     };
-
-    this.getLayer = this.getLayer.bind(this);
-    this.getStack = this.getStack.bind(this);
-    this.show = this.show.bind(this);
-    this.hide = this.hide.bind(this);
-    this.update = this.update.bind(this);
-    this.register = this.register.bind(this);
-    this.updateFn = this.updateFn.bind(this);
-    this.unregister = this.unregister.bind(this);
-    this.isActive = this.isActive.bind(this);
-    this.getIndex = this.getIndex.bind(this);
-    this.getLayersForMountPoint = this.getLayersForMountPoint.bind(this);
   }
 
   getLayer(id: ID): Layer {
     return this.store.layers[id];
   }
 
-  getLayersForMountPoint(mountPointId: ID) {
+  getLayersForMountPoint(to: ID) {
     const { layers } = this.store;
-    return Object.keys(layers).filter(id => layers[id].mountPointId === mountPointId)
+    return Object.keys(layers).filter(id => layers[id].to === to)
   }
 
-  getStack(): LayerStack {
+  getStack(): Array<ID> {
     return this.store.stack;
   }
 
-  register (id: ID, layerFn: LayerFn, mountPointId: ID = null,
-            groups: Array<ID> = [], use: Array, defaultArgs: Array = [],
-            defaultShow: Boolean) {
-    this.store.layers[id] = { layerFn, groups, mountPointId, defaultArgs, defaultShow, use };
+  getIndex(id: ID) {
+    return this.store.stack.indexOf(id);
+  }
+
+  isActive(id: ID) {
+    return this.store.stack.indexOf(id) !== -1;
+  }
+
+  register (props: LayerProps) {
+    const { id } = props;
+    this.store.layers[id] = props;
     this.reset(id);
   }
 
-  updateFn (id: ID, layerFn: LayerFn, mountPointId: ID = null,
-            groups: Array<ID> = [], use: Array, defaultArgs: Array = [],
-            defaultShow: Boolean) {
-    const layer = this.getLayer(id);
-    layer.fn = layerFn;
-    layer.use = use;
-    layer.mountPointId = mountPointId;
-    layer.groups = groups;
-    layer.defaultArgs = defaultArgs;
-    layer.defaultShow = defaultShow;
+  updateFn (props: LayerProps) {
+    const { id } = props;
+    const layer = this.store.layers[id];
+    this.store.layers[id] = Object.assign(layer, props);
   }
 
   reset(id: ID) {
     const layer = this.store.layers[id];
-    layer.args = layer.defaultArgs;
+    layer.state = layer.initialState;
     if (layer.defaultShow) {
       this.show(id);
     }
@@ -67,17 +58,16 @@ export default class LayerStoreCore {
     delete this.store.layers[id];
   }
 
-  update(id: ID, args: Array = []) {
-    if (args.length) {
-      this.store.layers[id].args = args;
-    } else {
-      this.store.layers[id].args = this.store.layers[id].defaultArgs;
-    }
+  update(id: ID, state) {
+    if (Ob)
+    this.store.layers[id].state = state;
   }
 
-  show (id: ID, args: Array) {
+  show (id: ID, state) {
     const { stack } = this.store;
-    this.update(id, args);
+    if(args && args.length) {
+      this.update(id, args);
+    }
     if ( id !== stack[stack.length - 1] ) {
       this.hide(id);
       this.store.stack = [...stack, id];
@@ -90,13 +80,5 @@ export default class LayerStoreCore {
       stack.splice(stack.indexOf(id), 1);
       this.store.stack = stack;
     }
-  }
-
-  getIndex(id: ID) {
-    return this.store.stack.indexOf(id);
-  }
-
-  isActive(id: ID) {
-    return this.store.stack.indexOf(id) !== -1;
   }
 }

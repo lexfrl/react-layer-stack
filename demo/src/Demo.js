@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CircularJSON from 'circular-json';
-import Highlight from 'react-highlight';
 import Markdown from 'react-remarkable';
 
 import { Layer, LayerToggle } from 'react-layer-stack';
@@ -46,9 +45,6 @@ class Demo extends Component {
         { this.renderSimpleModal() }
         { this.renderLightbox() }
         <Markdown>
-
-          #### DEMO top component data
-              { JSON.stringify(this.state, null, '\t') }
 
           {/*#### LAYER STATE TOGGLE*/}
           {/*<LayerToggle for="layer_state_infobox">{({ show, hide, isActive }) => (*/}
@@ -105,8 +101,8 @@ class Demo extends Component {
 
   renderLightbox() {
     return (
-      <Layer id="lightbox" to="screen">{ (_, content) =>
-        <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } }>
+      <Layer id="lightbox" to="screen">{ ({ index }, content) =>
+        <FixedLayer style={ { marginRight: '15px', marginBottom: '15px' } } zIndex={ index * 100 }>
           { content }
         </FixedLayer>
       }</Layer>
@@ -135,19 +131,20 @@ class Demo extends Component {
 
   renderMovableWindow() {
     return (
-      <Layer use={[this.state.counter]}  // data from the context
-        id="movable_window" to="screen">{({index, hide, update}, {
+      <Layer  // data from the context
+        id="movable_window" to="screen" defaultAgrs={[ { windowLeft: 670, windowTop: 100 } ]} >{({index, hide, update, reset}, {
           ...rest,
+          windowLeft, windowTop,
           pinned = false,
           mouseDown = false,
           mouseLastPositionX = 0,
-          mouseLastPositionY = 0,
-          windowLeft = 670,
-          windowTop = 100} = {}) => (
+          mouseLastPositionY = 0 } = {}) => (
         <FixedLayer
           onMouseDown={() => update({...rest, mouseDown: true})}
           onMouseUp={() => update({...rest, mouseDown: false})}
-          onMouseMove={({ screenX, screenY}) => {
+          onMouseMove={(e) => {
+            e.preventDefault();
+            const { screenX, screenY } = e;
             const newArgs = {
               mouseLastPositionX: screenX, mouseLastPositionY: screenY
             };
@@ -155,13 +152,13 @@ class Demo extends Component {
               newArgs.windowLeft =  windowLeft + (screenX - mouseLastPositionX);
               newArgs.windowTop =  windowTop + (screenY - mouseLastPositionY);
             }
-            update({...rest, ...newArgs})
+            update({...rest, ...newArgs});
           }}
           onClick={ hide }
           zIndex={ index * 100 }>
             <Window style={{ top: windowTop, left: windowLeft }}>
               <div
-                style={styles.header}
+                style={ { ...styles.header, cursor: 'move' }}
                 onMouseEnter={() => mouseDown || update({...rest, pinned: true})}
                 onMouseLeave={() => mouseDown || update({...rest, pinned: false})}>
                 PIN TO MOVE
@@ -177,27 +174,29 @@ class Demo extends Component {
               </div>
               <div style={styles.body}>
                 <Markdown>
-                  ##### Layer inside Layer (inside Layer inside Layer inside Layer inside Layer inside Layer inside Layer ...  inside Layer)
-
                   <LayerToggle for="lightbox">{({ show, hide }) => (
-                    <button onMouseLeave={ hide } onMouseMove={ ({ clientX, clientY }) => {
-                    show(<div style={{
-                      left: clientX + 20, top: clientY, position: "absolute",
-                      padding: '10px',
-                      background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
-                      boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
-                   “In fact, psychologists have found that people can be driven to irrational decisions by too much complexity and uncertainty.”
-                </div>)
-                  }}>Yet another button. Move your pointer to it.</button> )}
+                    <button
+                      onClick={ () => hide() || reset() }
+                      onMouseLeave={ hide }
+                      onMouseMove={ ({ clientX, clientY }) => {
+                      show(
+                        <div style={{
+                        left: clientX + 20, top: clientY, position: "absolute",
+                        padding: '10px',
+                        background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: '5px',
+                        boxShadow: '0px 0px 50px 0px rgba(0,0,0,0.60)'}}>
+                          Click here to reset the window
+                      </div>)
+                  }}>RESET</button> )}
                   </LayerToggle>
                   ##### Arguments:
-                  <Highlight className="js">
+                  <pre>
                     { JSON.stringify(rest, null, '\t') }
-                  </Highlight>
+                  </pre>
                   ##### Data from outer component (closure/context):
-                  <Highlight className="js">
+                  <pre>
                     { JSON.stringify(this.state, null, '\t') }
-                  </Highlight>
+                  </pre>
                 </Markdown>
               </div>
             </Window>
@@ -216,9 +215,7 @@ class Demo extends Component {
                           background: 'rgba(0,0,0,0.8)', color: '#fff'}}>
           <Markdown>
             #### Layers displaying:
-            <Highlight className="js">
               { CircularJSON.stringify(stack, null, '  ') }
-            </Highlight>
           </Markdown>
         </div>
       </FixedLayer>}

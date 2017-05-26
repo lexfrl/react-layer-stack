@@ -1,4 +1,4 @@
-import type { ID, LayerFn } from './types'
+import type { ID, LayerProps } from './types'
 
 import LayerStoreCore from './LayerStoreCore'
 
@@ -9,12 +9,6 @@ export default class LayerStore {
     this._layerSubscriptions = {};
     this._mountPointsubscriptions = {};
 
-    this.show = this.show.bind(this);
-    this.hide = this.hide.bind(this);
-    this.update = this.update.bind(this);
-    this.register = this.register.bind(this);
-    this.updateFn = this.updateFn.bind(this);
-    this.unregister = this.unregister.bind(this);
     this.getLayer = this._core.getLayer;
     this.getStack = this._core.getStack;
     this.getIndex = this._core.getIndex;
@@ -42,6 +36,14 @@ export default class LayerStore {
     }
   }
 
+  notifyStack(fromIndex) {
+    const stack = this._core.getStack();
+    const { length } = stack;
+    for (let i = fromIndex; i < length; ++i) {
+      this.notifyLayer(stack[i]);
+    }
+  }
+
   notifyLayer(id: ID) {
     if (this._layerSubscriptions[id]) {
       this._layerSubscriptions[id].forEach(fn => fn())
@@ -54,25 +56,23 @@ export default class LayerStore {
     }
   }
 
-  register (id: ID, layerFn: LayerFn, mountPointId: ID = null,
-            groups: Array<ID> = [], use: Array<any>, defaultArgs: Array<any> = [],
-            defaultShow: Boolean) {
-    this._core.register(id, layerFn, mountPointId, groups, use, defaultArgs, defaultShow);
-    if (mountPointId) {
-      this.notifyMountPoint(mountPointId);
+  register (props: LayerProps) {
+    const { id, to } = props;
+    this._core.register(props);
+    if (to) {
+      this.notifyMountPoint(to);
     } else {
       this.notifyLayer(id);
     }
   }
 
-  updateFn (id: ID, layerFn: LayerFn, mountPointId: ID = null,
-            groups: Array<ID> = [], use: Array, defaultArgs: Array = [],
-            defaultShow: Boolean) {
-    const lastMountPoint = this.getLayer(id).mountPointId;
-    this._core.updateFn(id, layerFn, mountPointId, groups, use, defaultArgs, defaultShow);
-    if (lastMountPoint !== mountPointId) {
+  updateFn (props: LayerProps) {
+    const { id, to } = props;
+    const lastMountPoint = this.getLayer(id).to;
+    this._core.updateFn(props);
+    if (lastMountPoint !== to) {
       this.notifyMountPoint(lastMountPoint);
-      this.notifyMountPoint(mountPointId);
+      this.notifyMountPoint(to);
     } else {
       this.notifyLayer(id);
     }
@@ -88,8 +88,9 @@ export default class LayerStore {
   }
 
   show (id: ID, args: Array) {
+    const index = this.getIndex(id);
     this._core.show(id, args);
-    this.notifyLayer(id);
+    this.notifyStack(index);
   }
 
   update(id: ID, args: Array) {
@@ -98,8 +99,29 @@ export default class LayerStore {
   }
 
   hide (id: ID) {
-    const stack = this.getStack();
+    const index = this.getIndex(id);
     this._core.hide(id);
     this.notifyLayer(id);
+    this.notifyStack(index);
+  }
+
+  getLayer(id: ID): Layer {
+    return this._core.getLayer(id);
+  }
+
+  getLayersForMountPoint(to: ID): Array<ID> {
+    return this._core.getLayersForMountPoint(to);
+  }
+
+  getStack(): Array<ID> {
+    return this._core.getStack();
+  }
+
+  getIndex(id: ID) {
+    return this._core.getIndex(id);
+  }
+
+  isActive(id: ID) {
+    return this._core.isActive(id);
   }
 }
