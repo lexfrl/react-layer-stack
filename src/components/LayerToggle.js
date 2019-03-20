@@ -1,5 +1,6 @@
-import React, { Component, PropTypes, createElement} from 'react'
-import LayerStore from './../LayerStore'
+import React, { Component, createElement} from 'react';
+import PropTypes from 'prop-types';
+import LayerStore from './../LayerStore';
 
 export default class LayerToggle extends Component {
 
