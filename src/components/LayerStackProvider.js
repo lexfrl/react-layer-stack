@@ -1,4 +1,5 @@
 import React, { Component, Children } from 'react';
+import PropTypes from 'prop-types';
 import LayerStore from './../LayerStore'
 
 export default class LayerStackProvider extends Component {
@@ -14,5 +15,5 @@ export default class LayerStackProvider extends Component {
 }
 
 LayerStackProvider.childContextTypes = {
-  layerStore: React.PropTypes.object
+  layerStore: PropTypes.object
 };
