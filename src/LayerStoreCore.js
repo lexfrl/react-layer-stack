@@ -21,6 +21,7 @@ export default class LayerStoreCore {
     this.isActive = this.isActive.bind(this);
     this.getIndex = this.getIndex.bind(this);
     this.getLayersForMountPoint = this.getLayersForMountPoint.bind(this);
+    this.getActiveLayersForMountPoint = this.getActiveLayersForMountPoint.bind(this);
   }
 
   getLayer(id: ID): Layer {
@@ -30,6 +31,11 @@ export default class LayerStoreCore {
   getLayersForMountPoint(mountPointId: ID) {
     const { layers } = this.store;
     return Object.keys(layers).filter(id => layers[id].mountPointId === mountPointId)
+  }
+
+  getActiveLayersForMountPoint(mountPointId: ID) {
+    const { layers } = this.store;
+    return Object.keys(layers).filter(id => layers[id].mountPointId === mountPointId && layers[id].isActive)
   }
 
   getStack(): LayerStack {
