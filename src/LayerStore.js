@@ -20,7 +20,6 @@ export default class LayerStore {
     this.getIndex = this._core.getIndex;
     this.isActive = this._core.isActive;
     this.getLayersForMountPoint = this._core.getLayersForMountPoint;
-    this.getActiveLayersForMountPoint = this._core.getActiveLayersForMountPoint;
   }
 
   subscribeToLayer(id: ID, fn: Function) {
