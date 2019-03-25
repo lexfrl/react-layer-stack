@@ -22,9 +22,11 @@ export default class LayerStackMountPoint extends Component {
   }
 
   render() {
-    const { id: mountPointId, elementType } = this.props;
-    return createElement(elementType, {}, this.layerStore.getLayersForMountPoint(mountPointId)
-      .map ((id) => createElement(elementType, { key: id },
+    const { id: mountPointId, elementType, wrapperClass, wrapperActiveClass, layerItemClass } = this.props;
+    const layersForMountPoint = this.layerStore.getLayersForMountPoint(mountPointId);
+    const wrapperClassName = wrapperClass ? wrapperClass + (layersForMountPoint.length ? ' ' + wrapperActiveClass : '') : '';
+    return createElement(elementType, { className: wrapperClassName }, this.layerStore.getLayersForMountPoint(mountPointId)
+      .map((id) => createElement(elementType, { key: id, className: layerItemClass },
         createElement(LayerMountPoint, { id }))))
   }
 }
@@ -34,5 +36,8 @@ LayerStackMountPoint.contextTypes = {
 };
 
 LayerStackMountPoint.defaultProps = {
-  elementType: 'span'
+  elementType: 'span',
+  wrapperClass: '',
+  wrapperActiveClass: '',
+  layerItemClass: ''
 };
