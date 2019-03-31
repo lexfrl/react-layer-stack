@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, createElement} from 'react';
+import React, { Component, createElement} from 'react';
+import PropTypes from 'prop-types';
 import LayerMountPoint from './LayerMountPoint';
 import LayerStore from './../LayerStore'
 
@@ -21,9 +22,9 @@ export default class LayerStackMountPoint extends Component {
   }
 
   render() {
-    const { id: mountPointId, elementType } = this.props;
-    return createElement(elementType, {}, this.layerStore.getLayersForMountPoint(mountPointId)
-      .map ((id) => createElement(elementType, { key: id },
+    const { id: mountPointId, elementType, layerStackWrapperClass, layerWrapperClass } = this.props;
+    return createElement(elementType, { className: layerStackWrapperClass }, this.layerStore.getLayersForMountPoint(mountPointId)
+      .map((id) => createElement(elementType, { key: id, className: layerWrapperClass },
         createElement(LayerMountPoint, { id }))))
   }
 }
@@ -33,5 +34,7 @@ LayerStackMountPoint.contextTypes = {
 };
 
 LayerStackMountPoint.defaultProps = {
-  elementType: 'span'
+  elementType: 'span',
+  layerStackWrapperClass: '',
+  layerWrapperClass: ''
 };

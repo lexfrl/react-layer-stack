@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <LayerStackProvider>
         <div>
-          <LayerStackMountPoint id="screen" />
+          <LayerStackMountPoint id="screen" elementType="div" layerStackWrapperClass="screen-wrapper" layerWrapperClass="layer-element" />
           <div className="App">
             <div className="App-header">
               <h2>react-layer-stack DEMO</h2>

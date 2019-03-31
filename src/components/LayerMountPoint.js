@@ -1,6 +1,7 @@
-import React, { Component, createElement, PropTypes} from 'react'
+import React, { Component, createElement } from 'react';
+import PropTypes from 'prop-types';
 import LayerStore from './../LayerStore';
-import type { MountPointProps } from './../types'
+import type { MountPointProps } from './../types';
 
 export default class LayerMountPoint extends Component {
 
