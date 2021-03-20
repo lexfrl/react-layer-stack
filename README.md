@@ -1,4 +1,4 @@
-[Live demo](https://fckt.github.io/react-layer-stack/)
+[Live demo](https://chain-police.github.io/react-layer-stack/)
 
 [Chat](https://gitter.im/react-layer-stack/Lobby)
 
@@ -49,11 +49,10 @@ Another option could be use one of dozens complete implementations with differen
 https://js.coach/?search=popover
 
 ### More examples
-https://github.com/fckt/react-layer-stack/blob/master/demo/src/Demo.js
+https://github.com/chain-police/react-layer-stack/blob/master/demo/src/Demo.js
 
 ### Live demo
-https://fckt.github.io/react-layer-stack/
-
+https://chain-police.github.io/react-layer-stack/
 ### Installation
 ```
 npm install --save react-layer-stack
