@@ -1,47 +1,47 @@
 {
-  "name": "react-layer-stack",
-  "version": "4.2.12",
-  "description": "Simple but ubiquitously powerful and agnostic layering system for React. Useful for any kind of windowing/popover/modals/tooltip application",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fckt/react-layer-stack"
-  },
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "babel src --out-dir lib --source-maps"
-  },
-  "author": "Alexey Frolov <frol.rage@gmail.com>",
-  "license": "MIT",
-  "peerDependencies": {
-    "react": ">=15.5.0",
-    "prop-types": "15.6.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-plugin-syntax-flow": "^6.18.0",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.16.0",
-    "babel-preset-es2015": "^6.16.0",
-    "babel-preset-react": "^6.16.0"
-  },
-  "keywords": [
-    "react",
-    "react-component",
-    "layer",
-    "layers",
-    "tooltip",
-    "popover",
-    "window",
-    "windowing",
-    "dropdown",
-    "overlay",
-    "popup",
-    "flyout",
-    "zindex",
-    "modal",
-    "lightbox",
-    "portal",
-    "transportation",
-    "bottom-up"
-  ]
+	"name": "react-layer-stack",
+	"version": "4.2.12",
+	"description": "Simple but ubiquitously powerful and agnostic layering system for React. Useful for any kind of windowing/popover/modals/tooltip application",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/chain-police/react-layer-stack"
+	},
+	"main": "lib/index.js",
+	"scripts": {
+		"build": "babel src --out-dir lib --source-maps"
+	},
+	"author": "Alexey Frolov <frol.rage@gmail.com>",
+	"license": "MIT",
+	"peerDependencies": {
+		"react": ">=15.5.0",
+		"prop-types": "15.6.0"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.16.0",
+		"babel-plugin-syntax-flow": "^6.18.0",
+		"babel-plugin-transform-flow-strip-types": "^6.22.0",
+		"babel-plugin-transform-object-rest-spread": "^6.16.0",
+		"babel-preset-es2015": "^6.16.0",
+		"babel-preset-react": "^6.16.0"
+	},
+	"keywords": [
+		"react",
+		"react-component",
+		"layer",
+		"layers",
+		"tooltip",
+		"popover",
+		"window",
+		"windowing",
+		"dropdown",
+		"overlay",
+		"popup",
+		"flyout",
+		"zindex",
+		"modal",
+		"lightbox",
+		"portal",
+		"transportation",
+		"bottom-up"
+	]
 }
