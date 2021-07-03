@@ -1,3 +1,5 @@
+# DEPRICATED
+
 [Live demo](https://fckt.github.io/react-layer-stack/)
 
 [Chat](https://gitter.im/react-layer-stack/Lobby)
